@@ -1,0 +1,29 @@
+---
+:dataminer_definition: grades
+:actions:
+- :url: "/masterfiles/fruit/grades/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/grades/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/grades/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=grades&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/fruit/grades/new"
+  :text: New Grade
+  :style: :button
+  :behaviour: :popup

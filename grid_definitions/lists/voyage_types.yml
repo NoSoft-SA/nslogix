@@ -1,0 +1,9 @@
+---
+:dataminer_definition: voyage_types
+:actions:
+- :url: "/masterfiles/shipping/voyage_types/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+

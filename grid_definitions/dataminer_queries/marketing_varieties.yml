@@ -1,0 +1,177 @@
+---
+:caption: Marketing Varieties
+:sql: "SELECT\r\n    marketing_varieties.id,\r\n    marketing_varieties.marketing_variety_code,\r\n
+  \   marketing_varieties.description,\r\n    fn_masterfile_variants('marketing_varieties',
+  marketing_varieties.id) AS variant_codes,\r\n    array_agg(distinct cultivars.cultivar_group_id)
+  AS cultivar_group_ids,\r\n    array_agg(distinct cultivars.cultivar_code) AS cultivar_code,\r\n
+  \   marketing_varieties.active,\r\n    marketing_varieties.created_at,\r\n    marketing_varieties.updated_at\r\nFROM
+  marketing_varieties\r\n         JOIN marketing_varieties_for_cultivars ON marketing_varieties.id
+  = marketing_varieties_for_cultivars.marketing_variety_id\r\n         JOIN cultivars
+  ON cultivars.id = marketing_varieties_for_cultivars.cultivar_id\r\n\r\nGROUP BY
+  marketing_varieties.id\r\nORDER BY marketing_varieties.marketing_variety_code"
+:limit: 
+:offset: 
+:external_settings:
+  :render_url: 
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: marketing_varieties.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_variety_code:
+    :name: marketing_variety_code
+    :sequence_no: 2
+    :caption: Marketing variety code
+    :namespaced_name: marketing_varieties.marketing_variety_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  description:
+    :name: description
+    :sequence_no: 3
+    :caption: Description
+    :namespaced_name: marketing_varieties.description
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  variant_codes:
+    :name: variant_codes
+    :sequence_no: 4
+    :caption: Variant codes
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_group_ids:
+    :name: cultivar_group_ids
+    :sequence_no: 5
+    :caption: Cultivar group ids
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_code:
+    :name: cultivar_code
+    :sequence_no: 6
+    :caption: Cultivar code
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 7
+    :caption: Active
+    :namespaced_name: marketing_varieties.active
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  created_at:
+    :name: created_at
+    :sequence_no: 8
+    :caption: Created at
+    :namespaced_name: marketing_varieties.created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  updated_at:
+    :name: updated_at
+    :sequence_no: 9
+    :caption: Updated at
+    :namespaced_name: marketing_varieties.updated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: cultivars.cultivar_group_id
+  :caption: Cultivar group Id
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: SELECT cultivars.cultivar_group_id FROM cultivars
+- :column: cultivars.commodity_id
+  :caption: Commodity Id
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 2
+  :list_def: SELECT cultivars.commodity_id FROM cultivars

@@ -1,0 +1,30 @@
+---
+:dataminer_definition: people
+:actions:
+- :url: "/masterfiles/parties/people/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/parties/people/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/parties/people/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/list/party_contact_methods/multi?key=parties&id=$:party_id$"
+  :text: contact methods
+  :icon: list
+- :url: "/list/party_addresses/multi?key=parties&id=$:party_id$"
+  :text: addresses
+  :icon: list
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/parties/people/new"
+  :text: New Person
+  :style: :button
+  :behaviour: :popup

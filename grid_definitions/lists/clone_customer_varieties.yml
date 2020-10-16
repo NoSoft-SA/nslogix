@@ -1,0 +1,14 @@
+---
+:dataminer_definition: target_market_groups
+:multiselect:
+  :customer_variety_varieties:
+    :url: "/masterfiles/marketing/customer_varieties/$:id$/clone_customer_variety"
+    :section_caption: "SELECT 'Clone customer variety with variety_as_customer_variety: ' || marketing_variety_code FROM marketing_varieties
+                       WHERE id = (SELECT variety_as_customer_variety_id FROM customer_varieties WHERE id = $:id$)"
+    :multiselect_save_method: remote
+    :conditions: standard
+:conditions:
+  :standard:
+    - :col: target_market_groups.id
+      :op: IN
+      :val: $:packed_tm_group_id$

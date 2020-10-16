@@ -1,0 +1,29 @@
+---
+:dataminer_definition: depots
+:actions:
+- :url: "/masterfiles/shipping/depots/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/shipping/depots/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/shipping/depots/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=depots&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/shipping/depots/new"
+  :text: New Depot
+  :style: :button
+  :behaviour: :popup

@@ -1,0 +1,25 @@
+---
+:dataminer_definition: contact_methods
+:actions:
+- :url: "/masterfiles/parties/contact_methods/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/parties/contact_methods/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/parties/contact_methods/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :prompt: 'By deleting this contact method you will also be removing it from linked parties. Are you sure you want to delete this contact method?'
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/parties/contact_methods/new"
+  :text: New Contact Method
+  :style: :button
+  :behaviour: :popup

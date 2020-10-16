@@ -1,0 +1,8 @@
+---
+:dataminer_definition: pucs
+:multiselect:
+  :farms_pucs:
+    :url: "/masterfiles/farms/farms/$:id$/link_farm_pucs"
+    :preselect: "SELECT puc_id AS id FROM farms_pucs WHERE farm_id = $:id$"
+    :section_caption: "SELECT 'Link pucs to Farm: ' || farm_code FROM farms WHERE id = $:id$"
+    :multiselect_save_method: remote

@@ -1,0 +1,212 @@
+---
+:caption: Pallet Bases
+:sql: SELECT "pallet_bases"."id", "pallet_bases"."pallet_base_code", "pallet_bases"."description",
+  "pallet_bases"."length", "pallet_bases"."width", "pallet_bases"."edi_in_pallet_base",
+  "pallet_bases"."edi_out_pallet_base", "pallet_bases"."cartons_per_layer", "pallet_bases"."material_mass",
+  "pallet_bases"."active", "pallet_bases"."created_at", "pallet_bases"."updated_at"
+  FROM "pallet_bases"
+:limit: 
+:offset: 
+:external_settings: {}
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: pallet_bases.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_base_code:
+    :name: pallet_base_code
+    :sequence_no: 2
+    :caption: Pallet base code
+    :namespaced_name: pallet_bases.pallet_base_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  description:
+    :name: description
+    :sequence_no: 3
+    :caption: Description
+    :namespaced_name: pallet_bases.description
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  length:
+    :name: length
+    :sequence_no: 4
+    :caption: Length
+    :namespaced_name: pallet_bases.length
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  width:
+    :name: width
+    :sequence_no: 5
+    :caption: Width
+    :namespaced_name: pallet_bases.width
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  edi_in_pallet_base:
+    :name: edi_in_pallet_base
+    :sequence_no: 6
+    :caption: Edi in pallet base
+    :namespaced_name: pallet_bases.edi_in_pallet_base
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  edi_out_pallet_base:
+    :name: edi_out_pallet_base
+    :sequence_no: 7
+    :caption: Edi out pallet base
+    :namespaced_name: pallet_bases.edi_out_pallet_base
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cartons_per_layer:
+    :name: cartons_per_layer
+    :sequence_no: 8
+    :caption: Cartons per layer
+    :namespaced_name: pallet_bases.cartons_per_layer
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  material_mass:
+    :name: material_mass
+    :sequence_no: 9
+    :caption: Material mass
+    :namespaced_name: pallet_bases.material_mass
+    :data_type: :number
+    :width: 
+    :format: :delimited_1000
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 10
+    :caption: Active
+    :namespaced_name: pallet_bases.active
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  created_at:
+    :name: created_at
+    :sequence_no: 11
+    :caption: Created at
+    :namespaced_name: pallet_bases.created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  updated_at:
+    :name: updated_at
+    :sequence_no: 12
+    :caption: Updated at
+    :namespaced_name: pallet_bases.updated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: pallet_bases.pallet_base_code
+  :caption: Pallet base code
+  :data_type: :string
+  :control_type: :text
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: 

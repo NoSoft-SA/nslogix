@@ -1,0 +1,24 @@
+---
+:dataminer_definition: farm_groups
+:actions:
+- :url: "/masterfiles/farms/farm_groups/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/farms/farm_groups/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/farms/farm_groups/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/farms/farm_groups/new"
+  :text: New Farm Group
+  :style: :button
+  :behaviour: :popup

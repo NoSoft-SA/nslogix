@@ -1,0 +1,29 @@
+---
+:dataminer_definition: seasons
+:actions:
+- :url: "/masterfiles/calendar/seasons/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/calendar/seasons/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/calendar/seasons/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/development/statuses/list/seasons/$:id$"
+  :text: status
+  :icon: information-solid
+  :title: Status
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/calendar/seasons/new"
+  :text: New Season
+  :style: :button
+  :behaviour: :popup

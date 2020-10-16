@@ -1,0 +1,139 @@
+---
+:caption: Pallet Formats
+:sql: SELECT "pallet_formats"."id", "pallet_formats"."description", "pallet_formats"."pallet_base_id",
+  "pallet_formats"."pallet_stack_type_id", "pallet_bases"."pallet_base_code", "pallet_stack_types"."stack_type_code", "pallet_formats"."active"
+  FROM "pallet_formats" JOIN "pallet_bases" ON "pallet_bases"."id" = "pallet_formats"."pallet_base_id"
+  JOIN "pallet_stack_types" ON "pallet_stack_types"."id" = "pallet_formats"."pallet_stack_type_id"
+:limit: 
+:offset: 
+:external_settings: {}
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: pallet_formats.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  description:
+    :name: description
+    :sequence_no: 4
+    :caption: Description
+    :namespaced_name: pallet_formats.description
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_base_id:
+    :name: pallet_base_id
+    :sequence_no: 5
+    :caption: Pallet base
+    :namespaced_name: pallet_formats.pallet_base_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_stack_type_id:
+    :name: pallet_stack_type_id
+    :sequence_no: 6
+    :caption: Pallet stack type
+    :namespaced_name: pallet_formats.pallet_stack_type_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_base_code:
+    :name: pallet_base_code
+    :sequence_no: 2
+    :caption: Pallet base code
+    :namespaced_name: pallet_bases.pallet_base_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  stack_type_code:
+    :name: stack_type_code
+    :sequence_no: 3
+    :caption: Stack type code
+    :namespaced_name: pallet_stack_types.stack_type_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 7
+    :caption: Active
+    :namespaced_name: pallet_formats.active
+    :data_type: :boolean
+    :width:
+    :format:
+    :hide: false
+    :pinned:
+    :groupable: true
+    :group_by_seq:
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: pallet_formats.pallet_base_id
+  :caption: Pallet base
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT pallet_base_code, id FROM pallet_bases ORDER BY pallet_base_code
+- :column: pallet_formats.pallet_stack_type_id
+  :caption: Pallet stack type
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT stack_type_code, id FROM pallet_stack_types ORDER BY stack_type_code

@@ -1,0 +1,29 @@
+---
+:dataminer_definition: farm_sections
+:actions:
+- :url: "/masterfiles/farms/farm_sections/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/farms/farm_sections/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/farms/farm_sections/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/farms/farm_sections/$:farm_sections.farm_id$/new"
+  :text: New Farm Section
+  :style: :button
+  :behaviour: :popup
+:conditions:
+  :standard:
+    - :col: farm_sections.farm_id
+      :op: =
+      :val: $:farm_sections.farm_id$

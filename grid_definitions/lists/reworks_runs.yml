@@ -1,0 +1,36 @@
+---
+:dataminer_definition: reworks_runs
+:actions:
+- :url: "/production/reworks/reworks_runs/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :separator: true
+- :url: "/production/reworks/reworks_runs/$:id$/list_children_reworks_runs"
+  :text: view children
+  :icon: list
+  :title: Children
+  :popup: true
+  :hide_if_false: has_children
+- :url: "/production/reworks/reworks_runs/$:parent_id$"
+  :text: view parent run
+  :icon: view-show
+  :title: View
+  :popup: true
+  :hide_if_null: parent_id
+:page_controls:
+- :control_type: :link
+  :url: "/production/reworks/reworks_run_types/$:reworks_runs.reworks_run_type_id$/reworks_runs/new"
+  :text: New Rework Run
+  :style: :button
+#  :behaviour: :popup
+:conditions:
+  :standard:
+    - :col: reworks_runs.reworks_run_type_id
+      :op: =
+      :val: $:reworks_runs.reworks_run_type_id$
+  :view_children:
+    - :col: reworks_runs.parent_id
+      :op: =
+      :val: $:parent_id$

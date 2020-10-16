@@ -1,0 +1,15 @@
+---
+:dataminer_definition: marketing_varieties
+:multiselect:
+  :customer_variety_varieties:
+    :url: "/masterfiles/marketing/customer_varieties/$:id$/link_customer_varieties"
+    :preselect: "SELECT marketing_variety_id AS id FROM customer_variety_varieties WHERE customer_variety_id = $:id$"
+    :section_caption: "SELECT 'Link marketing varieties to Customer Variety: ' || marketing_variety_code FROM marketing_varieties
+                       WHERE id = (SELECT variety_as_customer_variety_id FROM customer_varieties WHERE id = $:id$)"
+    :multiselect_save_method: remote
+    :conditions: standard
+:conditions:
+  :standard:
+    - :col: cultivars.commodity_id
+      :op: =
+      :val: $:commodity_id$

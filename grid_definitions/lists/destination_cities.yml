@@ -1,0 +1,28 @@
+---
+:dataminer_definition: destination_cities
+:actions:
+- :url: "/masterfiles/target_markets/destination_cities/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/target_markets/destination_cities/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/target_markets/destination_cities/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=destination_cities&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:conditions:
+  :standard:
+    - :col: destination_cities.destination_country_id
+      :op: =
+      :val: $:destination_cities.destination_country_id$

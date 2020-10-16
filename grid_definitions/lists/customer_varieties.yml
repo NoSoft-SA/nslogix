@@ -1,0 +1,34 @@
+---
+:dataminer_definition: customer_varieties
+:actions:
+- :url: "/masterfiles/marketing/customer_varieties/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/marketing/customer_varieties/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/marketing/customer_varieties/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :separator: true
+- :url: "/masterfiles/marketing/customer_varieties/$:id$/link_customer_varieties/link"
+  :text: link marketing varieties
+  :icon: list
+  :popup: true
+- :url: "/masterfiles/marketing/customer_varieties/$:id$/clone_customer_variety/clone"
+  :text: clone customer variety
+  :icon: list
+  :hide_if_false: :has_marketing_varieties
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/marketing/customer_varieties/new"
+  :text: New Customer Variety
+  :style: :button
+  :behaviour: :popup

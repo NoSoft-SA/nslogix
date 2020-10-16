@@ -1,0 +1,70 @@
+*.gem
+
+/.config
+/coverage/
+/hold/
+/InstalledFiles
+/log/
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+*.backup
+*.old
+.sass-cache/
+lib/applets/.sass-cache/
+public/assets/*.*
+public/dashboard_images/*.*
+public/downloads/jasper/*.*
+public/js/ag-enterprise-activation.js
+public/tempfiles/*
+.rake_t_cache
+testjob.rb
+api_mocks/static_response_server/responses/*
+
+# Used by dotenv library to load environment variables.
+.env.local
+cartons.json
+
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+## Environment normalization:
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+
+## Rubymine
+.idea/
+.rake_tasks~
+.rakeTasks
+
+## Vim
+tags
+.srclist
+.smartgf*
+
+# Assets plugin metadata file
+prestyle.css
+
+# Client-specific config.
+config/mail_settings.rb
+config/dataminer_connections.yml
+config/edi_out_config.yml
+config/export_data_config.yml
+config/dashboards.yml
+config/dashboard_texts.yml
+prepared_reports/*.yml
+pdf_documentation/*.pdf
+pdf_documentation/*.png
+/app_reports/
+/sys_prepared_reports/
+/app_prepared_reports/
+/ftp_transfer/
+/edi/
+/edi_filedrop/

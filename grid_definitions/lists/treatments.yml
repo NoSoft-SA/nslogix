@@ -1,0 +1,24 @@
+---
+:dataminer_definition: treatments
+:actions:
+- :url: "/masterfiles/fruit/treatments/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/treatments/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/treatments/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/fruit/treatments/new"
+  :text: New Treatment
+  :style: :button
+  :behaviour: :popup

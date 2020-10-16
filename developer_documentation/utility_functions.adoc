@@ -1,0 +1,163 @@
+= Utility functions
+:toc:
+
+link:/developer_documentation/start.adoc[Back to documentation home]
+
+== Utility functions
+
+There are a few utility functions that are defined in the `UtilityFunctions` module that perform miscellaneous tasks.
+
+=== Date functions
+
+[source,ruby]
+----
+UtilityFunctions.weeks_ago(Date.today, 3)   # => Date - three weeks before Date.today.
+UtilityFunctions.weeks_ago(Time.now, 3)     # => Time
+UtilityFunctions.weeks_ago(DateTime.now, 3) # => DateTime
+UtilityFunctions.weeks_since(Date.today, 3) # => Date - three weeks after Date.today.
+
+UtilityFunctions.days_ago(Date.today, 3)    # => Date - three days before Date.today.
+UtilityFunctions.days_since(Date.today, 3)  # => Date - three days after Date.today.
+----
+
+---
+
+Calculate the pick ref for today for a packhouse:
+[source,ruby]
+----
+UtilityFunctions.calculate_pick_ref(9)  # => '3291' (if today is Tuesday in ISO week 13)
+----
+
+=== Miscellaneous
+
+Get an ip address from a string that could be an ip address or could contain an ip address as part of a URI.
+[source,ruby]
+----
+UtilityFunctions.ip_from_uri('192.168.0.1')                # => '192.168.0.1'.
+UtilityFunctions.ip_from_uri('http://192.168.0.1:8080/')   # => '192.168.0.1'.
+----
+
+---
+
+Validate that an integer is not longer than the database's maximum length.
+
+Useful when a barcode is scanned and an integer is expected, but something like a pallet number could be accidentally scanned.
+[source,ruby]
+----
+UtilityFunctions.validate_integer_length(:load_id, '123')
+#=> #<Dry::Validation::Result output={:load_id=>123} errors={}>
+
+UtilityFunctions.validate_integer_length(:load_id, '600980218296776168')
+#=> #<Dry::Validation::Result output={:load_id=>600980218296776168} errors={:load_id=>["must be less than 2147483647"]}>
+
+UtilityFunctions.validate_integer_length(:load_id, 'abc123')
+#<Dry::Validation::Result output={:load_id=>"abc123"} errors={:load_id=>["must be an integer"]}
+
+# Example usage:
+res = UtilityFunctions.validate_integer_length(:carton_number, carton_number)
+return failed_response("Value #{carton_number} is too big to be a carton. Perhaps you scanned a pallet number?") if res.failure?
+----
+
+---
+
+Deep merge two nested hashes. For matching keys, the value on the right overrides the one on the left. Extra keys from the right are added to the result.
+[source,ruby]
+----
+left  = { one: { two: { three: 3 }, four: 4 } }
+right = { one: { two: { three: 5 }, seven: 7 } }
+
+UtilityFunctions.merge_recursively(left, right)
+
+#=> { one: { two: { three: 5 }, four: 4, seven: 7 } }
+----
+
+---
+
+Change keys of a nested hash from strings to symbols.
+[source,ruby]
+----
+example  = { "one" => { "two" => { "three" => 3 }, "four" => 4 } }
+
+UtilityFunctions.symbolize_keys(example)
+
+# => { one: { two: { three: 3 }, four: 4 } }
+----
+
+---
+
+Takes a string and returns an array from text split on commas and new lines.
+[source,ruby]
+----
+example  = ("ABC, DEF\n'GHI'")
+
+UtilityFunctions.parse_string_to_array(example)
+
+# => ['ABC', 'DEF', 'GHI']
+----
+
+---
+
+Returns the non numeric elements of an array of strings.
+[source,ruby]
+----
+example  = ['12C', '234']
+
+UtilityFunctions.non_numeric_elements(example)
+
+# => ['12C']
+----
+
+---
+
+Transforms a string in scientific notation to a string in float format.
+
+Especially useful for displaying JSON values.
+[source,ruby]
+----
+str  = '3.4e2'
+bool = true
+
+UtilityFunctions.scientific_notation_to_s(str)
+# => '340.0'
+
+UtilityFunctions.scientific_notation_to_s(bool)
+# => true
+
+json_hash = { "nett_weight" => "0.303e3",
+              "gross_weight" => "0.34e3",
+              "weighed_manually" => true }
+json_hash.transform_values { |v| UtilityFunctions.scientific_notation_to_s(v) }
+# =>  { "nett_weight" => "303.0", "gross_weight" => "340.0", "weighed_manually" => true}
+----
+
+---
+
+Wrap text/SQL
+
+Default is to wrap at 120 characters, but there is a parameter available to override.
+
+SQL will receiver a newline before every FROM/WHERE/JOIN/VALUES as well.
+[source,ruby]
+----
+UtilityFunctions.wrapped_text(str)
+UtilityFunctions.wrapped_text(str, 80)
+
+UtilityFunctions.wrapped_sql(sql)
+UtilityFunctions.wrapped_sql(sql, 80)
+----
+
+=== UI functions
+
+Render an icon in HTML
+[source,ruby]
+----
+UtilityFunctions.icon(:at)
+# => renders an SVG @ icon.
+----
+
+Render a loading message (glyph optionally with a message)
+[source,ruby]
+----
+UtilityFunctions.loading_message('Something is busy')
+# => renders a "loading" glyph and the text next to it.
+----

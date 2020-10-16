@@ -1,0 +1,24 @@
+---
+:dataminer_definition: cartons_per_pallet
+:actions:
+- :url: "/masterfiles/packaging/cartons_per_pallet/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/packaging/cartons_per_pallet/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/packaging/cartons_per_pallet/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/packaging/cartons_per_pallet/new"
+  :text: New Cartons Per Pallet
+  :style: :button
+  :behaviour: :popup

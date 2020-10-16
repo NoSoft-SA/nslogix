@@ -1,0 +1,24 @@
+---
+:dataminer_definition: pallet_formats
+:actions:
+- :url: "/masterfiles/packaging/pallet_formats/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/packaging/pallet_formats/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/packaging/pallet_formats/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/packaging/pallet_formats/new"
+  :text: New Pallet Format
+  :style: :button
+  :behaviour: :popup

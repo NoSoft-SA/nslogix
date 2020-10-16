@@ -1,0 +1,29 @@
+---
+:dataminer_definition: standard_pack_codes
+:actions:
+- :url: "/masterfiles/fruit/standard_pack_codes/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/standard_pack_codes/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/standard_pack_codes/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=standard_pack_codes&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/fruit/standard_pack_codes/new"
+  :text: New Standard Pack Code
+  :style: :button
+  :behaviour: :popup

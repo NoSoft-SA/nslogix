@@ -1,0 +1,541 @@
+= RMD Forms
+:toc:
+
+link:/developer_documentation/start.adoc[Back to documentation home]
+
+== RMD Forms
+
+RMD forms are special forms for rendering on Registered Mobile Devices (RMD).
+
+They are intentionally far simpler than Crossbeams::Layout pages. They should always be rendered inside `:layout_rmd`.
+
+== Example
+
+From a route:
+[source,ruby]
+----
+details = retrieve_from_local_store(:delivery_putaway) || {}
+items = %w[one two buckle my shoe]
+form = Crossbeams::RMDForm.new(details,
+                               form_name: :putaway,
+                               progress: 'Delivery 123: 3 of 5 items complete',
+                               notes: 'Please scan the Delivery and the SKU numbers.',
+                               scan_with_camera: @rmd_scan_with_camera,
+                               caption: 'Delivery putaway',
+                               links: [{ caption: 'Cancel', url: '/back', prompt: 'Ok?' }],
+                               reset_button: true,
+                               step_and_total: [1, 2],
+                               action: '/rmd/deliveries/putaways',
+                               button_caption: 'Putaway')
+form.behaviours do |behaviour|
+  behaviour.keyup :quantity, notify: [{ url: '/rmd/deliveries/quantity_changed' }]
+end
+form.add_label(:business_process, 'Business process', 'DELIVERY')
+form.add_field(:delivery_number, 'Delivery', scan: 'key248_all', scan_type: :delivery)
+form.add_select(:choice, 'Choose', items: items, value: 'my', required: true, prompt: true)
+form.add_field(:sku_number, 'SKU', scan: 'key248_all', scan_type: :sku)
+form.add_field(:location, 'Location', scan: 'key248_all', scan_type: :location, force_uppercase: true)
+form.add_field(:quantity, 'Quantity', data_type: 'number')
+form.add_toggle(:complete, 'Is this functon complete?')
+form.add_button('Print', '/rmd/deliveries/print', id: 'print_btn')
+form.add_csrf_tag csrf_tag
+view(inline: form.render, layout: :layout_rmd)
+----
+
+== Form Methods
+
+|===
+|method |args |description
+
+|new
+|form_state (Hash), options (Hash)
+|Initialize the form.
+
+|behaviours
+|block
+a|AJAX behaviours.
+
+(see link:/developer_documentation/field_renderer_behaviours.adoc[Field renderer behaviours])
+
+**NB**. behaviours must be specified before fields are added.
+
+|add_field
+|name (String), label (String), options (Hash)
+|Adds a field to the form.
+
+|add_select
+|name (String), label (String), options (Hash)
+|Adds a select box to the form.
+
+|add_label
+|name (String), label (String), value (String), hidden_value (String), options (Hash)
+|Adds a label to the form.
+
+|add_toggle
+|name (String), label (String), options (Hash)
+|Adds a toggle (checkbox) to the form.
+
+|add_csrf_tag
+|tag
+|Adds CSRF tag to the form.
+
+|add_section_header
+|caption (String), options (Hash)
+|Adds a section header to the table.
+
+|add_prev_next_nav
+|url (String), ids (Array), current_id (Integer), options (Hash)
+|Adds buttons for previous and next navigation based on a list of ids and a url.
+
+|render
+|
+|Renders the form
+
+|===
+
+=== Method: new
+
+|===
+|attribute |description |possible values |default
+
+|form_state
+|The state of the form
+a|Hash.
+
+Include current value of fields (and hidden `…_scan_field` values) when applicable.
+
+Can include `:errors` Hash and `:error_message` string.
+
+Can also include `lookup_values` - a Hash of fieldname/values for setting the initial value of alookup (used when redisplaying a form with validation errors).
+|None. Required.
+
+|options - :form_name
+|The name attribute of the `<form>` tag.
+|String
+|None. Required.
+
+|options - :action
+|The URL for the POST action.
+|String
+|Required.
+
+|options - :progress
+|Text to display progress with an operation.
+|String
+|None.
+
+|options - :step_and_total
+|Current step number and total number of steps. Displays with the caption if one has been provided.
+a|Array (2D -- step, total)
+
+e.g. `[1, 2]` is step one of two.
+|None.
+
+|options - :links
+a|Links to display as buttons.
+
+Each hash has:
+
+* `:caption` the button caption.
+* `:url` the url to call.
+* `:prompt` -- optional - if present, the user will need to confirm the click.
+|Array of Hashes
+|None.
+
+|options - :notes
+|Text to display hints for the user.
+|String
+|None.
+
+|options - :button_caption
+|Caption for the submit button.
+|String
+|`Submit`.
+
+|options - :button_id
+|DOM id for the submit button. This allows a behaviour to hide/show it.
+|String
+|None.
+
+|options - :button_initially_hidden
+|Render the form with the submit button hidden. This allows a behaviour to hide/show it.
+|Boolean
+|`false`.
+
+|options - :scan_with_camera
+|Should the RMD be able to use the camera to scan.
+|Boolean
+|`false`.
+
+|options - :reset_button
+|Should the form include a reset button to clear inputs to their original values.
+|Boolean
+|`true`.
+
+|options - :no_submit
+|Should the form be rendered without a submit button? (e.g. for view-only display)
+|Boolean
+|`false`.
+
+|===
+
+=== Method: add_field
+
+[source,ruby]
+----
+form.add_field(:from_location, 'From location', scan: 'key248_all',
+               scan_type: :location, lookup: true, force_uppercase: true)
+
+# Returns parameters (if form name was "location"):
+# => {
+# =>   location: { from_location: 'abc',
+# =>               from_location_scan_field: 'id' },
+# =>   lookup_values: { from_location: 'abc' }
+# => }
+----
+
+NOTE: The table row will have the DOM id `"form_name_field_name_row"` and the input will have the DOM id `"form_name_field_name"`.
+
+|===
+|attribute |description |possible values |default
+
+|name
+|The name of the field
+|String
+|None. Required.
+
+|label
+|The label for the field
+|String
+|None. Required.
+
+|options - :required
+|Is this a required field?
+|Boolean
+|`true`
+
+|options - :data_type
+|The datatype of the input (`text`, `date`, `number` etc.)
+|String
+|`text`
+
+|options - :force_uppercase
+|Should typed in values be forced to uppercase? **NB** This only applies to typed-in text, not scanned-in text.
+|Boolean
+|`false`
+
+|options - :width
+|The width in `rem` of the input field.
+|Integer
+|`12`
+
+|options - :allow_decimals
+|Only applies to `data_type: 'number'`. If true, the user can input decimals. Ignored for any other data type.
+|Boolean
+|`false` (number input type will only accept integers)
+
+|options - :scan
+|Type of barcode symbology to accept.
+a|String:
+
+* `key248_all` (any)
+* `key249_3o9` (309)
+* `key250_upc` (UPC)
+* `key251_ean` (EAN)
+* `key252_2d` (2D - QR)
+|None. Leave out for a field that does not receive a barcode scan result.
+
+|options - :scan_type
+|The type of scan value to expect. This must have a matching entry in `AppConst::BARCODE_PRINT_RULES`.
+|Symbol
+|None.
+
+|options - :lookup
+|When scanned, should a lookup  be displayed? e.g. When scanning an `id`, display a `code`. `AppConst::BARCODE_LOOKUP_RULES` must be configured with appropriate rules to do a lookup.
+|Boolean
+|`false`
+
+|options - :submit_form
+|Should the form be submitted automatically after a scan? This should only be set to true if the form only contains the one field.
+|Boolean
+|`false`
+
+|options - :hide_on_load
+a|Should the field be hidden when the form loads - typically to be shown later via a behaviour.
+
+Note: the table row (`tr`) is hidden, the id of the row is `\#{form_name}_#{field_name}_row`.
+|Boolean
+|`false`
+
+|===
+
+=== Method: add_select
+
+[source,ruby]
+----
+form.add_select(:business_process, 'Business process', items: processes,
+                value: processes.first, required: true, prompt: true)
+
+# Returns parameters (if form name was "location"):
+# => {
+# =>   location: { business_process: 'abc' }
+# => }
+----
+
+NOTE: The table row will have the DOM id `"form_name_field_name_row"` and the select will have the DOM id `"form_name_field_name"`.
+
+|===
+|attribute |description |possible values |default
+
+|name
+|The name of the field
+|String
+|None. Required.
+
+|label
+|The label for the field
+|String
+|None. Required.
+
+|options - :required
+|Is this a required field?
+|Boolean
+|`true`
+
+|options - :value
+|The current (selected) value.
+|String
+|None. If the form's `form_state` has a value for this field, it will be used.
+
+|options - :items
+|The items in the dropdown. Use a Hash to include option groups. Otherwise the array can be one or two dimensional (`[[display, value], [display, value]]`)
+|Array or Hash
+|Empty array.
+
+|options - :prompt
+|If `true`, display a generic prompt. If a string, display the string as the prompt.
+|String or Booelan
+|None.
+
+|options - :hide_on_load
+a|Should the field be hidden when the form loads - typically to be shown later via a behaviour.
+
+Note: the table row (`tr`) is hidden, the id of the row is `\#{form_name}_#{field_name}_row`.
+|Boolean
+|`false`
+
+|===
+
+=== Method: add_label
+
+[source,ruby]
+----
+form.add_label(:from_location, 'From location', 'CS1_BY1_RCB2')
+
+# Returns no parameters (no hidden_value provided).
+
+form.add_label(:from_location, 'From location', 'CS1_BY1_RCB2', 37)
+
+# Returns parameters (if form name was "location"):
+# => {
+# =>   location: { from_location: '37' }
+# => }
+----
+
+NOTE: The table row will have the DOM id `"form_name_field_name_row"`, the label div will have the DOM id `"form_name_field_name_value"` and the (optional) hidden input will have the DOM id `"form_name_field_name"`.
+
+|===
+|attribute |description |possible values |default
+
+|name
+|The name of the field
+|String
+|None. Required.
+
+|label
+|The label for the field
+|String
+|None. Required.
+
+|value
+|The value to display as a label field
+|String
+|None. Required.
+
+|hidden_value
+|The value to set for a hidden input which will return as a parameter keyed by the field name.
+|String
+|None. If the form's `form_state` has a value for this field, it will be used.
+
+|options - :hide_on_load
+a|Should the field be hidden when the form loads - typically to be shown later via a behaviour.
+
+Note: the table row (`tr`) is hidden, the id of the row is `\#{form_name}_#{field_name}_row`.
+|Boolean
+|`false`
+
+|options - :as_table_cell
+|Render this label with a border and styling like Crossbeams::Layout::Table
+|Boolean
+|`false`
+
+|options - :value_class
+|Supply a css class to apply to the rendering of the label value. Use Tachyons classes (`b` for bold, `blue` for blue etc.)
+|String
+|None.
+
+|===
+
+=== Method: add_toggle
+
+This adds a checkbox to the form which renders as a toggle switch.
+The toggle will be checked if the field has a value and the value is not `false` and does not start with any of these characters: `F, f, N, n, 0`.
+
+The best way to set the value is to make the field value `true` or `false`, but any of the following: `Yes`, `no`, `t` or `False` would set the state as you would expect.
+
+The returned parameter value is either `t` when checked or `f` when unchecked.
+[source,ruby]
+----
+form.add_toggle(:complete, 'Are you done yet?')
+
+# Returns parameters (if form name was "location"):
+# => {
+# =>   location: { complete: 't' }
+# => }
+----
+
+NOTE: The table row will have the DOM id `"form_name_field_name_row"` and the checkbox will have the DOM id `"form_name_field_name"`.
+
+|===
+|attribute |description |possible values |default
+
+|name
+|The name of the field
+|String
+|None. Required.
+
+|label
+|The label for the field
+|String
+|None. Required.
+
+|options - :hide_on_load
+a|Should the field be hidden when the form loads - typically to be shown later via a behaviour.
+
+Note: the table row (`tr`) is hidden, the id of the row is `\#{form_name}_#{field_name}_row`.
+|Boolean
+|`false`
+
+|===
+
+=== Method: add_prev_next_nav
+
+Adds previous and next buttons to move forward or backward through a list of ids.
+
+NOTE: The list of ids must always be in a consistent order every time the action is called.
+
+[source,ruby]
+----
+form.prev_next_nav('/path/to/resource/$:id$', [1, 2, 3, 4], 3, prev_caption: 'Before')
+# Prev link will have href /path/to/resource/2
+# Next link will have href /path/to/resource/4
+----
+
+|===
+|attribute |description |possible values |default
+
+|url
+|The url to base navigation on. It must include `$:id$` in a position that requires a relevant id.
+|String
+|None. Required.
+
+|ids
+|The sequence of id that can be navigated.
+|Array of Integers
+|None. Required.
+
+|current_id
+|The id from the URL that represents the current page.
+|Integer
+|None. Required.
+
+|options - :prev_caption
+|The caption to display on the previous button (instead of "Previous")
+|String
+|`Previous`
+
+|options - :next_caption
+|The caption to display on the next button (instead of "Next")
+|String
+|`Next`
+
+|===
+
+=== Method: add_button
+
+Renders a suplementary button to submit the form to another path.
+
+[source,ruby]
+----
+form.add_button('Click me!', '/path/to/somewhere')
+----
+
+|===
+|attribute |description |possible values |default
+
+|caption
+|The text to render as the button caption.
+|String
+|None. Required.
+
+|action
+|The path to which the form should be submitted when the button is pressed.
+|String
+|None. Required.
+
+|options - :id
+|The DOM id of the button. Use this to dynamically hide/show.
+|String
+|The hash of the `caption` value prefixed with `btn_`.
+
+|options - :hide_on_load
+|Should the button be hidden when the form loads - typically to be shown later via a behaviour.
+|Boolean
+|`false`
+
+|===
+
+=== Method: add_section_header
+
+Renders a caption in bold to denote a section of the form.
+
+[source,ruby]
+----
+form.add_section_header('The next part of the form')
+----
+
+|===
+|attribute |description |possible values |default
+
+|caption
+|The text to render as the section caption.
+|String
+|None. Required.
+
+|options - :id
+|The DOM id of the table row. Use this to dynamically hide/show.
+|String
+|The hash of the `caption` value prefixed with `sh_`.
+
+|options - :hide_on_load
+a|Should the section be hidden when the form loads - typically to be shown later via a behaviour.
+
+Note: the table row (`tr`) is hidden, the id of the row must be provided with the `:id` option.
+|Boolean
+|`false`
+
+|===
+
+== Testing
+
+See link:/developer_documentation/how_to_test_rmd_scanning.adoc[How to test RMD scanning]

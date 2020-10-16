@@ -1,0 +1,8 @@
+---
+:dataminer_definition: target_market_group_types
+:actions:
+- :url: "/masterfiles/target_markets/target_market_group_types/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true

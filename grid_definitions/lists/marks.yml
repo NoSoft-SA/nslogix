@@ -1,0 +1,29 @@
+---
+:dataminer_definition: marks
+:actions:
+- :url: "/masterfiles/marketing/marks/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/marketing/marks/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/marketing/marks/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=marks&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/marketing/marks/new"
+  :text: New Mark
+  :style: :button
+  :behaviour: :popup

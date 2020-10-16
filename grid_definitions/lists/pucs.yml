@@ -1,0 +1,29 @@
+---
+:dataminer_definition: pucs
+:actions:
+- :url: "/masterfiles/farms/pucs/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/farms/pucs/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/farms/pucs/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=pucs&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+  - :control_type: :link
+    :url: "/masterfiles/farms/pucs/new"
+    :text: New Puc
+    :style: :button
+    :behaviour: :popup

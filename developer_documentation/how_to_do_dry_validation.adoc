@@ -1,0 +1,340 @@
+= How to do DRY Validation
+:toc:
+
+link:/developer_documentation/start.adoc[Back to documentation home]
+
+== DRY Validation resources
+
+See the link:http://dry-rb.org/gems/dry-schema/[dry-schema] and link:http://dry-rb.org/gems/dry-validation/[dry-validation] documentation.
+
+This page gives a simple overview of usage - mainly as a reminder of typical use.
+
+`Schemas` are used to validate data structures and types, while `Contracts` do the same, but allow for extra business logic validation.
+The scaffold will generate a Schema. Replace it with a Contract if you need to apply business logic validation.
+
+== Schemas
+
+Create one or more schemas in a file (typically in `lib/applet_name/validations/`.
+In most cases we want to inherit from `Dry::Schema.Params` rather than `Dry::Schema.define` because it is more flexible about its inputs - suited to HTTP request parameters which contain string values.
+
+An example showing some simple variations:
+
+[source,ruby]
+----
+NewThingSchema = Dry::Schema.Params do
+  optional(:id).filled(:integer)
+  required(:join_id).filled(:integer)
+  required(:code).filled(Types::StrippedString)
+  required(:name).maybe(Types::StrippedString)
+  required(:active).filled(:bool)
+  required(:multiselected_ids).filled(:array).each(:integer)
+end
+----
+
+* `optional` means that the parameter does not have to be present,
+* `maybe` means that the value can be `nil` or `''`, or `[]` (for arrays).
+* `required` means that the parameter **must** be present.
+* `filled` means that if the parameter is present, its value **must** be present.
+* The type in parentheses after `filled` or `maybe` is the type the value must be able to be coerced into.
+* For array types, use `each` to specify the type of the array elements.
+
+=== Special types
+
+* `Types::StrippedString` will remove leading and trailing spaces from a string before validation. Non-strings pass through and blank strings become `nil`.
+* `Types::IntArray` will convert string elements in an array to integers. Blank strings become `nil` and non-strings or strings that cannot coerce to integers pass through so the dry-validation schema can handle them as raw inputs. **_DEPRECATED_**
+
+[NOTE]
+====
+For optionally present array input you need to be aware of the two ways to specify the element type:
+
+1.  `required(:multiselected_ids).filled(:array).each(:integer)`
+2.  `required(:multiselected_ids).filled(:array).maybe { each(:integer) }`
+
+The first will not allow `nil` (must at least be `[]`) while the second will allow `nil`.
+====
+
+== Calling a schema
+
+Here is an example of a passing call followed by a failing call. Note how the inputs are coerced into their desired output types.
+
+[source,ruby]
+----
+res = NewThingSchema.call(join_id: '1', code: 'AA', name: nil, active: 't',
+                          multiselected_ids: ['1', '2'])
+#=> #<Dry::Schema::Result{:join_id=>1, :code=>"AA", :name=>nil, :active=>true,
+#    :multiselected_ids=>[1, 2]} errors={}>
+res[:active]
+#=> true                               # <1>
+res[:active].class
+#=> TrueClass
+res[:multiselected_ids]
+#=> [1, 2]                             # <2>
+res = NewThingSchema.call(join_id: 'XXX', code: 'AA', name: nil, active: 't',
+                          multiselected_ids: [])
+#=> #<Dry::Schema::Result{:join_id=>"XXX", :code=>"AA", :name=>nil, :active=>true,
+#    :multiselected_ids=>[]} errors={:join_id=>["must be an integer"],
+#    :multiselected_ids=>["must be filled"]}>
+res.errors.to_h                        # <3>
+#=> {:join_id=>["must be an integer"], :multiselected_ids=>["must be filled"]}
+res = NewThingSchema.call(join_id: '2', code: 'AA', name: nil, active: 't',
+                          multiselected_ids: ['1', 'www'])
+#=> #<Dry::Schema::Result{:join_id=>2, :code=>"AA", :name=>nil, :active=>true,
+#    :multiselected_ids=>[1, "www"]} errors={:multiselected_ids=>{1=>["must be an integer"]}}>
+res.errors                          # <4>.to_h
+#=> {:multiselected_ids=>{1=>["must be an integer"]}}
+----
+<1> Note the `'t'` has become a Boolean with `true` value.
+<2> The Array input has had all its items coerced to Integers.
+<3> Errors are returned as a Hash keyed by the column name and the value is an array of one or more validation failure messages.
+<4> Errors can be for the array as a whole, or in this case for one of the elements. The key is the array index.
+
+== Schema Rules
+
+This table provides a few example validation rules.
+
+Param required means that the parameter input to the schema call must include the column *key*.
+e.g. `{ col: nil }` If the param is not required, `{}` would be ok.
+
+Val required means that the *value* for that column key must be present.
+e.g. `{ col: 'some_value' }`
+
+|===
+|Param required |Val required |Type |Rule |Valid example
+
+|Y
+|Y
+|Integer
+|`required(:col).filled(:integer)`
+|`{col: '123'}`
+
+|Y
+|Y
+|String
+|`required(:col).filled(Types::StrippedString)`
+|`{col: 'abc'}`
+
+|Y
+|Y
+|Boolean
+|`required(:col).filled(:bool)`
+|`{col: 't'}`
+
+|Y
+|N
+|Integer
+|`required(:col).maybe(:integer)`
+|`{col: nil}`
+
+|N
+|Y
+|Integer
+|`optional(:col).filled(:integer)`
+|`{}`
+
+|N
+|N
+|Integer
+|`optional(:col).maybe(:integer)`
+|`{}`
+
+|Y
+|N
+|Date
+|`optional(:col).maybe(:date)`
+a|`{col: ''}`
+`{col: '2019-01-01'}`
+`{col: nil}`
+
+|Y
+|Y (length > 0)
+|Array of Integer
+|`required(:col).filled(:array, min_size?: 1).each(:integer)`
+|`{col: ['1','2']}`
+
+|Y
+|N (can be empty, not `nil`)
+|Array of Integer
+|`required(:col).maybe(:array).each(:integer)`
+a|`{col: []}`
+`{col: ['1']}`
+
+|Y
+|N (length > 0, or `nil`)
+|Array of Integer
+|`required(:col).maybe(:array, min_size?: 1).maybe { each(:integer) }`
+a|`{col: nil}`
+`{col: ['1']}`
+
+|===
+
+== Contract validation
+
+An example showing some simple variations:
+
+[source,ruby]
+----
+class NewThingContract < Dry::Validation::Contract
+  params do                     #<1>
+    optional(:id).filled(:integer)
+    required(:join_id).filled(:integer)
+    required(:code).filled(Types::StrippedString)
+    required(:name).maybe(Types::StrippedString)
+    required(:active).filled(:bool)
+    required(:multiselected_ids).filled(:array).each(:integer)
+  end
+
+  rule(:code, :name) do         #<2>
+    key.failure 'Code and name cannot be the same' if values[:code] == values[:name]
+  end
+
+  rule(:id, :active) do         #<3>
+    if !values[:active]
+      base.failure 'Invalid answer to Life, the Universe and Everything' if values[:id] == 42
+    end
+  end
+end
+----
+<1> The schema within the `params` block is specified just like `Dry::Schema.Params`.
+<2> Rules allow for business logic validation. Note that `key.failure` is linked to the first column name, but it can also be specified: `key(:id).failure('...')`.
+<3> This is a contrived example of base validation error.
+
+Contracts are classes, so they are called differently, but produce the same result as Schemas.
+[source, ruby]
+----
+contract = NewThingContract.new
+#=> #<NewThingContract
+#   schema=#<Dry::Schema::Params keys=["id", "join_id", "code", "name", "active",
+#           "multiselected_ids"]
+#   rules={:id=>"key?(:id) THEN key[id](filled? AND int?)",
+#          :join_id=>"key?(:join_id) AND key[join_id](filled? AND int?)",
+#          :code=>"key?(:code) AND key[code](filled? AND str?)",
+#          :name=>"key?(:name) AND key[name](not(nil?) THEN str?)",
+#          :active=>"key?(:active) AND key[active](filled? AND bool?)",
+#          :multiselected_ids=>"key?(:multiselected_ids) AND key[multiselected_ids](filled? AND array? AND each(int?))"}>
+#   rules=[#<Dry::Validation::Rule keys=[:code, :name]>,
+#          #<Dry::Validation::Rule keys=[:id, :active]>]>
+contract.call(join_id: '1', code: 'AA', name: nil, active: 't', multiselected_ids: ['1', '2'])
+#=> #<Dry::Validation::Result{:join_id=>1, :code=>"AA", :name=>nil, :active=>true,
+#   :multiselected_ids=>[1, 2]} errors={}>
+contract.call(join_id: '1', code: 'AA', name: 'AA', active: 't', multiselected_ids: ['1', '2'])
+#=> #<Dry::Validation::Result{:join_id=>1, :code=>"AA", :name=>"AA", :active=>true,
+#   :multiselected_ids=>[1, 2]} errors={:code=>["Code and name cannot be the same"]}>
+----
+
+== Contract validation with external dependencies
+
+Contract validation can include rules that use "outside" data via the `option` method.
+
+Here is an example using a class and an external variable:
+[source, ruby]
+----
+class NewUserContract < Dry::Validation::Contract
+  option :today, default: Date.method(:today)
+  option :address_validator
+
+  params do
+    required(:address).filled(:string)
+  end
+
+  rule(:address) do
+    key.failure("invalid address") unless address_validator.valid?(values[:address])
+  end
+
+  rule(:address) do
+    key.failure("Date cannot be Sunday") unless today.wday > 0
+  end
+end
+
+# A class that does specialised validation:
+class AV
+  def valid?(val)
+    val.include?('street')
+  end
+end
+
+# Instantiate the contract like this:
+
+contract = ScaffoldNewValidation.new(address_validator: AV.new)
+# Or with a value for `today`:
+contract = ScaffoldNewValidation.new(address_validator: AV.new, today: Date.new(2020,3,1))
+----
+
+You could also pass in a method or lambda:
+[source, ruby]
+----
+class NewUserContract < Dry::Validation::Contract
+  option :address_validator
+
+  params do
+    required(:address).filled(:string)
+  end
+
+  rule(:address) do
+    key.failure("invalid address") unless address_validator[values[:address]]
+    # You could also use "value" instead of "values[:address]" here:
+    # key.failure("invalid address") unless address_validator[value]
+  end
+end
+
+# A lambda:
+chk_lambda = ->(v) { v.include?('street') }
+
+# A method:
+def chk_method(val)
+  val.include?('street')
+end
+
+# Instantiate the contract like this:
+
+contract = NewUserContract.new(address_validator: chk_lambda)
+# Or with a value for `today`:
+contract = NewUserContract.new(address_validator: method(:chk_method))
+----
+
+== Base validation errors
+
+NOTE: Where possible, rather use the `base.failure` result from a rule in a `Contract`.
+
+Sometimes you need to add a validation error message to a form, not a specific field.
+There are three helper methods (working on a `Crossbeams::Response` object) that can be used in routes to achieve this:
+
+1. `add_base_validation_errors(messages, base_messages)`
+2. `add_base_validation_errors_with_highlights(messages, base_messages, fields)`
+3. `move_validation_errors_to_base(messages, keys, highlights: {})`
+
+The first displays one or more error messages on a form:
+
+[source,ruby]
+----
+  res.errors = add_base_validation_errors(res.errors,
+                             'Wrong time of month for this action')
+
+  res.errors = add_base_validation_errors(res.errors,
+                             ['Wrong time of month for this action', 'Your clock is fast'])
+----
+
+The second behaves exactly the same as the first, but you can also highlight one or more fields in the form:
+
+[source,ruby]
+----
+  res.errors = add_base_validation_errors_with_highlights(res.errors,
+                             'This date and time combination is not allowed',
+                             [:date, :time])
+
+  res.errors = add_base_validation_errors_with_highlights(res.errors,
+                             'Too much time has elapsed', :time)
+----
+
+The third takes messages that are already in the result and moves them to `:base`. You can optionally also highlight fields.
+
+[source,ruby]
+----
+  res.errors = move_validation_errors_to_base(res.errors, :field1)
+  # { field1: ['Not OK'] } will become { base: ['Not OK'] }
+
+  res.errors = move_validation_errors_to_base(res.errors,
+                             [:field1, :field2],
+                             highlights: { field1: [:customer, :supplier] })
+  # Messages for :field1 and :field2 will become base messages.
+  # The customer and supplier fields will be highlighted.
+----

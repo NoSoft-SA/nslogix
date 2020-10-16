@@ -1,0 +1,24 @@
+---
+:dataminer_definition: fruit_actual_counts_for_pack_details
+:actions:
+- :url: "/masterfiles/fruit/fruit_actual_counts_for_packs/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/fruit_actual_counts_for_packs/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/fruit_actual_counts_for_packs/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/fruit/fruit_actual_counts_for_packs/new"
+  :text: New Fruit Actual Counts For Pack
+  :style: :button
+  :behaviour: :popup

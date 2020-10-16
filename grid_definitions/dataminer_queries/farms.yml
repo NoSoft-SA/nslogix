@@ -1,0 +1,294 @@
+---
+:caption: Farms
+:sql: "SELECT\r\n  DISTINCT  farms.id,\r\n    farms.owner_party_role_id,\r\n    farms.pdn_region_id,\r\n string_agg(DISTINCT farm_section_name::text, ', '::text) AS sections,
+  \   farms.farm_group_id,\r\n    farms.farm_code,\r\n    farms.description,\r\n    (SELECT
+  string_agg(pucs.puc_code, ', ')\r\n     FROM pucs\r\n     JOIN farms_pucs ON pucs.id
+  = farms_pucs.puc_id\r\n     WHERE farm_id = farms.id) AS puc_codes,\r\n    farm_groups.farm_group_code,\r\n
+  \   fn_party_role_name (farms.owner_party_role_id) AS owner_party_role,\r\n    production_regions.production_region_code
+  AS pdn_region_production_region_code,\r\n    fn_current_status ('farms', farms.id)
+  AS status,\r\n    farms.active,\r\n    farms.created_at,\r\n    farms.updated_at\r\nFROM
+  farms\r\nLEFT JOIN farm_groups ON farm_groups.id = farms.farm_group_id\r\nLEFT JOIN
+  production_regions ON production_regions.id = farms.pdn_region_id LEFT JOIN orchards ON orchards.farm_id = farms.id
+  LEFT JOIN farm_sections ON farm_sections.id = orchards.farm_section_id
+
+  GROUP BY farms.id, farms.owner_party_role_id, farms.pdn_region_id, farms.farm_group_id, farms.farm_code, farms.description
+  , puc_codes, farm_groups.farm_group_code, owner_party_role, production_regions.production_region_code, status, farms.active, farms.created_at
+  , farms.updated_at "
+:limit: 
+:offset: 
+:external_settings: {}
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: farms.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  owner_party_role_id:
+    :name: owner_party_role_id
+    :sequence_no: 2
+    :caption: Farm owner party role id
+    :namespaced_name: farms.owner_party_role_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pdn_region_id:
+    :name: pdn_region_id
+    :sequence_no: 3
+    :caption: Prod region
+    :namespaced_name: farms.pdn_region_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_group_id:
+    :name: farm_group_id
+    :sequence_no: 4
+    :caption: Farm group
+    :namespaced_name: farms.farm_group_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_code:
+    :name: farm_code
+    :sequence_no: 5
+    :caption: Farm code
+    :namespaced_name: farms.farm_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  sections:
+    :name: sections
+    :sequence_no: 6
+    :caption: Sections
+    :namespaced_name: sections
+    :data_type: :string
+    :width:
+    :format:
+    :hide: false
+    :pinned:
+    :groupable: true
+    :group_by_seq:
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  description:
+    :name: description
+    :sequence_no: 6
+    :caption: Description
+    :namespaced_name: farms.description
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  puc_codes:
+    :name: puc_codes
+    :sequence_no: 7
+    :caption: Puc codes
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_group_code:
+    :name: farm_group_code
+    :sequence_no: 8
+    :caption: Farm group code
+    :namespaced_name: farm_groups.farm_group_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  owner_party_role:
+    :name: owner_party_role
+    :sequence_no: 9
+    :caption: Farm owner
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pdn_region_production_region_code:
+    :name: pdn_region_production_region_code
+    :sequence_no: 10
+    :caption: Prod region code
+    :namespaced_name: production_regions.production_region_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  status:
+    :name: status
+    :sequence_no: 11
+    :caption: Status
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 12
+    :caption: Active
+    :namespaced_name: farms.active
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  created_at:
+    :name: created_at
+    :sequence_no: 13
+    :caption: Created at
+    :namespaced_name: farms.created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  updated_at:
+    :name: updated_at
+    :sequence_no: 14
+    :caption: Updated at
+    :namespaced_name: farms.updated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: farms.owner_party_role_id
+  :caption: Owner party role
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: SELECT fn_party_role_name(id), id FROM party_roles WHERE role_id = (SELECT
+    id FROM roles WHERE name = 'ROLE_NAME_GOES_HERE')
+- :column: farms.pdn_region_id
+  :caption: Pdn region
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT production_region_code, id FROM production_regions ORDER BY production_region_code
+- :column: farms.farm_group_id
+  :caption: Farm group
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT farm_group_code, id FROM farm_groups ORDER BY farm_group_code
+- :column: farms.farm_code
+  :caption: Farm code
+  :data_type: :string
+  :control_type: :text
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: 

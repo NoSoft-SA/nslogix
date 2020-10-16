@@ -1,0 +1,51 @@
+---
+:dataminer_definition: orchard_test_results
+:captions:
+  :grid_caption: Bin and Pallet Tests
+:actions:
+- :url: "/quality/test_results/orchard_test_results/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/quality/test_results/orchard_test_results/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/quality/test_results/orchard_test_results/$:id$/bulk_edit"
+  :text: bulk edit
+  :icon: edit
+  :title: Bulk Edit
+  :popup: true
+- :separator: true
+- :url: "/development/statuses/list/orchard_test_results/$:id$"
+  :text: status
+  :icon: information-solid
+  :title: Status
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/quality/test_results/orchard_test_results/new"
+  :text: New Test
+  :style: :button
+- :control_type: :link
+  :url: "/quality/test_results/orchard_test_results/create"
+  :text: Create Tests
+  :style: :button
+- :control_type: :link
+  :url: "/quality/test_results/orchard_test_results/phyt_clean_callback/phyt_clean_request"
+  :text: Update Phyt Clean Results
+  :style: :button
+- :control_type: :link
+  :url: "/quality/test_results/orchard_test_results/phyt_clean_callback/diff/pallet_sequences"
+  :text: Phyt Clean Pallet Diff
+  :style: :button
+- :control_type: :link
+  :url: "/quality/test_results/orchard_test_results/phyt_clean_callback/diff/orchards"
+  :text: Phyt Clean Diff
+  :style: :button
+:multiselect:
+  :multi_delete:
+    :url: "/quality/test_results/orchard_test_results/multi_delete"
+    :section_caption: "Choose tests to delete"

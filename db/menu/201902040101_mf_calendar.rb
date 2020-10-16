@@ -1,0 +1,11 @@
+Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
+  up do
+    add_program 'Calendar', functional_area: 'Masterfiles'
+    add_program_function 'Season Groups', functional_area: 'Masterfiles', program: 'Calendar', url: '/list/season_groups'
+    add_program_function 'Seasons', functional_area: 'Masterfiles', program: 'Calendar', url: '/list/seasons'
+  end
+
+  down do
+    drop_program 'Calendar', functional_area: 'Masterfiles'
+  end
+end

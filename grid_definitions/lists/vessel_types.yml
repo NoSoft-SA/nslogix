@@ -1,0 +1,9 @@
+---
+:dataminer_definition: vessel_types
+:actions:
+- :url: "/masterfiles/shipping/vessel_types/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+

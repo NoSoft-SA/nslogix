@@ -1,0 +1,29 @@
+---
+:dataminer_definition: orchards
+:actions:
+- :url: "/masterfiles/farms/orchards/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/farms/orchards/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/farms/orchards/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/farms/farms/$:orchards.farm_id$/orchards/new"
+  :text: New Orchard
+  :style: :button
+  :behaviour: :popup
+:conditions:
+  :standard:
+    - :col: orchards.farm_id
+      :op: =
+      :val: $:orchards.farm_id$

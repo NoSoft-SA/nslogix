@@ -1,0 +1,8 @@
+---
+:dataminer_definition: port_types
+:actions:
+- :url: "/masterfiles/shipping/port_types/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
