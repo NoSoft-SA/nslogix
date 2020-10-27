@@ -7,7 +7,7 @@ Sequel.migration do
       String :season_group_code, null: false
       String :description
       Integer :season_group_year
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

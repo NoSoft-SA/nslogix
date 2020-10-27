@@ -7,8 +7,9 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Search sent by name', functional_area: 'EDI', program: 'Viewer', group: 'Sent', url: '/edi/viewer/sent/search_by_name', seq: 3
     add_program_function 'Search sent by content', functional_area: 'EDI', program: 'Viewer', group: 'Sent', url: '/edi/viewer/sent/search_by_content', seq: 4
     add_program_function 'Recently received', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/recently', seq: 5
-    add_program_function 'Search received by name', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/search_by_name', seq: 6
-    add_program_function 'Search received by content', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/search_by_content', seq: 7
+    add_program_function 'Received errors', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/errors', seq: 6
+    add_program_function 'Search received by name', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/search_by_name', seq: 7
+    add_program_function 'Search received by content', functional_area: 'EDI', program: 'Viewer', group: 'Received', url: '/edi/viewer/received/search_by_content', seq: 8
   end
 
   down do

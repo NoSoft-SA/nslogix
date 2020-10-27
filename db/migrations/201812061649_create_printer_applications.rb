@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :printer_id, :printers, null: false
       String :application, size: 255, null: false
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

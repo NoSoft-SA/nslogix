@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :production_region_code, null: false
       String :description
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

@@ -37,6 +37,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :voyage_id, :voyages, type: :integer, null: false
       foreign_key :port_id, :ports, type: :integer, null: false
+      foreign_key :port_type_id, :port_types, type: :integer, null: false
       foreign_key :trans_shipment_vessel_id, :vessels, type: :integer
       Date :ata
       Date :atd

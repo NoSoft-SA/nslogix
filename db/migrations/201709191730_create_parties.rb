@@ -8,7 +8,7 @@ Sequel.migration do
     create_table(:parties, ignore_index_errors: true) do
       primary_key :id
       String :party_type, size: 1, default: 'O', null: false
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
@@ -27,9 +27,11 @@ Sequel.migration do
     create_table(:roles, ignore_index_errors: true) do
       primary_key :id
       String :name, size: 255
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+
+      index [:name], name: :roles_name_uniq, unique: true
     end
 
     pgt_created_at(:roles,
@@ -52,7 +54,7 @@ Sequel.migration do
       String :long_description, size: 255, null: false
       String :vat_number, size: 255
       column :variants, 'text[]'
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -78,7 +80,7 @@ Sequel.migration do
       String :first_name, size: 255, null: false
       String :title, size: 255, null: false
       String :vat_number, size: 255
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -103,13 +105,13 @@ Sequel.migration do
       foreign_key :role_id, :roles, type: :integer, null: false
       foreign_key :organization_id, :organizations, type: :integer
       foreign_key :person_id, :people, type: :integer
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:party_id], name: :fki_organizations_party_id
-      index [:organization_id], name: :fki_organizations_party_id
-      index [:person_id], name: :fki_organizations_party_id
+      index [:party_id], name: :fki_party_roles_party_id
+      index [:organization_id], name: :fki_party_roles_organization_id
+      index [:person_id], name: :fki_party_roles_person_id
     end
 
     pgt_created_at(:party_roles,

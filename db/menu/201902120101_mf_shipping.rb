@@ -8,6 +8,7 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Vessels', functional_area: 'Masterfiles', program: 'Shipping', url: '/list/vessels', seq: 5
     add_program_function 'Vehicle Types', functional_area: 'Masterfiles', program: 'Shipping', url: '/list/vehicle_types', seq: 6
     add_program_function 'Depots', functional_area: 'Masterfiles', program: 'Shipping', url: '/list/depots', seq: 7
+    add_program_function 'Cargo Temperature', functional_area: 'Masterfiles', program: 'Shipping', url: '/list/cargo_temperatures', seq: 8
   end
 
   down do

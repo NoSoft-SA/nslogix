@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :cultivar_group_code, null: false
       String :description
-
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
@@ -20,7 +20,7 @@ Sequel.migration do
 
       String :cultivar_name, null: false
       String :description
-
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -36,7 +36,7 @@ Sequel.migration do
       primary_key :id
       String :marketing_variety_code, null: false
       String :description
-
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end

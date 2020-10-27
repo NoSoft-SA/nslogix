@@ -8,10 +8,10 @@ Sequel.migration do
       foreign_key :commodity_id, :commodities, type: :integer, null: false
       String :season_code, null: false
       String :description
-      Integer :season_year
-      Date :start_date
-      Date :end_date
-      TrueClass :active, default: true
+      Integer :season_year, null: false
+      Date :start_date, null: false
+      Date :end_date, null: false
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

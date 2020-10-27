@@ -104,9 +104,10 @@ Sequel.migration do
     # --- ports
     create_table(:ports, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :port_type_id, :port_types, type: :integer, null: false
-      foreign_key :voyage_type_id, :voyage_types, type: :integer, null: false
       foreign_key :city_id, :destination_cities, type: :integer
+
+      column :port_type_ids, 'integer[]'
+      column :voyage_type_ids, 'integer[]'
       String :port_code, null: false
       String :description
       TrueClass :active, null: false, default: true

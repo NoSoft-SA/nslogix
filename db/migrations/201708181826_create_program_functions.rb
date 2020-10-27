@@ -10,7 +10,8 @@ Sequel.migration do
       String :url, size: 255, null: false
       Integer :program_function_sequence, default: 0, null: false
       TrueClass :restricted_user_access, default: false
-      TrueClass :active, default: true
+      TrueClass :show_in_iframe, default: false
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

@@ -8,11 +8,16 @@ Sequel.migration do
       String :user_name, size: 255
       String :password_hash, size: 255, null: false
       String :email, size: 255
-      TrueClass :active, default: true
+      Jsonb :permission_tree
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
       index [:login_name], name: :users_unique_login_name, unique: true
+    end
+
+    alter_table(:users) do
+      set_column_type :login_name, :citext
     end
 
     pgt_created_at(:users,

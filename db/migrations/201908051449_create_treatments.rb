@@ -7,7 +7,7 @@ Sequel.migration do
 
       String :treatment_type_code, null: false
       String :description
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -32,7 +32,7 @@ Sequel.migration do
       foreign_key :treatment_type_id, :treatment_types, type: :integer, null: false
       String :treatment_code, size: 255, null: false
       String :description
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       inet :ip_address, null: false
       foreign_key :start_page_program_function_id, :program_functions, key: [:id]
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       TrueClass :scan_with_camera, default: false
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

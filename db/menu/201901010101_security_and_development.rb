@@ -24,7 +24,8 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Party Roles', functional_area: 'Development', program: 'Masterfiles', url: '/list/roles', seq: 5
 
     add_program 'Logging', functional_area: 'Development', seq: 3
-    add_program_function 'Search logged actions', functional_area: 'Development', program: 'Logging', url: '/search/logged_actions'
+    add_program_function 'Search logged actions', functional_area: 'Development', program: 'Logging', url: '/search/logged_actions', seq: 1
+    add_program_function 'Export data event logs', functional_area: 'Development', program: 'Logging', url: '/list/export_data_event_logs', seq: 2
   end
 
   down do

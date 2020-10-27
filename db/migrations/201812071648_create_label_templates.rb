@@ -10,7 +10,8 @@ Sequel.migration do
       String :description, null: false
       String :application, null: false
       column :variables, 'text[]'
-      TrueClass :active, default: true
+      Jsonb :variable_rules
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :code, size: 255, null: false
       String :description, size: 255, null: false
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -19,7 +19,8 @@ Sequel.migration do
       String :code, size: 255, null: false
       String :description, size: 255, null: false
       String :hs_code, size: 255, null: false
-      TrueClass :active, default: true
+      TrueClass :requires_standard_counts, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
