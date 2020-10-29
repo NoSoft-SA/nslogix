@@ -3,8 +3,8 @@ Sequel.migration do
   up do
     extension :pg_triggers
     create_table(:multi_labels, ignore_index_errors: true) do
-      foreign_key :label_id, :labels, null: false, key: [:id]
-      foreign_key :sub_label_id, :labels, null: false, key: [:id]
+      foreign_key :label_id, :labels, null: false
+      foreign_key :sub_label_id, :labels, null: false
       Integer :print_sequence, null: false
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

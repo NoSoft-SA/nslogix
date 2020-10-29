@@ -42,12 +42,13 @@ Sequel.migration do
                    trigger_name: :set_updated_at)
     # Log changes to this table. Exclude changes to the updated_at column.
     run "SELECT audit.audit_table('customer_variety_varieties', true, true, '{updated_at}'::text[]);"
-
   end
+
   down do
     # Drop logging for this table.
     drop_trigger(:customer_variety_varieties, :audit_trigger_row)
     drop_trigger(:customer_variety_varieties, :audit_trigger_stm)
+
     drop_trigger(:customer_variety_varieties, :set_created_at)
     drop_function(:customer_variety_varieties_set_created_at)
     drop_trigger(:customer_variety_varieties, :set_updated_at)
@@ -56,6 +57,7 @@ Sequel.migration do
 
     drop_trigger(:customer_varieties, :audit_trigger_row)
     drop_trigger(:customer_varieties, :audit_trigger_stm)
+
     drop_trigger(:customer_varieties, :set_created_at)
     drop_function(:customer_varieties_set_created_at)
     drop_trigger(:customer_varieties, :set_updated_at)

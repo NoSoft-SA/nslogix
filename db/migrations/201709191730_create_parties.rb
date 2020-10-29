@@ -53,7 +53,7 @@ Sequel.migration do
       String :medium_description, size: 255, null: false
       String :long_description, size: 255, null: false
       String :vat_number, size: 255
-      column :variants, 'text[]'
+      String :company_reg_no
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
@@ -112,6 +112,7 @@ Sequel.migration do
       index [:party_id], name: :fki_party_roles_party_id
       index [:organization_id], name: :fki_party_roles_organization_id
       index [:person_id], name: :fki_party_roles_person_id
+      index [:party_id, :role_id], name: :party_role_uniq, unique: true
     end
 
     pgt_created_at(:party_roles,

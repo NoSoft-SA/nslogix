@@ -9,9 +9,11 @@ Sequel.migration do
       foreign_key :standard_pack_id, :standard_pack_codes, type: :integer, null: false
       BigDecimal :gross_weight, null: false
       BigDecimal :nett_weight, null: false
+      BigDecimal :standard_carton_nett_weight, null: false
+      BigDecimal :ratio_to_standard_carton, null: false
+      TrueClass :is_standard_carton, default: false
 
-
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end

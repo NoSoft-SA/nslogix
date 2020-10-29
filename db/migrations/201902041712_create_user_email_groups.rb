@@ -25,8 +25,8 @@ Sequel.migration do
     # JOIN user_email_groups to users
     # -------------------------------
     create_table(:user_email_groups_users, ignore_index_errors: true) do
-      foreign_key :user_id, :users, null: false, key: [:id]
-      foreign_key :user_email_group_id, :user_email_groups, null: false, key: [:id]
+      foreign_key :user_id, :users, null: false
+      foreign_key :user_email_group_id, :user_email_groups, null: false
       
       index [:user_email_group_id, :user_id], name: :fki_user_email_groups_user, unique: true
     end

@@ -52,11 +52,13 @@ Sequel.migration do
       primary_key :id
       foreign_key :address_id, :addresses, type: :integer, null: false
       foreign_key :party_id, :parties, type: :integer, null: false
+      foreign_key :address_type_id, :address_types, type: :integer, null: false
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
       index [:address_id], name: :fki_party_addresses_address_id
       index [:party_id], name: :fki_party_addresses_party_id
+      index [:party_id, :address_type_id], name: :party_address_type_unique_code, unique: true
     end
 
     pgt_created_at(:party_addresses,

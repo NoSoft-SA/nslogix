@@ -1,7 +1,7 @@
 Sequel.migration do
   up do
     alter_table(:reworks_runs) do
-      add_foreign_key :parent_id, :reworks_runs, key: [:id]
+      add_foreign_key :parent_id, :reworks_runs
     end
   end
 

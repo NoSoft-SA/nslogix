@@ -4,10 +4,12 @@ Sequel.migration do
     extension :pg_triggers
     create_table(:program_functions, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :program_id, :programs, null: false, key: [:id]
+      foreign_key :program_id, :programs, null: false
       String :program_function_name, size: 255, null: false
       String :group_name, size: 255
       String :url, size: 255, null: false
+      String :hide_if_const_true
+      String :hide_if_const_false
       Integer :program_function_sequence, default: 0, null: false
       TrueClass :restricted_user_access, default: false
       TrueClass :show_in_iframe, default: false

@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :run_type, size: 255, null: false
       String :description
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -30,7 +30,7 @@ Sequel.migration do
       primary_key :id
       String :scrap_reason, size: 255, null: false
       String :description
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

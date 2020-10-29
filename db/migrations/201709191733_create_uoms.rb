@@ -22,7 +22,7 @@ Sequel.migration do
 
     create_table(:uoms, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :uom_type_id, :uom_types, null: false, key: [:id]
+      foreign_key :uom_type_id, :uom_types, null: false
       String :uom_code, null: false
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false

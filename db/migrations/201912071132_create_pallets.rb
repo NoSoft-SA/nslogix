@@ -27,7 +27,7 @@ Sequel.migration do
       TrueClass :partially_palletized, default: false
       DateTime :palletized_date_time
       DateTime :partially_palletized_date_time
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       String :on_site_location
@@ -78,6 +78,7 @@ Sequel.migration do
       foreign_key :inventory_code_id, :inventory_codes, type: :integer, null: false
       foreign_key :pallet_format_id, :pallet_formats, type: :integer, null: false
       foreign_key :cartons_per_pallet_id, :cartons_per_pallet, type: :integer, null: false
+      foreign_key :edi_in_transaction_id, :edi_in_transactions, type: :integer
       Jsonb :extended_columns
       String :client_size_reference
       String :client_product_code
@@ -87,7 +88,7 @@ Sequel.migration do
       String :exit_ref
       DateTime :exit_ref_date_time
       Decimal :nett_weight
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       String :production_run
@@ -131,14 +132,5 @@ Sequel.migration do
     drop_trigger(:pallets, :set_updated_at)
     drop_function(:pallets_set_updated_at)
     drop_table(:pallets)
-
-    drop_trigger(:pallet_verification_failure_reasons, :audit_trigger_row)
-    drop_trigger(:pallet_verification_failure_reasons, :audit_trigger_stm)
-
-    drop_trigger(:pallet_verification_failure_reasons, :set_created_at)
-    drop_function(:pallet_verification_failure_reasons_set_created_at)
-    drop_trigger(:pallet_verification_failure_reasons, :set_updated_at)
-    drop_function(:pallet_verification_failure_reasons_set_updated_at)
-    drop_table(:pallet_verification_failure_reasons)
   end
 end

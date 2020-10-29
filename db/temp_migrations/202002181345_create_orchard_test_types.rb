@@ -21,7 +21,7 @@ Sequel.migration do
       column :applicable_cultivar_ids, 'integer[]'
       column :applicable_commodity_group_ids, 'integer[]'
 
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

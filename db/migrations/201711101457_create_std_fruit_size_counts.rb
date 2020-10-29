@@ -4,7 +4,8 @@ Sequel.migration do
     extension :pg_triggers
     create_table(:std_fruit_size_counts, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :commodity_id, :commodities, null: false, key: [:id]
+      foreign_key :commodity_id, :commodities, null: false
+      foreign_key :uom_id, :uoms, null: false
       String :size_count_description
       String :marketing_size_range_mm
       String :marketing_weight_range
@@ -36,24 +37,33 @@ Sequel.migration do
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+
+      unique :basic_pack_code, name: :basic_pack_codes_unique_code
     end
     pgt_created_at(:basic_pack_codes, :created_at, function_name: :basic_pack_codes_set_created_at, trigger_name: :set_created_at)
     pgt_updated_at(:basic_pack_codes, :updated_at, function_name: :basic_pack_codes_set_updated_at, trigger_name: :set_updated_at)
 
     create_table(:standard_pack_codes, ignore_index_errors: true) do
       primary_key :id
+      foreign_key :basic_pack_code_id, :basic_pack_codes
       String :standard_pack_code, null: false
+      String :description
+      String :std_pack_label_code
+      BigDecimal :material_mass, null: false
+      TrueClass :use_size_ref_for_edi, null: false, default: false
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+
+      unique :standard_pack_code, name: :standard_pack_codes_unique_code
     end
     pgt_created_at(:standard_pack_codes, :created_at, function_name: :standard_pack_codes_set_created_at, trigger_name: :set_created_at)
     pgt_updated_at(:standard_pack_codes, :updated_at, function_name: :standard_pack_codes_set_updated_at, trigger_name: :set_updated_at)
 
     create_table(:fruit_actual_counts_for_packs, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :std_fruit_size_count_id, :std_fruit_size_counts, null: false, key: [:id]
-      foreign_key :basic_pack_code_id, :basic_pack_codes, null: false, key: [:id]
+      foreign_key :std_fruit_size_count_id, :std_fruit_size_counts, null: false
+      foreign_key :basic_pack_code_id, :basic_pack_codes, null: false
       column :standard_pack_code_ids, 'integer[]'
       column :size_reference_ids, 'integer[]'
 
@@ -72,8 +82,9 @@ Sequel.migration do
 
     create_table(:fruit_size_references, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :fruit_actual_counts_for_pack_id, :fruit_actual_counts_for_packs, null: false, key: [:id]
+      foreign_key :fruit_actual_counts_for_pack_id, :fruit_actual_counts_for_packs, null: false
       String :size_reference, null: false
+      String :edi_out_code
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

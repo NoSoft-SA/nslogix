@@ -9,6 +9,7 @@ Sequel.migration do
       String :password_hash, size: 255, null: false
       String :email, size: 255
       Jsonb :permission_tree
+      Jsonb :profile
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

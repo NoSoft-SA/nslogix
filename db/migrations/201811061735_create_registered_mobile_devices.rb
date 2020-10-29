@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:registered_mobile_devices, ignore_index_errors: true) do
       primary_key :id
       inet :ip_address, null: false
-      foreign_key :start_page_program_function_id, :program_functions, key: [:id]
+      foreign_key :start_page_program_function_id, :program_functions
       TrueClass :active, null: false, default: true
       TrueClass :scan_with_camera, default: false
       DateTime :created_at, null: false

@@ -16,7 +16,7 @@ Sequel.migration do
       add_column :allocated_at, DateTime
       add_column :reinspected, :boolean, default: false
       add_column :scrapped, :boolean, default: false
-      add_foreign_key :pallet_format_id, :pallet_formats, key: [:id]
+      add_foreign_key :pallet_format_id, :pallet_formats
       add_column :carton_quantity, :integer
       add_column :govt_inspection_passed, :boolean, default: false
       add_column :internal_inspection_passed, :boolean, default: false

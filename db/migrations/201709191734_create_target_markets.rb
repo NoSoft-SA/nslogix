@@ -16,8 +16,9 @@ Sequel.migration do
 
     create_table(:target_market_groups, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :target_market_group_type_id, :target_market_group_types, null: false, key: [:id]
+      foreign_key :target_market_group_type_id, :target_market_group_types, null: false
       String :target_market_group_name, null: false
+      String :description
 
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
@@ -32,6 +33,7 @@ Sequel.migration do
     create_table(:target_markets, ignore_index_errors: true) do
       primary_key :id
       String :target_market_name, null: false
+      String :description, null: false
 
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
@@ -44,8 +46,8 @@ Sequel.migration do
 
     create_table(:target_markets_for_groups, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :target_market_id, :target_markets, null: false, key: [:id]
-      foreign_key :target_market_group_id, :target_market_groups, null: false, key: [:id]
+      foreign_key :target_market_id, :target_markets, null: false
+      foreign_key :target_market_group_id, :target_market_groups, null: false
 
       unique [:target_market_id, :target_market_group_id]
       index [:target_market_id], name: :fki_target_market_for_groups_target_markets
@@ -55,30 +57,35 @@ Sequel.migration do
     create_table(:destination_regions, ignore_index_errors: true) do
       primary_key :id
       String :destination_region_name, null: false
+      String :description
 
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+      index [:destination_region_name], name: :destination_region_unique_name, unique: true
     end
     pgt_created_at(:destination_regions, :created_at, function_name: :destination_regions_set_created_at, trigger_name: :set_created_at)
     pgt_updated_at(:destination_regions, :updated_at, function_name: :destination_regions_set_updated_at, trigger_name: :set_updated_at)
 
     create_table(:destination_countries, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :destination_region_id, :destination_regions, null: false, key: [:id]
+      foreign_key :destination_region_id, :destination_regions, null: false
       String :country_name, null: false
+      String :description
+      String :iso_country_code
 
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:destination_region_id], name: :fki_destination_countries_destination_regions
+      index [:country_name], name: :country_unique_name, unique: true
     end
     pgt_created_at(:destination_countries, :created_at, function_name: :destination_countries_set_created_at, trigger_name: :set_created_at)
     pgt_updated_at(:destination_countries, :updated_at, function_name: :destination_countries_set_updated_at, trigger_name: :set_updated_at)
 
     create_table(:destination_cities, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :destination_country_id, :destination_countries, null: false, key: [:id]
+      foreign_key :destination_country_id, :destination_countries, null: false
       String :city_name, null: false
 
       TrueClass :active, null: false, default: true
@@ -93,16 +100,24 @@ Sequel.migration do
 
     create_table(:target_markets_for_countries, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :target_market_id, :target_markets, null: false, key: [:id]
-      foreign_key :destination_country_id, :destination_countries, null: false, key: [:id]
+      foreign_key :target_market_id, :target_markets, null: false
+      foreign_key :destination_country_id, :destination_countries, null: false
 
       unique [:target_market_id, :destination_country_id]
       index [:target_market_id], name: :fki_target_markets_for_countries_target_markets
       index [:destination_country_id], name: :fki_target_markets_for_countries_destination_countries
     end
+
+    create_table(:destination_regions_tm_groups, ignore_index_errors: true) do
+      foreign_key :target_market_group_id, :target_market_groups, type: :integer, null: false
+      foreign_key :destination_region_id, :destination_regions, type: :integer, null: false
+
+      index [:target_market_group_id,:destination_region_id], name: :destination_regions_tm_groups_idx, unique: true
+    end
   end
 
   down do
+    drop_table(:destination_regions_tm_groups)
     drop_table(:target_markets_for_countries)
 
     drop_trigger(:destination_cities, :set_created_at)

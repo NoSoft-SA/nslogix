@@ -4,6 +4,7 @@ Sequel.migration do
     extension :pg_triggers
     create_table(:cultivar_groups, ignore_index_errors: true) do
       primary_key :id
+      foreign_key :commodity_id, :commodities, null: false
       String :cultivar_group_code, null: false
       String :description
       TrueClass :active, null: false, default: true
@@ -15,9 +16,9 @@ Sequel.migration do
 
     create_table(:cultivars, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :commodity_id, :commodities, null: false, key: [:id]
-      foreign_key :cultivar_group_id, :cultivar_groups, key: [:id]
-
+      foreign_key :commodity_id, :commodities, null: false
+      foreign_key :cultivar_group_id, :cultivar_groups
+      String :cultivar_code
       String :cultivar_name, null: false
       String :description
       TrueClass :active, null: false, default: true
@@ -39,6 +40,8 @@ Sequel.migration do
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+
+      index [:marketing_variety_code], name: :marketing_variety_unique_code, unique: true
     end
     pgt_created_at(:marketing_varieties, :created_at, function_name: :marketing_varieties_set_created_at, trigger_name: :set_created_at)
     pgt_updated_at(:marketing_varieties, :updated_at, function_name: :marketing_varieties_set_updated_at, trigger_name: :set_updated_at)
@@ -46,8 +49,8 @@ Sequel.migration do
 
     create_table(:marketing_varieties_for_cultivars, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :cultivar_id, :cultivars, null: false, key: [:id]
-      foreign_key :marketing_variety_id, :marketing_varieties, null: false, key: [:id]
+      foreign_key :cultivar_id, :cultivars, null: false
+      foreign_key :marketing_variety_id, :marketing_varieties, null: false
 
       unique [:cultivar_id, :marketing_variety_id]
       index [:cultivar_id], name: :fki_marketing_varieties_for_cultivars_cultivars

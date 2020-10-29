@@ -9,7 +9,7 @@ Sequel.migration do
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
-      foreign_key :functional_area_id, :functional_areas, null: false, key: [:id]
+      foreign_key :functional_area_id, :functional_areas, null: false
 
       index [:functional_area_id], name: :fki_programs_functional_areas
       index [:functional_area_id, :program_name], name: :programs_functional_area_id_program_name_key, unique: true

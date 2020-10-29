@@ -22,7 +22,7 @@ Sequel.migration do
       DateTime :applicable_from
       DateTime :applicable_to
 
-      TrueClass :active, default: true
+      TrueClass :active, null: false, default: true
       DateTime :created_at
       DateTime :updated_at
 

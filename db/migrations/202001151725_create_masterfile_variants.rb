@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:masterfile_variants, ignore_index_errors: true) do
       primary_key :id
       String :masterfile_table, null: false
-      String :code, null: false
+      String :variant_code, null: false
       Integer :masterfile_id, null: false
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

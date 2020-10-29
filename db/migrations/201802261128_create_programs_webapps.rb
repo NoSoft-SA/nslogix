@@ -2,7 +2,7 @@ require 'sequel_postgresql_triggers'
 Sequel.migration do
   up do
     create_table(:programs_webapps, ignore_index_errors: true) do
-      foreign_key :program_id, :programs, null: false, key: [:id]
+      foreign_key :program_id, :programs, null: false
       String :webapp, null: false
 
       primary_key [:program_id, :webapp], name: :programs_webapps_pk
