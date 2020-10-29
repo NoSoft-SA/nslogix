@@ -210,13 +210,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
                         'Verification Result',
                         items: %w[unknown passed failed],
                         value: (pallet_sequence[:verification_result].nil_or_empty? ? 'unknown' : pallet_sequence[:verification_result]))
-        form.add_select(:verification_failure_reason,
-                        'Verification Failure Reason',
-                        items: MasterfilesApp::QualityRepo.new.for_select_pallet_verification_failure_reasons,
-                        hide_on_load: (pallet_sequence[:verification_result] != 'failed'),
-                        value: pallet_sequence[:pallet_verification_failure_reason_id],
-                        prompt: true,
-                        required: false)
         if AppConst::REQUIRE_FRUIT_STICKER_AT_PALLET_VERIFICATION && pallet_sequence[:pallet_sequence_number] == 1
           form.add_select(:fruit_sticker_pm_product_id,
                           'Fruit Sticker',
