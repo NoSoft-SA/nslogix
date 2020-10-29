@@ -7,8 +7,8 @@ Sequel.migration do
     create_table(:ecert_agreements, ignore_index_errors: true) do
       primary_key :id
 
-      String :code, null: false
-      String :name, null: false
+      String :ecert_agreement_code, null: false
+      String :ecert_agreement_name, null: false
       String :description
       Date :start_date
       Date :end_date
@@ -16,7 +16,7 @@ Sequel.migration do
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
-      index [:code], name: :ecert_agreements_unique_code, unique: true
+      index [:ecert_agreement_code], name: :ecert_agreements_unique_code, unique: true
     end
     pgt_created_at(:ecert_agreements,
                    :created_at,

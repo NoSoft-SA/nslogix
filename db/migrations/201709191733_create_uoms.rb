@@ -3,12 +3,12 @@ Sequel.migration do
   up do
     create_table(:uom_types, ignore_index_errors: true) do
       primary_key :id
-      String :code, null: false
+      String :uom_type_code, null: false
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:code], name: :uom_types_unique_code, unique: true
+      index [:uom_type_code], name: :unique_uom_type_code, unique: true
     end
     pgt_created_at(:uom_types,
                    :created_at,

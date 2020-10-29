@@ -3,13 +3,13 @@
 module MasterfilesApp
   class GeneralRepo < BaseRepo
     build_for_select :uom_types,
-                     label: :code,
+                     label: :uom_type_code,
                      value: :id,
-                     order_by: :code
+                     order_by: :uom_type_code
     build_inactive_select :uom_types,
-                          label: :code,
+                          label: :uom_type_code,
                           value: :id,
-                          order_by: :code
+                          order_by: :uom_type_code
 
     build_for_select :uoms,
                      label: :uom_code,

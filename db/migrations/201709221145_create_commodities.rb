@@ -4,7 +4,7 @@ Sequel.migration do
     extension :pg_triggers
     create_table(:commodity_groups, ignore_index_errors: true) do
       primary_key :id
-      String :code, size: 255, null: false
+      String :commodity_group_code, null: false
       String :description, size: 255, null: false
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
@@ -24,7 +24,7 @@ Sequel.migration do
     create_table(:commodities, ignore_index_errors: true) do
       primary_key :id
       foreign_key :commodity_group_id, :commodity_groups, type: :integer, null: false
-      String :code, size: 255, null: false
+      String :commodity_code, null: false
       String :description, size: 255, null: false
       String :hs_code, size: 255, null: false
       TrueClass :requires_standard_counts, default: true

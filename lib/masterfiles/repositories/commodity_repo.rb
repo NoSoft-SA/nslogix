@@ -3,20 +3,22 @@
 module MasterfilesApp
   class CommodityRepo < BaseRepo
     build_for_select :commodity_groups,
-                     label: :code,
+                     label: :commodity_group_code,
                      value: :id,
-                     order_by: :code
+                     order_by: :commodity_group_code
     build_inactive_select :commodity_groups,
-                          label: :code,
-                          value: :id
+                          label: :commodity_group_code,
+                          value: :id,
+                          order_by: :commodity_group_code
 
     build_for_select :commodities,
-                     label: :code,
+                     label: :commodity_code,
                      value: :id,
-                     order_by: :code
+                     order_by: :commodity_code
     build_inactive_select :commodities,
-                          label: :code,
-                          value: :id
+                          label: :commodity_code,
+                          value: :id,
+                          order_by: :commodity_code
 
     crud_calls_for :commodity_groups, name: :commodity_group, wrapper: CommodityGroup
     crud_calls_for :commodities, name: :commodity, wrapper: Commodity
