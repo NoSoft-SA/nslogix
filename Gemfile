@@ -21,7 +21,7 @@ gem 'roda-message_bus'
 gem 'roda-symbolized_params'
 gem 'rodauth'
 gem 'rouge'
-gem 'rubocop'
+gem 'rubocop', '0.82.0'
 gem 'sassc'
 gem 'sequel'
 gem 'sequel_pg', require: false
