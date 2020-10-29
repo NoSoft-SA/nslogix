@@ -21,24 +21,22 @@ Sequel.migration do
       DateTime :updated_at, null: false
 
     end
-
     pgt_created_at(:ecert_tracking_units,
                    :created_at,
-                   function_name: :ecert_tracking_units_set_created_at,
+                   function_name: :pgt_ecert_tracking_units_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:ecert_tracking_units,
                    :updated_at,
-                   function_name: :ecert_tracking_units_set_updated_at,
+                   function_name: :pgt_ecert_tracking_units_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     # Drop logging for ecert_tracking_units table.
     drop_trigger(:ecert_tracking_units, :set_created_at)
-    drop_function(:ecert_tracking_units_set_created_at)
+    drop_function(:pgt_ecert_tracking_units_set_created_at)
     drop_trigger(:ecert_tracking_units, :set_updated_at)
-    drop_function(:ecert_tracking_units_set_updated_at)
+    drop_function(:pgt_ecert_tracking_units_set_updated_at)
     drop_table(:ecert_tracking_units)
   end
 end

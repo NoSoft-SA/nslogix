@@ -19,23 +19,21 @@ Sequel.migration do
 
       index [:program_id], name: :fki_program_functions_program
     end
-
     pgt_created_at(:program_functions,
                    :created_at,
-                   function_name: :program_functions_set_created_at,
+                   function_name: :pgt_program_functions_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:program_functions,
                    :updated_at,
-                   function_name: :program_functions_set_updated_at,
+                   function_name: :pgt_program_functions_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:program_functions, :set_created_at)
-    drop_function(:program_functions_set_created_at)
+    drop_function(:pgt_program_functions_set_created_at)
     drop_trigger(:program_functions, :set_updated_at)
-    drop_function(:program_functions_set_updated_at)
+    drop_function(:pgt_program_functions_set_updated_at)
     drop_table(:program_functions)
   end
 end

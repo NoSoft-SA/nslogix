@@ -26,16 +26,13 @@ Sequel.migration do
 
       index [:label_name], name: :labels_unique_label_name, unique: true
     end
-
-
     pgt_created_at(:labels,
                    :created_at,
-                   function_name: :labels_set_created_at,
+                   function_name: :pgt_labels_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:labels,
                    :updated_at,
-                   function_name: :labels_set_updated_at,
+                   function_name: :pgt_labels_set_updated_at,
                    trigger_name: :set_updated_at)
 
     run "SELECT audit.audit_table('labels', 'true', 'true', '{sample_data, updated_at}'::text[]);"
@@ -51,9 +48,9 @@ Sequel.migration do
     drop_trigger(:labels, :audit_trigger_stm)
 
     drop_trigger(:labels, :set_created_at)
-    drop_function(:labels_set_created_at)
+    drop_function(:pgt_labels_set_created_at)
     drop_trigger(:labels, :set_updated_at)
-    drop_function(:labels_set_updated_at)
+    drop_function(:pgt_labels_set_updated_at)
     drop_table(:labels)
   end
 end

@@ -10,23 +10,21 @@ Sequel.migration do
       
       index [:security_permission], name: :security_permissions_security_permission_key, unique: true
     end
-
     pgt_created_at(:security_permissions,
                    :created_at,
-                   function_name: :security_permissions_set_created_at,
+                   function_name: :pgt_security_permissions_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:security_permissions,
                    :updated_at,
-                   function_name: :security_permissions_set_updated_at,
+                   function_name: :pgt_security_permissions_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:security_permissions, :set_created_at)
-    drop_function(:security_permissions_set_created_at)
+    drop_function(:pgt_security_permissions_set_created_at)
     drop_trigger(:security_permissions, :set_updated_at)
-    drop_function(:security_permissions_set_updated_at)
+    drop_function(:pgt_security_permissions_set_updated_at)
     drop_table(:security_permissions)
   end
 end

@@ -11,15 +11,13 @@ Sequel.migration do
 
       index [:address_type], name: :addresses_types_unique_code, unique: true
     end
-
     pgt_created_at(:address_types,
                    :created_at,
-                   function_name: :address_types_set_created_at,
+                   function_name: :pgt_address_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:address_types,
                    :updated_at,
-                   function_name: :address_types_set_updated_at,
+                   function_name: :pgt_address_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:addresses, ignore_index_errors: true) do
@@ -37,15 +35,13 @@ Sequel.migration do
 
       index [:address_type_id], name: :fki_addresses_address_type_id
     end
-
     pgt_created_at(:addresses,
                    :created_at,
-                   function_name: :addresses_set_created_at,
+                   function_name: :pgt_addresses_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:addresses,
                    :updated_at,
-                   function_name: :addresses_set_updated_at,
+                   function_name: :pgt_addresses_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:party_addresses, ignore_index_errors: true) do
@@ -60,35 +56,33 @@ Sequel.migration do
       index [:party_id], name: :fki_party_addresses_party_id
       index [:party_id, :address_type_id], name: :party_address_type_unique_code, unique: true
     end
-
     pgt_created_at(:party_addresses,
                    :created_at,
-                   function_name: :party_addresses_set_created_at,
+                   function_name: :pgt_party_addresses_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:party_addresses,
                    :updated_at,
-                   function_name: :party_addresses_set_updated_at,
+                   function_name: :pgt_party_addresses_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:party_addresses, :set_created_at)
-    drop_function(:party_addresses_set_created_at)
+    drop_function(:pgt_party_addresses_set_created_at)
     drop_trigger(:party_addresses, :set_updated_at)
-    drop_function(:party_addresses_set_updated_at)
+    drop_function(:pgt_party_addresses_set_updated_at)
     drop_table(:party_addresses)
 
     drop_trigger(:addresses, :set_created_at)
-    drop_function(:addresses_set_created_at)
+    drop_function(:pgt_addresses_set_created_at)
     drop_trigger(:addresses, :set_updated_at)
-    drop_function(:addresses_set_updated_at)
+    drop_function(:pgt_addresses_set_updated_at)
     drop_table(:addresses)
 
     drop_trigger(:address_types, :set_created_at)
-    drop_function(:address_types_set_created_at)
+    drop_function(:pgt_address_types_set_created_at)
     drop_trigger(:address_types, :set_updated_at)
-    drop_function(:address_types_set_updated_at)
+    drop_function(:pgt_address_types_set_updated_at)
     drop_table(:address_types)
   end
 end

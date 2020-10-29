@@ -12,15 +12,13 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:parties,
                    :created_at,
-                   function_name: :parties_set_created_at,
+                   function_name: :pgt_parties_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:parties,
                    :updated_at,
-                   function_name: :parties_set_updated_at,
+                   function_name: :pgt_parties_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # --- ROLE
@@ -33,15 +31,13 @@ Sequel.migration do
 
       index [:name], name: :roles_name_uniq, unique: true
     end
-
     pgt_created_at(:roles,
                    :created_at,
-                   function_name: :roles_set_created_at,
+                   function_name: :pgt_roles_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:roles,
                    :updated_at,
-                   function_name: :roles_set_updated_at,
+                   function_name: :pgt_roles_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # --- ORG
@@ -61,15 +57,13 @@ Sequel.migration do
       index [:short_description], name: :organizations_unique_short_desc, unique: true
       index [:party_id], name: :fki_organizations_party_id, unique: true
     end
-
     pgt_created_at(:organizations,
                    :created_at,
-                   function_name: :organizations_set_created_at,
+                   function_name: :pgt_organizations_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:organizations,
                    :updated_at,
-                   function_name: :organizations_set_updated_at,
+                   function_name: :pgt_organizations_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # --- PERSON
@@ -87,15 +81,13 @@ Sequel.migration do
       index [:surname, :first_name], name: :people_unique_name, unique: true
       index [:party_id], name: :fki_organizations_party_id, unique: true
     end
-
     pgt_created_at(:people,
                    :created_at,
-                   function_name: :people_set_created_at,
+                   function_name: :pgt_people_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:people,
                    :updated_at,
-                   function_name: :people_set_updated_at,
+                   function_name: :pgt_people_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # --- PARTY ROLE
@@ -114,47 +106,45 @@ Sequel.migration do
       index [:person_id], name: :fki_party_roles_person_id
       index [:party_id, :role_id], name: :party_role_uniq, unique: true
     end
-
     pgt_created_at(:party_roles,
                    :created_at,
-                   function_name: :party_roles_set_created_at,
+                   function_name: :pgt_party_roles_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:party_roles,
                    :updated_at,
-                   function_name: :party_roles_set_updated_at,
+                   function_name: :pgt_party_roles_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:party_roles, :set_created_at)
-    drop_function(:party_roles_set_created_at)
+    drop_function(:pgt_party_roles_set_created_at)
     drop_trigger(:party_roles, :set_updated_at)
-    drop_function(:party_roles_set_updated_at)
+    drop_function(:pgt_party_roles_set_updated_at)
     drop_table(:party_roles)
 
     drop_trigger(:people, :set_created_at)
-    drop_function(:people_set_created_at)
+    drop_function(:pgt_people_set_created_at)
     drop_trigger(:people, :set_updated_at)
-    drop_function(:people_set_updated_at)
+    drop_function(:pgt_people_set_updated_at)
     drop_table(:people)
 
     drop_trigger(:organizations, :set_created_at)
-    drop_function(:organizations_set_created_at)
+    drop_function(:pgt_organizations_set_created_at)
     drop_trigger(:organizations, :set_updated_at)
-    drop_function(:organizations_set_updated_at)
+    drop_function(:pgt_organizations_set_updated_at)
     drop_table(:organizations)
 
     drop_trigger(:roles, :set_created_at)
-    drop_function(:roles_set_created_at)
+    drop_function(:pgt_roles_set_created_at)
     drop_trigger(:roles, :set_updated_at)
-    drop_function(:roles_set_updated_at)
+    drop_function(:pgt_roles_set_updated_at)
     drop_table(:roles)
 
     drop_trigger(:parties, :set_created_at)
-    drop_function(:parties_set_created_at)
+    drop_function(:pgt_parties_set_created_at)
     drop_trigger(:parties, :set_updated_at)
-    drop_function(:parties_set_updated_at)
+    drop_function(:pgt_parties_set_updated_at)
     drop_table(:parties)
   end
 end

@@ -29,15 +29,13 @@ Sequel.migration do
       index [:orchard_test_type_id], name: :orchard_test_type_id
       index [:orchard_test_type_id, :orchard_id], name: :orchard_test_type_orchard_unique_code, unique: true
     end
-
     pgt_created_at(:orchard_test_results,
                    :created_at,
-                   function_name: :orchard_test_results_set_created_at,
+                   function_name: :pgt_orchard_test_results_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:orchard_test_results,
                    :updated_at,
-                   function_name: :orchard_test_results_set_updated_at,
+                   function_name: :pgt_orchard_test_results_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -71,10 +69,9 @@ Sequel.migration do
 
       index [:orchard_test_type_id], name: :orchard_test_type_id
     end
-
     pgt_created_at(:orchard_test_logs,
                    :logged_at,
-                   function_name: :orchard_test_logs_set_logged_at,
+                   function_name: :pgt_orchard_test_logs_set_logged_at,
                    trigger_name: :set_created_at)
 
     run <<~SQL
@@ -137,7 +134,7 @@ Sequel.migration do
     SQL
 
     drop_trigger(:orchard_test_logs, :set_created_at)
-    drop_function(:orchard_test_logs_set_logged_at)
+    drop_function(:pgt_orchard_test_logs_set_logged_at)
     drop_table(:orchard_test_logs)
 
     # Drop logging for this table.
@@ -145,9 +142,9 @@ Sequel.migration do
     drop_trigger(:orchard_test_results, :audit_trigger_stm)
 
     drop_trigger(:orchard_test_results, :set_created_at)
-    drop_function(:orchard_test_results_set_created_at)
+    drop_function(:pgt_orchard_test_results_set_created_at)
     drop_trigger(:orchard_test_results, :set_updated_at)
-    drop_function(:orchard_test_results_set_updated_at)
+    drop_function(:pgt_orchard_test_results_set_updated_at)
     drop_table(:orchard_test_results)
   end
 end

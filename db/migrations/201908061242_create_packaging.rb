@@ -17,15 +17,13 @@ Sequel.migration do
 
       index [:pallet_base_code], name: :pallet_bases_unique_code, unique: true
     end
-
     pgt_created_at(:pallet_bases,
                    :created_at,
-                   function_name: :pallet_bases_set_created_at,
+                   function_name: :pgt_pallet_bases_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pallet_bases,
                    :updated_at,
-                   function_name: :pallet_bases_set_updated_at,
+                   function_name: :pgt_pallet_bases_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -42,15 +40,13 @@ Sequel.migration do
 
       index [:stack_type_code], name: :pallet_stack_types_unique_code, unique: true
     end
-
     pgt_created_at(:pallet_stack_types,
                    :created_at,
-                   function_name: :pallet_stack_types_set_created_at,
+                   function_name: :pgt_pallet_stack_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pallet_stack_types,
                    :updated_at,
-                   function_name: :pallet_stack_types_set_updated_at,
+                   function_name: :pgt_pallet_stack_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -67,15 +63,13 @@ Sequel.migration do
 
       index [:pallet_base_id, :pallet_stack_type_id], name: :pallet_formats_idx, unique: true
     end
-
     pgt_created_at(:pallet_formats,
                    :created_at,
-                   function_name: :pallet_formats_set_created_at,
+                   function_name: :pgt_pallet_formats_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pallet_formats,
                    :updated_at,
-                   function_name: :pallet_formats_set_updated_at,
+                   function_name: :pgt_pallet_formats_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -94,15 +88,13 @@ Sequel.migration do
 
       index [:pallet_format_id, :basic_pack_id], name: :cartons_per_pallet_idx, unique: true
     end
-
     pgt_created_at(:cartons_per_pallet,
                    :created_at,
-                   function_name: :cartons_per_pallet_set_created_at,
+                   function_name: :pgt_cartons_per_pallet_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:cartons_per_pallet,
                    :updated_at,
-                   function_name: :cartons_per_pallet_set_updated_at,
+                   function_name: :pgt_cartons_per_pallet_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -116,36 +108,36 @@ Sequel.migration do
     drop_trigger(:cartons_per_pallet, :audit_trigger_stm)
 
     drop_trigger(:cartons_per_pallet, :set_created_at)
-    drop_function(:cartons_per_pallet_set_created_at)
+    drop_function(:pgt_cartons_per_pallet_set_created_at)
     drop_trigger(:cartons_per_pallet, :set_updated_at)
-    drop_function(:cartons_per_pallet_set_updated_at)
+    drop_function(:pgt_cartons_per_pallet_set_updated_at)
     drop_table(:cartons_per_pallet)
 
     drop_trigger(:pallet_formats, :audit_trigger_row)
     drop_trigger(:pallet_formats, :audit_trigger_stm)
 
     drop_trigger(:pallet_formats, :set_created_at)
-    drop_function(:pallet_formats_set_created_at)
+    drop_function(:pgt_pallet_formats_set_created_at)
     drop_trigger(:pallet_formats, :set_updated_at)
-    drop_function(:pallet_formats_set_updated_at)
+    drop_function(:pgt_pallet_formats_set_updated_at)
     drop_table(:pallet_formats)
 
     drop_trigger(:pallet_stack_types, :audit_trigger_row)
     drop_trigger(:pallet_stack_types, :audit_trigger_stm)
 
     drop_trigger(:pallet_stack_types, :set_created_at)
-    drop_function(:pallet_stack_types_set_created_at)
+    drop_function(:pgt_pallet_stack_types_set_created_at)
     drop_trigger(:pallet_stack_types, :set_updated_at)
-    drop_function(:pallet_stack_types_set_updated_at)
+    drop_function(:pgt_pallet_stack_types_set_updated_at)
     drop_table(:pallet_stack_types)
 
     drop_trigger(:pallet_bases, :audit_trigger_row)
     drop_trigger(:pallet_bases, :audit_trigger_stm)
 
     drop_trigger(:pallet_bases, :set_created_at)
-    drop_function(:pallet_bases_set_created_at)
+    drop_function(:pgt_pallet_bases_set_created_at)
     drop_trigger(:pallet_bases, :set_updated_at)
-    drop_function(:pallet_bases_set_updated_at)
+    drop_function(:pgt_pallet_bases_set_updated_at)
     drop_table(:pallet_bases)
   end
 end

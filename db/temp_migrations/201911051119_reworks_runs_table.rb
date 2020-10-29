@@ -16,15 +16,13 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:reworks_runs,
                    :created_at,
-                   function_name: :reworks_runs_set_created_at,
+                   function_name: :pgt_reworks_runs_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:reworks_runs,
                    :updated_at,
-                   function_name: :reworks_runs_set_updated_at,
+                   function_name: :pgt_reworks_runs_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -36,9 +34,9 @@ Sequel.migration do
     drop_trigger(:reworks_runs, :audit_trigger_stm)
 
     drop_trigger(:reworks_runs, :set_created_at)
-    drop_function(:reworks_runs_set_created_at)
+    drop_function(:pgt_reworks_runs_set_created_at)
     drop_trigger(:reworks_runs, :set_updated_at)
-    drop_function(:reworks_runs_set_updated_at)
+    drop_function(:pgt_reworks_runs_set_updated_at)
     drop_table(:reworks_runs)
   end
 end

@@ -17,15 +17,13 @@ Sequel.migration do
 
       index [:label_template_name], name: :label_templates_unique_name, unique: true
     end
-
     pgt_created_at(:label_templates,
                    :created_at,
-                   function_name: :label_templates_set_created_at,
+                   function_name: :pgt_label_templates_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:label_templates,
                    :updated_at,
-                   function_name: :label_templates_set_updated_at,
+                   function_name: :pgt_label_templates_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -38,9 +36,9 @@ Sequel.migration do
     drop_trigger(:label_templates, :audit_trigger_stm)
 
     drop_trigger(:label_templates, :set_created_at)
-    drop_function(:label_templates_set_created_at)
+    drop_function(:pgt_label_templates_set_created_at)
     drop_trigger(:label_templates, :set_updated_at)
-    drop_function(:label_templates_set_updated_at)
+    drop_function(:pgt_label_templates_set_updated_at)
     drop_table(:label_templates)
   end
 end

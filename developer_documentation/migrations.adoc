@@ -98,23 +98,21 @@ sequel.migration do
       datetime :created_at, null: false
       datetime :updated_at, null: false
     end
-
     pgt_created_at(:table_name,
                    :created_at,
-                   function_name: :table_name_set_created_at,
+                   function_name: :pgt_table_name_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:table_name,
                    :updated_at,
-                   function_name: :table_name_set_updated_at,
+                   function_name: :pgt_table_name_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:table_name, :set_created_at)
-    drop_function(:table_name_set_created_at)
+    drop_function(:pgt_table_name_set_created_at)
     drop_trigger(:table_name, :set_updated_at)
-    drop_function(:table_name_set_updated_at)
+    drop_function(:pgt_table_name_set_updated_at)
     drop_table :table_name
   end
 end

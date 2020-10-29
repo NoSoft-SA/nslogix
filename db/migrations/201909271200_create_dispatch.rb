@@ -14,15 +14,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       index [:depot_code], name: :depot_unique_code, unique: true
     end
-
     pgt_created_at(:depots,
                    :created_at,
-                   function_name: :depots_set_created_at,
+                   function_name: :pgt_depots_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:depots,
                    :updated_at,
-                   function_name: :depots_set_updated_at,
+                   function_name: :pgt_depots_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -38,15 +36,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       index [:voyage_type_code], name: :voyage_types_unique_code, unique: true
     end
-
     pgt_created_at(:voyage_types,
                    :created_at,
-                   function_name: :voyage_types_set_created_at,
+                   function_name: :pgt_voyage_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:voyage_types,
                    :updated_at,
-                   function_name: :voyage_types_set_updated_at,
+                   function_name: :pgt_voyage_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -62,15 +58,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       # index [:port_type_code], name: :port_types_unique_code, unique: true
     end
-
     pgt_created_at(:port_types,
                    :created_at,
-                   function_name: :port_types_set_created_at,
+                   function_name: :pgt_port_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:port_types,
                    :updated_at,
-                   function_name: :port_types_set_updated_at,
+                   function_name: :pgt_port_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -87,15 +81,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       index [:vessel_type_code], name: :vessel_types_unique_code, unique: true
     end
-
     pgt_created_at(:vessel_types,
                    :created_at,
-                   function_name: :vessel_types_set_created_at,
+                   function_name: :pgt_vessel_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:vessel_types,
                    :updated_at,
-                   function_name: :vessel_types_set_updated_at,
+                   function_name: :pgt_vessel_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -115,15 +107,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       index [:port_code], name: :ports_unique_code, unique: true
     end
-
     pgt_created_at(:ports,
                    :created_at,
-                   function_name: :ports_set_created_at,
+                   function_name: :pgt_ports_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:ports,
                    :updated_at,
-                   function_name: :ports_set_updated_at,
+                   function_name: :pgt_ports_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -140,15 +130,13 @@ Sequel.migration do
       DateTime :updated_at, null: false
       index [:vessel_code], name: :vessels_unique_code, unique: true
     end
-
     pgt_created_at(:vessels,
                    :created_at,
-                   function_name: :vessels_set_created_at,
+                   function_name: :pgt_vessels_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:vessels,
                    :updated_at,
-                   function_name: :vessels_set_updated_at,
+                   function_name: :pgt_vessels_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -162,9 +150,9 @@ Sequel.migration do
     drop_trigger(:vessels, :audit_trigger_stm)
 
     drop_trigger(:vessels, :set_created_at)
-    drop_function(:vessels_set_created_at)
+    drop_function(:pgt_vessels_set_created_at)
     drop_trigger(:vessels, :set_updated_at)
-    drop_function(:vessels_set_updated_at)
+    drop_function(:pgt_vessels_set_updated_at)
     drop_table(:vessels)
 
     # Drop logging for ports table.
@@ -172,9 +160,9 @@ Sequel.migration do
     drop_trigger(:ports, :audit_trigger_stm)
 
     drop_trigger(:ports, :set_created_at)
-    drop_function(:ports_set_created_at)
+    drop_function(:pgt_ports_set_created_at)
     drop_trigger(:ports, :set_updated_at)
-    drop_function(:ports_set_updated_at)
+    drop_function(:pgt_ports_set_updated_at)
     drop_table(:ports)
 
     # Drop logging for vessel_types table.
@@ -182,9 +170,9 @@ Sequel.migration do
     drop_trigger(:vessel_types, :audit_trigger_stm)
 
     drop_trigger(:vessel_types, :set_created_at)
-    drop_function(:vessel_types_set_created_at)
+    drop_function(:pgt_vessel_types_set_created_at)
     drop_trigger(:vessel_types, :set_updated_at)
-    drop_function(:vessel_types_set_updated_at)
+    drop_function(:pgt_vessel_types_set_updated_at)
     drop_table(:vessel_types)
 
     # Drop logging for port_types table.
@@ -192,9 +180,9 @@ Sequel.migration do
     drop_trigger(:port_types, :audit_trigger_stm)
 
     drop_trigger(:port_types, :set_created_at)
-    drop_function(:port_types_set_created_at)
+    drop_function(:pgt_port_types_set_created_at)
     drop_trigger(:port_types, :set_updated_at)
-    drop_function(:port_types_set_updated_at)
+    drop_function(:pgt_port_types_set_updated_at)
     drop_table(:port_types)
 
     # Drop logging for voyage_types table.
@@ -202,9 +190,9 @@ Sequel.migration do
     drop_trigger(:voyage_types, :audit_trigger_stm)
 
     drop_trigger(:voyage_types, :set_created_at)
-    drop_function(:voyage_types_set_created_at)
+    drop_function(:pgt_voyage_types_set_created_at)
     drop_trigger(:voyage_types, :set_updated_at)
-    drop_function(:voyage_types_set_updated_at)
+    drop_function(:pgt_voyage_types_set_updated_at)
     drop_table(:voyage_types)
 
     # Drop logging for destination_depots table.
@@ -212,9 +200,9 @@ Sequel.migration do
     drop_trigger(:depots, :audit_trigger_stm)
 
     drop_trigger(:depots, :set_created_at)
-    drop_function(:depots_set_created_at)
+    drop_function(:pgt_depots_set_created_at)
     drop_trigger(:depots, :set_updated_at)
-    drop_function(:depots_set_updated_at)
+    drop_function(:pgt_depots_set_updated_at)
     drop_table(:depots)
   end
 end

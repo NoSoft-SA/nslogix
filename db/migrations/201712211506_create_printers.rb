@@ -12,23 +12,21 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:printers,
                    :created_at,
-                   function_name: :printers_set_created_at,
+                   function_name: :pgt_printers_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:printers,
                    :updated_at,
-                   function_name: :printers_set_updated_at,
+                   function_name: :pgt_printers_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:printers, :set_created_at)
-    drop_function(:printers_set_created_at)
+    drop_function(:pgt_printers_set_created_at)
     drop_trigger(:printers, :set_updated_at)
-    drop_function(:printers_set_updated_at)
+    drop_function(:pgt_printers_set_updated_at)
     drop_table(:printers)
   end
 end

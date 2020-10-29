@@ -12,15 +12,13 @@ Sequel.migration do
 
       index [:printer_id, :application], name: :printer_applications_application_unique, unique: true
     end
-
     pgt_created_at(:printer_applications,
                    :created_at,
-                   function_name: :printer_applications_set_created_at,
+                   function_name: :pgt_printer_applications_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:printer_applications,
                    :updated_at,
-                   function_name: :printer_applications_set_updated_at,
+                   function_name: :pgt_printer_applications_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -33,9 +31,9 @@ Sequel.migration do
     drop_trigger(:printer_applications, :audit_trigger_stm)
 
     drop_trigger(:printer_applications, :set_created_at)
-    drop_function(:printer_applications_set_created_at)
+    drop_function(:pgt_printer_applications_set_created_at)
     drop_trigger(:printer_applications, :set_updated_at)
-    drop_function(:printer_applications_set_updated_at)
+    drop_function(:pgt_printer_applications_set_updated_at)
     drop_table(:printer_applications)
   end
 end

@@ -14,11 +14,11 @@ Sequel.migration do
     end
     pgt_created_at(:customer_varieties,
                    :created_at,
-                   function_name: :customer_varieties_set_created_at,
+                   function_name: :pgt_customer_varieties_set_created_at,
                    trigger_name: :set_created_at)
     pgt_updated_at(:customer_varieties,
                    :updated_at,
-                   function_name: :customer_varieties_set_updated_at,
+                   function_name: :pgt_customer_varieties_set_updated_at,
                    trigger_name: :set_updated_at)
     # Log changes to this table. Exclude changes to the updated_at column.
     run "SELECT audit.audit_table('customer_varieties', true, true, '{updated_at}'::text[]);"
@@ -34,11 +34,11 @@ Sequel.migration do
     end
     pgt_created_at(:customer_variety_varieties,
                    :created_at,
-                   function_name: :customer_variety_varieties_set_created_at,
+                   function_name: :pgt_customer_variety_varieties_set_created_at,
                    trigger_name: :set_created_at)
     pgt_updated_at(:customer_variety_varieties,
                    :updated_at,
-                   function_name: :customer_variety_varieties_set_updated_at,
+                   function_name: :pgt_customer_variety_varieties_set_updated_at,
                    trigger_name: :set_updated_at)
     # Log changes to this table. Exclude changes to the updated_at column.
     run "SELECT audit.audit_table('customer_variety_varieties', true, true, '{updated_at}'::text[]);"
@@ -50,18 +50,18 @@ Sequel.migration do
     drop_trigger(:customer_variety_varieties, :audit_trigger_stm)
 
     drop_trigger(:customer_variety_varieties, :set_created_at)
-    drop_function(:customer_variety_varieties_set_created_at)
+    drop_function(:pgt_customer_variety_varieties_set_created_at)
     drop_trigger(:customer_variety_varieties, :set_updated_at)
-    drop_function(:customer_variety_varieties_set_updated_at)
+    drop_function(:pgt_customer_variety_varieties_set_updated_at)
     drop_table(:customer_variety_varieties)
 
     drop_trigger(:customer_varieties, :audit_trigger_row)
     drop_trigger(:customer_varieties, :audit_trigger_stm)
 
     drop_trigger(:customer_varieties, :set_created_at)
-    drop_function(:customer_varieties_set_created_at)
+    drop_function(:pgt_customer_varieties_set_created_at)
     drop_trigger(:customer_varieties, :set_updated_at)
-    drop_function(:customer_varieties_set_updated_at)
+    drop_function(:pgt_customer_varieties_set_updated_at)
     drop_table(:customer_varieties)
   end
 end

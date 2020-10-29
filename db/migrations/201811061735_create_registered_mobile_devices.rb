@@ -13,15 +13,13 @@ Sequel.migration do
 
       index [:ip_address], name: :registered_mobile_devices_unique_ip, unique: true
     end
-
     pgt_created_at(:registered_mobile_devices,
                    :created_at,
-                   function_name: :registered_mobile_devices_set_created_at,
+                   function_name: :pgt_registered_mobile_devices_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:registered_mobile_devices,
                    :updated_at,
-                   function_name: :registered_mobile_devices_set_updated_at,
+                   function_name: :pgt_registered_mobile_devices_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -34,9 +32,9 @@ Sequel.migration do
     drop_trigger(:registered_mobile_devices, :audit_trigger_stm)
 
     drop_trigger(:registered_mobile_devices, :set_created_at)
-    drop_function(:registered_mobile_devices_set_created_at)
+    drop_function(:pgt_registered_mobile_devices_set_created_at)
     drop_trigger(:registered_mobile_devices, :set_updated_at)
-    drop_function(:registered_mobile_devices_set_updated_at)
+    drop_function(:pgt_registered_mobile_devices_set_updated_at)
     drop_table(:registered_mobile_devices)
   end
 end

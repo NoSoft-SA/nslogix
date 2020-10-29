@@ -112,8 +112,7 @@ module MasterfilesApp
       farm_pucs_ids = Array(params.to_h.delete(:puc_id))
       farm_id = DB[:farms].insert(params)
       farm_pucs_ids.each do |puc_id|
-        DB[:farm_pucs].insert(farm_id: farm_id,
-                               puc_id: puc_id)
+        DB[:farm_pucs].insert(farm_id: farm_id, puc_id: puc_id)
       end
       farm_id
     end
@@ -126,8 +125,7 @@ module MasterfilesApp
       new_farm_pucs_ids = farm_pucs_ids - existing_farm_pucs_ids
       DB[:farm_pucs].where(farm_id: id).where(puc_id: removed_farm_pucs_ids).delete
       new_farm_pucs_ids.each do |puc_id|
-        DB[:farm_pucs].insert(farm_id: id,
-                               puc_id: puc_id)
+        DB[:farm_pucs].insert(farm_id: id, puc_id: puc_id)
       end
     end
 

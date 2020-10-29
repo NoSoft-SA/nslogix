@@ -13,15 +13,13 @@ Sequel.migration do
 
       index [:season_group_code], name: :season_groups_unique_code, unique: true
     end
-
     pgt_created_at(:season_groups,
                    :created_at,
-                   function_name: :season_groups_set_created_at,
+                   function_name: :pgt_season_groups_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:season_groups,
                    :updated_at,
-                   function_name: :season_groups_set_updated_at,
+                   function_name: :pgt_season_groups_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -34,9 +32,9 @@ Sequel.migration do
     drop_trigger(:season_groups, :audit_trigger_stm)
 
     drop_trigger(:season_groups, :set_created_at)
-    drop_function(:season_groups_set_created_at)
+    drop_function(:pgt_season_groups_set_created_at)
     drop_trigger(:season_groups, :set_updated_at)
-    drop_function(:season_groups_set_updated_at)
+    drop_function(:pgt_season_groups_set_updated_at)
     drop_table(:season_groups)
   end
 end

@@ -12,15 +12,13 @@ Sequel.migration do
 
       index [:run_type], name: :reworks_run_types_unique_code, unique: true
     end
-
     pgt_created_at(:reworks_run_types,
                    :created_at,
-                   function_name: :reworks_run_types_set_created_at,
+                   function_name: :pgt_reworks_run_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:reworks_run_types,
                    :updated_at,
-                   function_name: :reworks_run_types_set_updated_at,
+                   function_name: :pgt_reworks_run_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -36,15 +34,13 @@ Sequel.migration do
 
       index [:scrap_reason], name: :scrap_reasons_unique_code, unique: true
     end
-
     pgt_created_at(:scrap_reasons,
                    :created_at,
-                   function_name: :scrap_reasons_set_created_at,
+                   function_name: :pgt_scrap_reasons_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:scrap_reasons,
                    :updated_at,
-                   function_name: :scrap_reasons_set_updated_at,
+                   function_name: :pgt_scrap_reasons_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -56,18 +52,18 @@ Sequel.migration do
     drop_trigger(:reworks_run_types, :audit_trigger_stm)
 
     drop_trigger(:reworks_run_types, :set_created_at)
-    drop_function(:reworks_run_types_set_created_at)
+    drop_function(:pgt_reworks_run_types_set_created_at)
     drop_trigger(:reworks_run_types, :set_updated_at)
-    drop_function(:reworks_run_types_set_updated_at)
+    drop_function(:pgt_reworks_run_types_set_updated_at)
     drop_table(:reworks_run_types)
 
     drop_trigger(:scrap_reasons, :audit_trigger_row)
     drop_trigger(:scrap_reasons, :audit_trigger_stm)
 
     drop_trigger(:scrap_reasons, :set_created_at)
-    drop_function(:scrap_reasons_set_created_at)
+    drop_function(:pgt_scrap_reasons_set_created_at)
     drop_trigger(:scrap_reasons, :set_updated_at)
-    drop_function(:scrap_reasons_set_updated_at)
+    drop_function(:pgt_scrap_reasons_set_updated_at)
     drop_table(:scrap_reasons)
   end
 end

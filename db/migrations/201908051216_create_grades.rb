@@ -13,15 +13,13 @@ Sequel.migration do
 
       index [:grade_code], name: :grades_unique_code, unique: true
     end
-
     pgt_created_at(:grades,
                    :created_at,
-                   function_name: :grades_set_created_at,
+                   function_name: :pgt_grades_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:grades,
                    :updated_at,
-                   function_name: :grades_set_updated_at,
+                   function_name: :pgt_grades_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -33,9 +31,9 @@ Sequel.migration do
     drop_trigger(:grades, :audit_trigger_stm)
 
     drop_trigger(:grades, :set_created_at)
-    drop_function(:grades_set_created_at)
+    drop_function(:pgt_grades_set_created_at)
     drop_trigger(:grades, :set_updated_at)
-    drop_function(:grades_set_updated_at)
+    drop_function(:pgt_grades_set_updated_at)
     drop_table(:grades)
   end
 end

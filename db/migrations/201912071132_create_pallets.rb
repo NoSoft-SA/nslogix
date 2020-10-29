@@ -38,17 +38,14 @@ Sequel.migration do
 
       index [:pallet_number], name: :pallets_unique_code, unique: true
       index [:id, :pallet_number], name: :pallet_idx, unique: true
-
     end
-
     pgt_created_at(:pallets,
                    :created_at,
-                   function_name: :pallets_set_created_at,
+                   function_name: :pgt_pallets_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pallets,
                    :updated_at,
-                   function_name: :pallets_set_updated_at,
+                   function_name: :pgt_pallets_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -97,17 +94,14 @@ Sequel.migration do
 
       index [:pallet_number, :pallet_sequence_number], name: :pallet_sequences_idx, unique: true
       index [:pallet_id, :pallet_number, :pallet_sequence_number], name: :pallet_sequences_unique_idx, unique: true
-
     end
-
     pgt_created_at(:pallet_sequences,
                    :created_at,
-                   function_name: :pallet_sequences_set_created_at,
+                   function_name: :pgt_pallet_sequences_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pallet_sequences,
                    :updated_at,
-                   function_name: :pallet_sequences_set_updated_at,
+                   function_name: :pgt_pallet_sequences_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -119,18 +113,18 @@ Sequel.migration do
     drop_trigger(:pallet_sequences, :audit_trigger_stm)
 
     drop_trigger(:pallet_sequences, :set_created_at)
-    drop_function(:pallet_sequences_set_created_at)
+    drop_function(:pgt_pallet_sequences_set_created_at)
     drop_trigger(:pallet_sequences, :set_updated_at)
-    drop_function(:pallet_sequences_set_updated_at)
+    drop_function(:pgt_pallet_sequences_set_updated_at)
     drop_table(:pallet_sequences)
 
     drop_trigger(:pallets, :audit_trigger_row)
     drop_trigger(:pallets, :audit_trigger_stm)
 
     drop_trigger(:pallets, :set_created_at)
-    drop_function(:pallets_set_created_at)
+    drop_function(:pgt_pallets_set_created_at)
     drop_trigger(:pallets, :set_updated_at)
-    drop_function(:pallets_set_updated_at)
+    drop_function(:pgt_pallets_set_updated_at)
     drop_table(:pallets)
   end
 end

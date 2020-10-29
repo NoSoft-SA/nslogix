@@ -17,23 +17,21 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:standard_product_weights,
                    :created_at,
-                   function_name: :standard_product_weight_set_created_at,
+                   function_name: :pgt_standard_product_weight_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:standard_product_weights,
                    :updated_at,
-                   function_name: :standard_product_weight_set_updated_at,
+                   function_name: :pgt_standard_product_weight_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:standard_product_weights, :set_created_at)
-    drop_function(:standard_product_weight_set_created_at)
+    drop_function(:pgt_standard_product_weight_set_created_at)
     drop_trigger(:standard_product_weights, :set_updated_at)
-    drop_function(:standard_product_weight_set_updated_at)
+    drop_function(:pgt_standard_product_weight_set_updated_at)
     drop_table :standard_product_weights
   end
 end

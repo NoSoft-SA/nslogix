@@ -13,15 +13,13 @@ Sequel.migration do
 
       index [:farm_group_code], name: :farm_groups_unique_code, unique: true
     end
-
     pgt_created_at(:farm_groups,
                    :created_at,
-                   function_name: :farm_groups_set_created_at,
+                   function_name: :pgt_farm_groups_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:farm_groups,
                    :updated_at,
-                   function_name: :farm_groups_set_updated_at,
+                   function_name: :pgt_farm_groups_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -41,15 +39,13 @@ Sequel.migration do
 
       index [:farm_code], name: :farms_unique_code, unique: true
     end
-
     pgt_created_at(:farms,
                    :created_at,
-                   function_name: :farms_set_created_at,
+                   function_name: :pgt_farms_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:farms,
                    :updated_at,
-                   function_name: :farms_set_updated_at,
+                   function_name: :pgt_farms_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -65,15 +61,13 @@ Sequel.migration do
 
       index [:puc_code], name: :pucs_unique_code, unique: true
     end
-
     pgt_created_at(:pucs,
                    :created_at,
-                   function_name: :pucs_set_created_at,
+                   function_name: :pgt_pucs_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:pucs,
                    :updated_at,
-                   function_name: :pucs_set_updated_at,
+                   function_name: :pgt_pucs_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -87,12 +81,11 @@ Sequel.migration do
     end
     pgt_created_at(:farm_pucs,
                    :created_at,
-                   function_name: :farm_pucs_set_created_at,
+                   function_name: :pgt_farm_pucs_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:farm_pucs,
                    :updated_at,
-                   function_name: :farm_pucs_set_updated_at,
+                   function_name: :pgt_farm_pucs_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -112,15 +105,13 @@ Sequel.migration do
 
       index [:orchard_code], name: :orchards_unique_code, unique: true
     end
-
     pgt_created_at(:orchards,
                    :created_at,
-                   function_name: :orchards_set_created_at,
+                   function_name: :pgt_orchards_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:orchards,
                    :updated_at,
-                   function_name: :orchards_set_updated_at,
+                   function_name: :pgt_orchards_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -137,12 +128,11 @@ Sequel.migration do
     end
     pgt_created_at(:farm_sections,
                    :created_at,
-                   function_name: :farm_sections_set_created_at,
+                   function_name: :pgt_farm_sections_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:farm_sections,
                    :updated_at,
-                   function_name: :farm_sections_set_updated_at,
+                   function_name: :pgt_farm_sections_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -156,54 +146,54 @@ Sequel.migration do
     drop_trigger(:farm_sections, :audit_trigger_stm)
 
     drop_trigger(:farm_sections, :set_created_at)
-    drop_function(:farm_sections_set_created_at)
+    drop_function(:pgt_farm_sections_set_created_at)
     drop_trigger(:farm_sections, :set_updated_at)
-    drop_function(:farm_sections_set_updated_at)
+    drop_function(:pgt_farm_sections_set_updated_at)
     drop_table(:farm_sections)
 
     drop_trigger(:orchards, :audit_trigger_row)
     drop_trigger(:orchards, :audit_trigger_stm)
 
     drop_trigger(:orchards, :set_created_at)
-    drop_function(:orchards_set_created_at)
+    drop_function(:pgt_orchards_set_created_at)
     drop_trigger(:orchards, :set_updated_at)
-    drop_function(:orchards_set_updated_at)
+    drop_function(:pgt_orchards_set_updated_at)
     drop_table(:orchards)
 
     drop_trigger(:farm_pucs, :audit_trigger_row)
     drop_trigger(:farm_pucs, :audit_trigger_stm)
 
     drop_trigger(:farm_pucs, :set_created_at)
-    drop_function(:farm_pucs_set_created_at)
+    drop_function(:pgt_farm_pucs_set_created_at)
     drop_trigger(:farm_pucs, :set_updated_at)
-    drop_function(:farm_pucs_set_updated_at)
+    drop_function(:pgt_farm_pucs_set_updated_at)
     drop_table(:farm_pucs)
 
     drop_trigger(:pucs, :audit_trigger_row)
     drop_trigger(:pucs, :audit_trigger_stm)
 
     drop_trigger(:pucs, :set_created_at)
-    drop_function(:pucs_set_created_at)
+    drop_function(:pgt_pucs_set_created_at)
     drop_trigger(:pucs, :set_updated_at)
-    drop_function(:pucs_set_updated_at)
+    drop_function(:pgt_pucs_set_updated_at)
     drop_table(:pucs)
 
     drop_trigger(:farms, :audit_trigger_row)
     drop_trigger(:farms, :audit_trigger_stm)
 
     drop_trigger(:farms, :set_created_at)
-    drop_function(:farms_set_created_at)
+    drop_function(:pgt_farms_set_created_at)
     drop_trigger(:farms, :set_updated_at)
-    drop_function(:farms_set_updated_at)
+    drop_function(:pgt_farms_set_updated_at)
     drop_table(:farms)
 
     drop_trigger(:farm_groups, :audit_trigger_row)
     drop_trigger(:farm_groups, :audit_trigger_stm)
 
     drop_trigger(:farm_groups, :set_created_at)
-    drop_function(:farm_groups_set_created_at)
+    drop_function(:pgt_farm_groups_set_created_at)
     drop_trigger(:farm_groups, :set_updated_at)
-    drop_function(:farm_groups_set_updated_at)
+    drop_function(:pgt_farm_groups_set_updated_at)
     drop_table(:farm_groups)
   end
 end

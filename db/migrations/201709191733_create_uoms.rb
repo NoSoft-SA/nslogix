@@ -12,12 +12,11 @@ Sequel.migration do
     end
     pgt_created_at(:uom_types,
                    :created_at,
-                   function_name: :uom_types_set_created_at,
+                   function_name: :pgt_uom_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:uom_types,
                    :updated_at,
-                   function_name: :uom_types_set_updated_at,
+                   function_name: :pgt_uom_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:uoms, ignore_index_errors: true) do
@@ -32,26 +31,25 @@ Sequel.migration do
     end
     pgt_created_at(:uoms,
                    :created_at,
-                   function_name: :uoms_set_created_at,
+                   function_name: :pgt_uoms_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:uoms,
                    :updated_at,
-                   function_name: :uoms_set_updated_at,
+                   function_name: :pgt_uoms_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:uoms, :set_created_at)
-    drop_function(:uoms_set_created_at)
+    drop_function(:pgt_uoms_set_created_at)
     drop_trigger(:uoms, :set_updated_at)
-    drop_function(:uoms_set_updated_at)
+    drop_function(:pgt_uoms_set_updated_at)
     drop_table(:uoms)
 
     drop_trigger(:uom_types, :set_created_at)
-    drop_function(:uom_types_set_created_at)
+    drop_function(:pgt_uom_types_set_created_at)
     drop_trigger(:uom_types, :set_updated_at)
-    drop_function(:uom_types_set_updated_at)
+    drop_function(:pgt_uom_types_set_updated_at)
     drop_table(:uom_types)
   end
 end

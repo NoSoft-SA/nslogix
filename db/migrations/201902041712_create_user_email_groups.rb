@@ -11,15 +11,13 @@ Sequel.migration do
 
       index [:mail_group], name: :user_email_groups_unique_code, unique: true
     end
-
     pgt_created_at(:user_email_groups,
                    :created_at,
-                   function_name: :user_email_groups_set_created_at,
+                   function_name: :pgt_user_email_groups_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:user_email_groups,
                    :updated_at,
-                   function_name: :user_email_groups_set_updated_at,
+                   function_name: :pgt_user_email_groups_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # JOIN user_email_groups to users
@@ -36,9 +34,9 @@ Sequel.migration do
     drop_table(:user_email_groups_users)
     
     drop_trigger(:user_email_groups, :set_created_at)
-    drop_function(:user_email_groups_set_created_at)
+    drop_function(:pgt_user_email_groups_set_created_at)
     drop_trigger(:user_email_groups, :set_updated_at)
-    drop_function(:user_email_groups_set_updated_at)
+    drop_function(:pgt_user_email_groups_set_updated_at)
     drop_table(:user_email_groups)
   end
 end

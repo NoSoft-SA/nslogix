@@ -15,12 +15,11 @@ Sequel.migration do
     end
     pgt_created_at(:edi_out_rules,
                    :created_at,
-                   function_name: :edi_out_rules_set_created_at,
+                   function_name: :pgt_edi_out_rules_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:edi_out_rules,
                    :updated_at,
-                   function_name: :edi_out_rules_set_updated_at,
+                   function_name: :pgt_edi_out_rules_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -42,15 +41,13 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:edi_out_transactions,
                    :created_at,
-                   function_name: :edi_out_transactions_set_created_at,
+                   function_name: :pgt_edi_out_transactions_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:edi_out_transactions,
                    :updated_at,
-                   function_name: :edi_out_transactions_set_updated_at,
+                   function_name: :pgt_edi_out_transactions_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -79,12 +76,11 @@ Sequel.migration do
     end
     pgt_created_at(:edi_in_transactions,
                    :created_at,
-                   function_name: :edi_in_transactions_set_created_at,
+                   function_name: :pgt_edi_in_transactions_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:edi_in_transactions,
                    :updated_at,
-                   function_name: :edi_in_transactions_set_updated_at,
+                   function_name: :pgt_edi_in_transactions_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -97,9 +93,9 @@ Sequel.migration do
     drop_trigger(:edi_in_transactions, :audit_trigger_stm)
 
     drop_trigger(:edi_in_transactions, :set_created_at)
-    drop_function(:edi_in_transactions_set_created_at)
+    drop_function(:pgt_edi_in_transactions_set_created_at)
     drop_trigger(:edi_in_transactions, :set_updated_at)
-    drop_function(:edi_in_transactions_set_updated_at)
+    drop_function(:pgt_edi_in_transactions_set_updated_at)
     drop_table(:edi_in_transactions)
 
     # Drop logging for this table.
@@ -107,9 +103,9 @@ Sequel.migration do
     drop_trigger(:edi_out_transactions, :audit_trigger_stm)
 
     drop_trigger(:edi_out_transactions, :set_created_at)
-    drop_function(:edi_out_transactions_set_created_at)
+    drop_function(:pgt_edi_out_transactions_set_created_at)
     drop_trigger(:edi_out_transactions, :set_updated_at)
-    drop_function(:edi_out_transactions_set_updated_at)
+    drop_function(:pgt_edi_out_transactions_set_updated_at)
     drop_table(:edi_out_transactions)
 
     # Drop logging for this table.
@@ -117,9 +113,9 @@ Sequel.migration do
     drop_trigger(:edi_out_rules, :audit_trigger_stm)
 
     drop_trigger(:edi_out_rules, :set_created_at)
-    drop_function(:edi_out_rules_set_created_at)
+    drop_function(:pgt_edi_out_rules_set_created_at)
     drop_trigger(:edi_out_rules, :set_updated_at)
-    drop_function(:edi_out_rules_set_updated_at)
+    drop_function(:pgt_edi_out_rules_set_updated_at)
     drop_table(:edi_out_rules)
   end
 end

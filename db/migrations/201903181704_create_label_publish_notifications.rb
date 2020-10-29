@@ -17,15 +17,13 @@ Sequel.migration do
       index :label_publish_log_id, name: :fki_lbl_pub_note_lbl_pub_log
       index :label_id, name: :fki_lbl_pub_note_label
     end
-
     pgt_created_at(:label_publish_notifications,
                    :created_at,
-                   function_name: :label_publish_notifications_set_created_at,
+                   function_name: :pgt_label_publish_notifications_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:label_publish_notifications,
                    :updated_at,
-                   function_name: :label_publish_notifications_set_updated_at,
+                   function_name: :pgt_label_publish_notifications_set_updated_at,
                    trigger_name: :set_updated_at)
 
     alter_table(:label_publish_log_details) do
@@ -41,9 +39,9 @@ Sequel.migration do
     end
 
     drop_trigger(:label_publish_notifications, :set_created_at)
-    drop_function(:label_publish_notifications_set_created_at)
+    drop_function(:pgt_label_publish_notifications_set_created_at)
     drop_trigger(:label_publish_notifications, :set_updated_at)
-    drop_function(:label_publish_notifications_set_updated_at)
+    drop_function(:pgt_label_publish_notifications_set_updated_at)
     drop_table(:label_publish_notifications)
   end
 end

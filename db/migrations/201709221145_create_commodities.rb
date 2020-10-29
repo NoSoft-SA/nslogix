@@ -14,12 +14,11 @@ Sequel.migration do
     end
     pgt_created_at(:commodity_groups,
                    :created_at,
-                   function_name: :commodity_groups_set_created_at,
+                   function_name: :pgt_commodity_groups_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:commodity_groups,
                    :updated_at,
-                   function_name: :commodity_groups_set_updated_at,
+                   function_name: :pgt_commodity_groups_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:commodities, ignore_index_errors: true) do
@@ -37,26 +36,25 @@ Sequel.migration do
     end
     pgt_created_at(:commodities,
                    :created_at,
-                   function_name: :commodities_set_created_at,
+                   function_name: :pgt_commodities_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:commodities,
                    :updated_at,
-                   function_name: :commodities_set_updated_at,
+                   function_name: :pgt_commodities_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:commodities, :set_created_at)
-    drop_function(:commodities_set_created_at)
+    drop_function(:pgt_commodities_set_created_at)
     drop_trigger(:commodities, :set_updated_at)
-    drop_function(:commodities_set_updated_at)
+    drop_function(:pgt_commodities_set_updated_at)
     drop_table(:commodities)
 
     drop_trigger(:commodity_groups, :set_created_at)
-    drop_function(:commodity_groups_set_created_at)
+    drop_function(:pgt_commodity_groups_set_created_at)
     drop_trigger(:commodity_groups, :set_updated_at)
-    drop_function(:commodity_groups_set_updated_at)
+    drop_function(:pgt_commodity_groups_set_updated_at)
     drop_table(:commodity_groups)
   end
 end

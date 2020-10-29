@@ -17,15 +17,13 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:label_publish_logs,
                    :created_at,
-                   function_name: :label_publish_logs_set_created_at,
+                   function_name: :pgt_label_publish_logs_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:label_publish_logs,
                    :updated_at,
-                   function_name: :label_publish_logs_set_updated_at,
+                   function_name: :pgt_label_publish_logs_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # LABEL PUBLISH_LOG_DETAILS
@@ -43,29 +41,27 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
-
     pgt_created_at(:label_publish_log_details,
                    :created_at,
-                   function_name: :label_publish_log_details_set_created_at,
+                   function_name: :pgt_label_publish_log_details_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:label_publish_log_details,
                    :updated_at,
-                   function_name: :label_publish_log_details_set_updated_at,
+                   function_name: :pgt_label_publish_log_details_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:label_publish_log_details, :set_created_at)
-    drop_function(:label_publish_log_details_set_created_at)
+    drop_function(:pgt_label_publish_log_details_set_created_at)
     drop_trigger(:label_publish_log_details, :set_updated_at)
-    drop_function(:label_publish_log_details_set_updated_at)
+    drop_function(:pgt_label_publish_log_details_set_updated_at)
     drop_table(:label_publish_log_details)
 
     drop_trigger(:label_publish_logs, :set_created_at)
-    drop_function(:label_publish_logs_set_created_at)
+    drop_function(:pgt_label_publish_logs_set_created_at)
     drop_trigger(:label_publish_logs, :set_updated_at)
-    drop_function(:label_publish_logs_set_updated_at)
+    drop_function(:pgt_label_publish_logs_set_updated_at)
     drop_table(:label_publish_logs)
   end
 end

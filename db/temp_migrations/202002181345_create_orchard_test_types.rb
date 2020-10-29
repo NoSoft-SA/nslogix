@@ -27,15 +27,13 @@ Sequel.migration do
 
       index [:test_type_code], name: :orchard_test_types_unique_code, unique: true
     end
-
     pgt_created_at(:orchard_test_types,
                    :created_at,
-                   function_name: :orchard_test_types_set_created_at,
+                   function_name: :pgt_orchard_test_types_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:orchard_test_types,
                    :updated_at,
-                   function_name: :orchard_test_types_set_updated_at,
+                   function_name: :pgt_orchard_test_types_set_updated_at,
                    trigger_name: :set_updated_at)
 
     # Log changes to this table. Exclude changes to the updated_at column.
@@ -48,9 +46,9 @@ Sequel.migration do
     drop_trigger(:orchard_test_types, :audit_trigger_stm)
 
     drop_trigger(:orchard_test_types, :set_created_at)
-    drop_function(:orchard_test_types_set_created_at)
+    drop_function(:pgt_orchard_test_types_set_created_at)
     drop_trigger(:orchard_test_types, :set_updated_at)
-    drop_function(:orchard_test_types_set_updated_at)
+    drop_function(:pgt_orchard_test_types_set_updated_at)
     drop_table(:orchard_test_types)
   end
 end

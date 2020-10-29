@@ -284,7 +284,6 @@ namespace :db do
           #                  :created_at,
           #                  function_name: :table_name_set_created_at,
           #                  trigger_name: :set_created_at)
-
           #   pgt_updated_at(:table_name,
           #                  :updated_at,
           #                  function_name: :table_name_set_updated_at,
@@ -293,9 +292,9 @@ namespace :db do
 
           # down do
           #   drop_trigger(:table_name, :set_created_at)
-          #   drop_function(:table_name_set_created_at)
+          #   drop_function(:pgt_table_name_set_created_at)
           #   drop_trigger(:table_name, :set_updated_at)
-          #   drop_function(:table_name_set_updated_at)
+          #   drop_function(:pgt_table_name_set_updated_at)
           # end
         end
       RUBY
@@ -331,16 +330,14 @@ namespace :db do
                # index [:code], name: :#{nm}_unique_code, unique: true
                # index [:some_id], name: :fki_#{nm}_some_table_name
              end
-
-            pgt_created_at(:#{nm},
-                           :created_at,
-                           function_name: :#{nm}_set_created_at,
-                           trigger_name: :set_created_at)
-
-            pgt_updated_at(:#{nm},
-                           :updated_at,
-                           function_name: :#{nm}_set_updated_at,
-                           trigger_name: :set_updated_at)
+             pgt_created_at(:#{nm},
+                            :created_at,
+                            function_name: :pgt_#{nm}_set_created_at,
+                            trigger_name: :set_created_at)
+             pgt_updated_at(:#{nm},
+                            :updated_at,
+                            function_name: :pgt_#{nm}_set_updated_at,
+                            trigger_name: :set_updated_at)
 
              # Log changes to this table. Exclude changes to the updated_at column.
              run "SELECT audit.audit_table('#{nm}', true, true, '{updated_at}'::text[]);"
@@ -351,10 +348,10 @@ namespace :db do
              drop_trigger(:#{nm}, :audit_trigger_row)
              drop_trigger(:#{nm}, :audit_trigger_stm)
 
-            drop_trigger(:#{nm}, :set_created_at)
-            drop_function(:#{nm}_set_created_at)
-            drop_trigger(:#{nm}, :set_updated_at)
-            drop_function(:#{nm}_set_updated_at)
+             drop_trigger(:#{nm}, :set_created_at)
+             drop_function(:pgt_#{nm}_set_created_at)
+             drop_trigger(:#{nm}, :set_updated_at)
+             drop_function(:pgt_#{nm}_set_updated_at)
              drop_table(:#{nm})
            end
          end

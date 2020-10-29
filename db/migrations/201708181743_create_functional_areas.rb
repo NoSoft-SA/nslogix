@@ -17,23 +17,21 @@ Sequel.migration do
     alter_table(:functional_areas) do
       set_column_type :functional_area_name, :citext
     end
-
     pgt_created_at(:functional_areas,
                    :created_at,
-                   function_name: :functional_areas_set_created_at,
+                   function_name: :pgt_functional_areas_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:functional_areas,
                    :updated_at,
-                   function_name: :functional_areas_set_updated_at,
+                   function_name: :pgt_functional_areas_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:functional_areas, :set_created_at)
-    drop_function(:functional_areas_set_created_at)
+    drop_function(:pgt_functional_areas_set_created_at)
     drop_trigger(:functional_areas, :set_updated_at)
-    drop_function(:functional_areas_set_updated_at)
+    drop_function(:pgt_functional_areas_set_updated_at)
     drop_table :functional_areas
   end
 end

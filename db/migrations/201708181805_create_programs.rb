@@ -18,23 +18,21 @@ Sequel.migration do
     alter_table(:programs) do
       set_column_type :program_name, :citext
     end
-
     pgt_created_at(:programs,
                    :created_at,
-                   function_name: :programs_set_created_at,
+                   function_name: :pgt_programs_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:programs,
                    :updated_at,
-                   function_name: :programs_set_updated_at,
+                   function_name: :pgt_programs_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:programs, :set_created_at)
-    drop_function(:programs_set_created_at)
+    drop_function(:pgt_programs_set_created_at)
     drop_trigger(:programs, :set_updated_at)
-    drop_function(:programs_set_updated_at)
+    drop_function(:pgt_programs_set_updated_at)
     drop_table(:programs)
   end
 end

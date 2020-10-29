@@ -10,23 +10,21 @@ Sequel.migration do
       
       index [:security_group_name], name: :security_groups_security_group_name_key, unique: true
     end
-
     pgt_created_at(:security_groups,
                    :created_at,
-                   function_name: :security_groups_set_created_at,
+                   function_name: :pgt_security_groups_set_created_at,
                    trigger_name: :set_created_at)
-
     pgt_updated_at(:security_groups,
                    :updated_at,
-                   function_name: :security_groups_set_updated_at,
+                   function_name: :pgt_security_groups_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
     drop_trigger(:security_groups, :set_created_at)
-    drop_function(:security_groups_set_created_at)
+    drop_function(:pgt_security_groups_set_created_at)
     drop_trigger(:security_groups, :set_updated_at)
-    drop_function(:security_groups_set_updated_at)
+    drop_function(:pgt_security_groups_set_updated_at)
     drop_table(:security_groups)
   end
 end
