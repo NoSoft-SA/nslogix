@@ -294,7 +294,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
       DB[qry].insert
     end
 
-    "INSERT INTO farms_pucs (puc_id, farm_id) VALUES( (SELECT id FROM pucs WHERE puc_code = '#{puc_code}'), (SELECT id FROM farms WHERE farm_code = '#{farm_code}') );\n"
+    "INSERT INTO farm_pucs (puc_id, farm_id) VALUES( (SELECT id FROM pucs WHERE puc_code = '#{puc_code}'), (SELECT id FROM farms WHERE farm_code = '#{farm_code}') );\n"
   end
 
   def create_record(row_data, col)  # rubocop:disable Metrics/AbcSize

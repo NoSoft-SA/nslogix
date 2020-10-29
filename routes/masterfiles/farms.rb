@@ -174,7 +174,7 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
 
       r.on 'link_farm_pucs' do
         r.post do
-          res = interactor.associate_farms_pucs(id, multiselect_grid_choices(params))
+          res = interactor.associate_farm_pucs(id, multiselect_grid_choices(params))
           if fetch?(r)
             show_json_notice(res.message)
           else

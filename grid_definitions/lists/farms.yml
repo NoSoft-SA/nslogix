@@ -27,7 +27,7 @@
   :title: Orchards for $:farm_code$
   :icon: list
   :popup: true
-- :url: "/list/link_farm_pucs/multi?key=farms_pucs&id=$:id$"
+- :url: "/list/link_farm_pucs/multi?key=farm_pucs&id=$:id$"
   :text: pucs
   :icon: list
   :popup: true

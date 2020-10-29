@@ -47,7 +47,7 @@ module MasterfilesApp
     crud_calls_for :farm_sections, name: :farm_section, wrapper: FarmSection
 
     def for_select_pucs(opts = {})
-      dataset = DB[:pucs].join(:farms_pucs, puc_id: :id).where(active: true).order(:puc_code)
+      dataset = DB[:pucs].join(:farm_pucs, puc_id: :id).where(active: true).order(:puc_code)
       if opts[:where]
         raise Crossbeams::FrameworkError, 'WHERE clause in "for_select" must be a hash' unless opts[:where].is_a?(Hash)
 
@@ -109,44 +109,44 @@ module MasterfilesApp
 
     def create_farm(attrs)
       params = attrs.to_h
-      farms_pucs_ids = Array(params.to_h.delete(:puc_id))
+      farm_pucs_ids = Array(params.to_h.delete(:puc_id))
       farm_id = DB[:farms].insert(params)
-      farms_pucs_ids.each do |puc_id|
-        DB[:farms_pucs].insert(farm_id: farm_id,
+      farm_pucs_ids.each do |puc_id|
+        DB[:farm_pucs].insert(farm_id: farm_id,
                                puc_id: puc_id)
       end
       farm_id
     end
 
-    def associate_farms_pucs(id, farms_pucs_ids)
-      return { error: 'Choose at least one puc' } if farms_pucs_ids.empty?
+    def associate_farm_pucs(id, farm_pucs_ids)
+      return { error: 'Choose at least one puc' } if farm_pucs_ids.empty?
 
-      existing_farms_pucs_ids = DB[:farms_pucs].where(farm_id: id).select_map(:puc_id)
-      removed_farms_pucs_ids = existing_farms_pucs_ids - farms_pucs_ids
-      new_farms_pucs_ids = farms_pucs_ids - existing_farms_pucs_ids
-      DB[:farms_pucs].where(farm_id: id).where(puc_id: removed_farms_pucs_ids).delete
-      new_farms_pucs_ids.each do |puc_id|
-        DB[:farms_pucs].insert(farm_id: id,
+      existing_farm_pucs_ids = DB[:farm_pucs].where(farm_id: id).select_map(:puc_id)
+      removed_farm_pucs_ids = existing_farm_pucs_ids - farm_pucs_ids
+      new_farm_pucs_ids = farm_pucs_ids - existing_farm_pucs_ids
+      DB[:farm_pucs].where(farm_id: id).where(puc_id: removed_farm_pucs_ids).delete
+      new_farm_pucs_ids.each do |puc_id|
+        DB[:farm_pucs].insert(farm_id: id,
                                puc_id: puc_id)
       end
     end
 
     def delete_farm(id)
-      DB[:farms_pucs].where(farm_id: id).delete
+      DB[:farm_pucs].where(farm_id: id).delete
       DB[:farms].where(id: id).delete
       { success: true }
     end
 
-    def delete_farms_pucs(puc_id)
-      DB[:farms_pucs].where(puc_id: puc_id).delete
+    def delete_farm_pucs(puc_id)
+      DB[:farm_pucs].where(puc_id: puc_id).delete
     end
 
     def find_puc_farm_codes(id)
-      DB[:farms].join(:farms_pucs, farm_id: :id).where(puc_id: id).order(:farm_code).select_map(:farm_code)
+      DB[:farms].join(:farm_pucs, farm_id: :id).where(puc_id: id).order(:farm_code).select_map(:farm_code)
     end
 
     def find_farm_puc_codes(id)
-      DB[:pucs].join(:farms_pucs, puc_id: :id).where(farm_id: id).order(:puc_code).select_map(:puc_code)
+      DB[:pucs].join(:farm_pucs, puc_id: :id).where(farm_id: id).order(:puc_code).select_map(:puc_code)
     end
 
     def find_farm_orchard_codes(id)
@@ -174,25 +174,25 @@ module MasterfilesApp
 
     def selected_puc_orchard_codes(puc_id)
       DB[:orchards]
-        .where(farm_id: DB[:farms_pucs].where(puc_id: puc_id).select(:farm_id))
+        .where(farm_id: DB[:farm_pucs].where(puc_id: puc_id).select(:farm_id))
         .where(puc_id: puc_id)
         .order(:orchard_code)
         .select_map(%i[orchard_code id])
     end
 
     def selected_farm_pucs(farm_id)
-      DB[:pucs].join(:farms_pucs, puc_id: :id).where(farm_id: farm_id).order(:puc_code).select_map(%i[puc_code puc_id])
+      DB[:pucs].join(:farm_pucs, puc_id: :id).where(farm_id: farm_id).order(:puc_code).select_map(%i[puc_code puc_id])
     end
 
     def farm_primary_puc_id(farm_id)
-      DB[:pucs].join(:farms_pucs, puc_id: :id).where(farm_id: farm_id).select_map(:puc_id).first
+      DB[:pucs].join(:farm_pucs, puc_id: :id).where(farm_id: farm_id).select_map(:puc_id).first
     end
 
     def select_unallocated_pucs
       query = <<~SQL
         SELECT puc_code,id
         FROM pucs
-        WHERE active AND id NOT IN (SELECT distinct puc_id from farms_pucs)
+        WHERE active AND id NOT IN (SELECT distinct puc_id from farm_pucs)
       SQL
       DB[query].order(:puc_code).select_map(%i[puc_code id])
     end

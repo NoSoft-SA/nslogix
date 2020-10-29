@@ -44,7 +44,7 @@ module EdiApp
     def find_farm_id(puc_id)
       return nil if puc_id.nil?
 
-      DB[:farms_pucs].where(puc_id: puc_id).select_map(:farm_id).first
+      DB[:farm_pucs].where(puc_id: puc_id).select_map(:farm_id).first
     end
 
     def find_orchard_id(farm_id, orchard)

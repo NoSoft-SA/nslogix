@@ -3,8 +3,8 @@
 :sql: "SELECT pucs.id,\r\n       pucs.puc_code,\r\n       fn_masterfile_variants('pucs',
   pucs.id) AS variant_codes,\r\n       pucs.gap_code,\r\n       array_agg(farms.farm_code
   order by farms.farm_code) AS farm_codes,\r\n       pucs.active,\r\n       pucs.created_at,\r\n
-  \      pucs.updated_at\r\nFROM pucs\r\nLEFT JOIN farms_pucs on pucs.id = farms_pucs.puc_id\r\nLEFT
-  JOIN farms on farms_pucs.farm_id = farms.id\r\nGROUP BY pucs.id"
+  \      pucs.updated_at\r\nFROM pucs\r\nLEFT JOIN farm_pucs on pucs.id = farm_pucs.puc_id\r\nLEFT
+  JOIN farms on farm_pucs.farm_id = farms.id\r\nGROUP BY pucs.id"
 :limit: 
 :offset: 
 :external_settings: {}

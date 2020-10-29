@@ -16,7 +16,7 @@ module MasterfilesApp
         description: 'ABC',
         active: true,
         puc_id: 1,
-        farms_pucs_ids: [1, 2],
+        farm_pucs_ids: [1, 2],
         farm_group_code: 'ABC',
         owner_party_role: 'ABC',
         pdn_region_production_region_code: 'ABC'

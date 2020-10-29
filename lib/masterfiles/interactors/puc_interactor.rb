@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_puc(res)
-        # repo.create_farms_pucs(id,@puc_id)
+        # repo.create_farm_pucs(id,@puc_id)
         log_status('pucs', id, 'CREATED')
         log_transaction
       end
@@ -40,7 +40,7 @@ module MasterfilesApp
     def delete_puc(id)
       name = puc(id).puc_code
       repo.transaction do
-        repo.delete_farms_pucs(id)
+        repo.delete_farm_pucs(id)
         repo.delete_puc(id)
         log_status('pucs', id, 'DELETED')
         log_transaction
