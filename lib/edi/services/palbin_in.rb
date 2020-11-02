@@ -90,7 +90,7 @@ module EdiApp
                  nett_weight: palbin[:nett_weight] }
 
         hash[:orchard_id] = get_masterfile_id(:orchards, orchard_code: palbin[:orchard], farm_id: hash[:farm_id], puc_id: hash[:puc_id])
-        commodity_id = get_masterfile_id(:commodities, code: palbin[:commodity])
+        commodity_id = get_masterfile_id(:commodities, commodity_code: palbin[:commodity])
         hash[:cultivar_id] = get_masterfile_id(:cultivars, cultivar_name: palbin[:cultivar], commodity_id: commodity_id)
 
         hash[:season_id] = MasterfilesApp::CalendarRepo.new.get_season_id(hash[:cultivar_id], hash[:bin_received_date_time])

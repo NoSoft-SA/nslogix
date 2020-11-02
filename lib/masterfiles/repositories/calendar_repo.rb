@@ -30,8 +30,8 @@ module MasterfilesApp
                                                      columns: [:season_group_code],
                                                      flatten_columns: { season_group_code: :season_group_code } },
                                                    { parent_table: :commodities,
-                                                     columns: [:code],
-                                                     flatten_columns: { code: :commodity_code } }])
+                                                     columns: [:commodity_code],
+                                                     flatten_columns: { commodity_code: :commodity_code } }])
       return nil if hash.nil?
 
       Season.new(hash)

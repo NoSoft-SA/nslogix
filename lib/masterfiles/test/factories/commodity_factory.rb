@@ -6,7 +6,7 @@ module MasterfilesApp
       commodity_group_id = create_commodity_group
       default = {
         commodity_group_id: commodity_group_id,
-        code: Faker::Lorem.unique.word,
+        commodity_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         hs_code: Faker::Lorem.word,
         active: true,
@@ -18,7 +18,7 @@ module MasterfilesApp
 
     def create_commodity_group(opts = {})
       default = {
-        code: Faker::Lorem.unique.word,
+          commodity_group_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         active: true
       }

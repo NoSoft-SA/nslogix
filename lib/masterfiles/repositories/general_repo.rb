@@ -25,7 +25,7 @@ module MasterfilesApp
 
     def find_uom(id)
       find_with_association(:uoms, id,
-                            parent_tables: [{ parent_table: :uom_types, flatten_columns: { code: :uom_type_code } }],
+                            parent_tables: [{ parent_table: :uom_types, flatten_columns: { uom_type_code: :uom_type_code } }],
                             wrapper: MasterfilesApp::Uom)
     end
 

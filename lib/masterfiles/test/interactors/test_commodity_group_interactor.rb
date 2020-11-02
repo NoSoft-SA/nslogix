@@ -72,7 +72,7 @@ module MasterfilesApp
     def commodity_group_attrs
       {
         id: 1,
-        code: Faker::Lorem.unique.word,
+        commodity_group_code: Faker::Lorem.unique.word,
         description: 'ABC',
         active: true
       }

@@ -47,8 +47,8 @@ module MasterfilesApp
       hash = find_with_association(:commodities,
                                    id,
                                    parent_tables: [{ parent_table: :commodity_groups,
-                                                     columns: [:code],
-                                                     flatten_columns: { code: :commodity_group_code } }])
+                                                     columns: [:commodity_group_code],
+                                                     flatten_columns: { commodity_group_code: :commodity_group_code } }])
       return nil if hash.nil?
 
       Commodity.new(hash)

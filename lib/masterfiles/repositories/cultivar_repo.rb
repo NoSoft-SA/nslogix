@@ -47,8 +47,8 @@ module MasterfilesApp
                                    id,
                                    parent_tables: [{
                                      parent_table: :commodities,
-                                     columns: [:code],
-                                     flatten_columns: { code: :commodity_code }
+                                     columns: [:commodity_code],
+                                     flatten_columns: { commodity_code: :commodity_code }
                                    }])
       return nil if hash.nil?
 

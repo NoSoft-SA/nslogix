@@ -1,6 +1,6 @@
 ---
 :caption: Commodity Groups
-:sql: SELECT "commodity_groups"."id", "commodity_groups"."code", "commodity_groups"."description",
+:sql: SELECT "commodity_groups"."id", "commodity_groups"."commodity_group_code", "commodity_groups"."description",
   "commodity_groups"."active", "commodity_groups"."created_at", "commodity_groups"."updated_at"
   FROM "commodity_groups"
 :limit:
@@ -21,11 +21,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  code:
+  commodity_group_code:
     :name: code
     :sequence_no: 2
     :caption: Code
-    :namespaced_name: commodity_groups.code
+    :namespaced_name: commodity_groups.commodity_group_code
     :data_type: :string
     :width:
     :format:

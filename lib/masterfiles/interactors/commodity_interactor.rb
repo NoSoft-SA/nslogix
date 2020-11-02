@@ -10,7 +10,7 @@ module MasterfilesApp
       instance = commodity_group(id)
       success_response("Created commodity group #{instance.code}", instance)
     rescue Sequel::UniqueConstraintViolation
-      validation_failed_response(OpenStruct.new(messages: { code: ['This commodity group already exists'] }))
+      validation_failed_response(OpenStruct.new(messages: { commodity_group_code: ['This commodity group already exists'] }))
     end
 
     def update_commodity_group(id, params)
@@ -43,7 +43,7 @@ module MasterfilesApp
       instance = commodity(id)
       success_response("Created commodity #{instance.code}", instance)
     rescue Sequel::UniqueConstraintViolation
-      validation_failed_response(OpenStruct.new(messages: { code: ['This commodity already exists'] }))
+      validation_failed_response(OpenStruct.new(messages: { commodity_code: ['This commodity already exists'] }))
     end
 
     def update_commodity(id, params)

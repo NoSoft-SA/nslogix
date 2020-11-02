@@ -16,7 +16,7 @@ module UiRules
     def set_show_fields
       fields[:commodity_group_id] = { renderer: :label,
                                       with_value: @repo.find_commodity_group(@form_object.commodity_group_id)&.code }
-      fields[:code] = { renderer: :label }
+      fields[:commodity_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
       fields[:hs_code] = { renderer: :label, caption: 'HS code' }
       fields[:requires_standard_counts] = { renderer: :label, as_boolean: true }
@@ -29,7 +29,7 @@ module UiRules
         commodity_group_id: { renderer: :select,
                               options: @repo.for_select_commodity_groups,
                               disabled_options: @repo.for_select_inactive_commodity_groups },
-        code: { required: true },
+        commodity_code: { required: true },
         description: { required: true },
         hs_code: { required: true, caption: 'HS code' },
         requires_standard_counts: { renderer: :checkbox },
@@ -46,7 +46,7 @@ module UiRules
 
     def make_new_form_object
       @form_object = OpenStruct.new(commodity_group_id: nil,
-                                    code: nil,
+                                    commodity_code: nil,
                                     description: nil,
                                     hs_code: nil,
                                     requires_standard_counts: true,

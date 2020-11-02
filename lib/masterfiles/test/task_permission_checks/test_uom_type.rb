@@ -10,7 +10,7 @@ module MasterfilesApp
     def entity(attrs = {})
       base_attrs = {
         id: 1,
-        code: Faker::Lorem.unique.word
+        uom_type_code: Faker::Lorem.unique.word
       }
       MasterfilesApp::UomType.new(base_attrs.merge(attrs))
     end

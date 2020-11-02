@@ -15,7 +15,7 @@ module MasterfilesApp
 
     def create_uom_type(opts = {})
       default = {
-        code: AppConst::UOM_TYPE,
+        uom_type_code: AppConst::UOM_TYPE,
         active: true
       }
       DB[:uom_types].insert(default.merge(opts))

@@ -15,14 +15,14 @@ module UiRules
     end
 
     def set_show_fields
-      fields[:code] = { renderer: :label }
+      fields[:commodity_group_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
       fields[:active] = { renderer: :label, as_boolean: true }
     end
 
     def common_fields
       {
-        code: { required: true },
+          commodity_group_code: { required: true },
         description: { required: true },
         active: { renderer: :checkbox }
       }

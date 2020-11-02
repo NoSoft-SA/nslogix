@@ -28,7 +28,7 @@ module MasterfilesApp
       success_response("Created uom type #{instance.code}",
                        instance)
     rescue Sequel::UniqueConstraintViolation
-      validation_failed_response(OpenStruct.new(messages: { code: ['This uom type already exists'] }))
+      validation_failed_response(OpenStruct.new(messages: { uom_type_code: ['This uom type already exists'] }))
     end
 
     def update_uom_type(id, params)

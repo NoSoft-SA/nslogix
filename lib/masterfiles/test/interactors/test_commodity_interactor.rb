@@ -72,7 +72,7 @@ module MasterfilesApp
       {
         id: 1,
         commodity_group_id: commodity_group_id,
-        code: Faker::Lorem.unique.word,
+        commodity_code: Faker::Lorem.unique.word,
         description: 'ABC',
         hs_code: 'ABC',
         requires_standard_counts: false,

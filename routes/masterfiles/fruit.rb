@@ -28,7 +28,7 @@ class Nslogix < Roda
           res = interactor.update_commodity_group(id, params[:commodity_group])
           if res.success
             update_grid_row(id,
-                            changes: { code: res.instance[:code],
+                            changes: { commodity_group_code: res.instance[:commodity_group_code],
                                        description: res.instance[:description] },
                             notice: res.message)
           else

@@ -15,13 +15,13 @@ module UiRules
     end
 
     def set_show_fields
-      fields[:code] = { renderer: :label }
+      fields[:uom_type_code] = { renderer: :label }
       fields[:active] = { renderer: :label, as_boolean: true }
     end
 
     def common_fields
       {
-        code: { required: true }
+          uom_type_code: { required: true }
       }
     end
 

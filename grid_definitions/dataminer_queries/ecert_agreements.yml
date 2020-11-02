@@ -1,6 +1,6 @@
 ---
 :caption: eCert Agreements
-:sql: SELECT "ecert_agreements"."id", "ecert_agreements"."code", "ecert_agreements"."name",
+:sql: SELECT "ecert_agreements"."id", "ecert_agreements"."ecert_agreement_code", "ecert_agreements"."name",
   "ecert_agreements"."description", "ecert_agreements"."start_date", "ecert_agreements"."end_date",
   "ecert_agreements"."active", "ecert_agreements"."created_at", "ecert_agreements"."updated_at",
   fn_current_status('ecert_agreements', "ecert_agreements"."id") AS status FROM "ecert_agreements"
@@ -24,11 +24,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  code:
-    :name: code
+  ecert_agreement_code:
+    :name: ecert_agreement_code
     :sequence_no: 2
-    :caption: Code
-    :namespaced_name: ecert_agreements.code
+    :caption: eCert Agreement Code
+    :namespaced_name: ecert_agreements.ecert_agreement_code
     :data_type: :string
     :width: 
     :format: 

@@ -1,6 +1,6 @@
 ---
 :caption: UOM Types
-:sql: SELECT "uom_types"."id", "uom_types"."code", "uom_types"."active" FROM "uom_types"
+:sql: SELECT "uom_types"."id", "uom_types"."uom_type_code", "uom_types"."active" FROM "uom_types"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -21,11 +21,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  code:
-    :name: code
+  uom_type_code:
+    :name: uom_type_code
     :sequence_no: 2
-    :caption: Code
-    :namespaced_name: uom_types.code
+    :caption: UOM Type Code
+    :namespaced_name: uom_types.uom_type_code
     :data_type: :string
     :width: 
     :format: 

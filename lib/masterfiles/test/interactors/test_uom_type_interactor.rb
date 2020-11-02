@@ -26,17 +26,17 @@ module MasterfilesApp
     end
 
     def test_create_uom_type_fail
-      attrs = fake_uom_type(code: nil).to_h.reject { |k, _| k == :id }
+      attrs = fake_uom_type(uom_type_code: nil).to_h.reject { |k, _| k == :id }
       res = interactor.create_uom_type(attrs)
       refute res.success, 'should fail validation'
-      assert_equal ['must be filled'], res.errors[:code]
+      assert_equal ['must be filled'], res.errors[:uom_type_code]
     end
 
     def test_update_uom_type
       id = create_uom_type
       attrs = interactor.send(:repo).find_hash(:uom_types, id).reject { |k, _| k == :id }
-      value = attrs[:code]
-      attrs[:code] = 'a_change'
+      value = attrs[:uom_type_code]
+      attrs[:uom_type_code] = 'a_change'
       res = interactor.update_uom_type(id, attrs)
       assert res.success, "#{res.message} : #{res.errors.inspect}"
       assert_instance_of(UomType, res.instance)
@@ -47,12 +47,12 @@ module MasterfilesApp
     def test_update_uom_type_fail
       id = create_uom_type
       attrs = interactor.send(:repo).find_hash(:uom_types, id)
-      attrs.delete(:code)
+      attrs.delete(:uom_type_code)
       value = attrs[:id]
       attrs[:id] = 222
       res = interactor.update_uom_type(id, attrs)
       refute res.success, "#{res.message} : #{res.errors.inspect}"
-      assert_equal ['is missing'], res.errors[:code]
+      assert_equal ['is missing'], res.errors[:uom_type_code]
       after = interactor.send(:repo).find_hash(:uom_types, id)
       refute_equal 222, after[:id]
       assert_equal value, after[:id]
@@ -71,7 +71,7 @@ module MasterfilesApp
     def uom_type_attrs
       {
         id: 1,
-        code: Faker::Lorem.unique.word,
+        uom_type_code: Faker::Lorem.unique.word,
         active: true
       }
     end

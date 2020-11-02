@@ -26,7 +26,7 @@ class Nslogix < Roda
         r.patch do     # UPDATE
           res = interactor.update_uom_type(id, params[:uom_type])
           if res.success
-            update_grid_row(id, changes: { code: res.instance[:code] },
+            update_grid_row(id, changes: { uom_type_code: res.instance[:uom_type_code] },
                                 notice: res.message)
           else
             re_show_form(r, res) { Masterfiles::General::UomType::Edit.call(id, form_values: params[:uom_type], form_errors: res.errors) }
