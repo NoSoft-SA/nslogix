@@ -13,7 +13,7 @@ Sequel.migration do
       Integer :year, null: false
       TrueClass :completed, default: false
       DateTime :completed_at
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:voyage_code], name: :voyages_unique_code, unique: true
@@ -41,7 +41,7 @@ Sequel.migration do
       Date :atd
       Date :eta
       Date :etd
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:voyage_id, :port_id], name: :voyage_ports_unique_code, unique: true

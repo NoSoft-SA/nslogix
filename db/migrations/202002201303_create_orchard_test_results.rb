@@ -24,7 +24,7 @@ Sequel.migration do
       column :applicable_cultivar_ids, 'integer[]'
       column :applicable_commodity_group_ids, 'integer[]'
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -59,7 +59,7 @@ Sequel.migration do
       DateTime :applicable_from
       DateTime :applicable_to
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at
       DateTime :updated_at
 
@@ -88,17 +88,17 @@ Sequel.migration do
 
       String :description
 
-      TrueClass :passed
+      TrueClass :passed, default: false
       String :api_result
 
-      TrueClass :classification
-      TrueClass :freeze_result
+      TrueClass :classification, default: false
+      TrueClass :freeze_result, default: false
       Jsonb :api_response
 
       DateTime :applicable_from
       DateTime :applicable_to
 
-      TrueClass :active
+      TrueClass :active, default: true
       DateTime :created_at
       DateTime :updated_at
       DateTime :logged_at, null: false

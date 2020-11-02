@@ -17,7 +17,7 @@ Sequel.migration do
       Float :minimum_weight_gm
       Float :maximum_weight_gm
       Float :average_weight_gm
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -40,7 +40,7 @@ Sequel.migration do
       Integer :length_mm
       Integer :width_mm
       Integer :height_mm
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -62,8 +62,8 @@ Sequel.migration do
       String :description
       String :std_pack_label_code
       BigDecimal :material_mass, null: false
-      TrueClass :use_size_ref_for_edi, null: false, default: false
-      TrueClass :active, null: false, default: true
+      TrueClass :use_size_ref_for_edi, default: false
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -86,7 +86,7 @@ Sequel.migration do
       column :size_reference_ids, 'integer[]'
 
       Integer :actual_count_for_pack, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -109,7 +109,7 @@ Sequel.migration do
       foreign_key :fruit_actual_counts_for_pack_id, :fruit_actual_counts_for_packs, null: false
       String :size_reference, null: false
       String :edi_out_code
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

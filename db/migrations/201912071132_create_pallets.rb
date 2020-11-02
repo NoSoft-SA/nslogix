@@ -48,7 +48,7 @@ Sequel.migration do
       DateTime :repacked_at
 
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -104,7 +104,7 @@ Sequel.migration do
       String :exit_ref
       DateTime :scrapped_at
       Decimal :nett_weight
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       String :production_run

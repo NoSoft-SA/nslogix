@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :commodity_group_code, null: false
       String :description, size: 255, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -29,7 +29,7 @@ Sequel.migration do
       String :hs_code, size: 255, null: false
       TrueClass :requires_standard_counts, default: true
       TrueClass :use_size_ref_for_edi, default: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:code], name: :commodities_unique_code, unique: true

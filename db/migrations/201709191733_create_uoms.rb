@@ -4,7 +4,7 @@ Sequel.migration do
     create_table(:uom_types, ignore_index_errors: true) do
       primary_key :id
       String :uom_type_code, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -23,7 +23,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :uom_type_id, :uom_types, null: false
       String :uom_code, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

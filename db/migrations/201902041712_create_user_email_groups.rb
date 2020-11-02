@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:user_email_groups, ignore_index_errors: true) do
       primary_key :id
       String :mail_group, size: 255, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

@@ -7,7 +7,7 @@ Sequel.migration do
       String :functional_area_name, size: 255, null: false
 
       TrueClass :rmd_menu, default: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       

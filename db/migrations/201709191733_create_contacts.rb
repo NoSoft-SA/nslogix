@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:contact_method_types, ignore_index_errors: true) do
       primary_key :id
       String :contact_method_type, size: 255, null:false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -24,7 +24,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :contact_method_type_id, :contact_method_types, type: :integer, null: false
       String :contact_method_code, size: 255, null:false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -43,7 +43,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :contact_method_id, :contact_methods, type: :integer, null: false
       foreign_key :party_id, :parties, type: :integer, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

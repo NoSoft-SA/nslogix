@@ -13,7 +13,7 @@ Sequel.migration do
       Integer :program_function_sequence, default: 0, null: false
       TrueClass :restricted_user_access, default: false
       TrueClass :show_in_iframe, default: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

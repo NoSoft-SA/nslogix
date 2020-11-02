@@ -9,7 +9,7 @@ Sequel.migration do
       foreign_key :party_role_id, :party_roles, type: :integer
       String :hub_address, null: false
       column :directory_keys, 'text[]', null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end

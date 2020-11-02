@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :variety_as_customer_variety_id, :marketing_varieties, type: :integer, null: false
       foreign_key :packed_tm_group_id, :target_market_groups, type: :integer, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -27,7 +27,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :customer_variety_id, :customer_varieties, type: :integer, null: false
       foreign_key :marketing_variety_id, :marketing_varieties, type: :integer, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:customer_variety_id, :marketing_variety_id], name: :customer_variety_varieties_idx, unique: true

@@ -13,7 +13,7 @@ Sequel.migration do
       BigDecimal :ratio_to_standard_carton, null: false
       TrueClass :is_standard_carton, default: false
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end

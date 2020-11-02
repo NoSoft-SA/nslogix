@@ -11,7 +11,7 @@ Sequel.migration do
       Integer :season_year, null: false
       Date :start_date, null: false
       Date :end_date, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

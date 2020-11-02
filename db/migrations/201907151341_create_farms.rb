@@ -7,7 +7,7 @@ Sequel.migration do
       foreign_key :owner_party_role_id, :party_roles, type: :integer, null: false
       String :farm_group_code, size: 255, null: false
       String :description
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -33,7 +33,7 @@ Sequel.migration do
       # foreign_key :puc_id, :pucs, type: :integer, null: false
       String :farm_code, size: 255, null: false
       String :description
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -55,7 +55,7 @@ Sequel.migration do
       primary_key :id
       String :puc_code, size: 255, null: false
       String :gap_code
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -98,7 +98,7 @@ Sequel.migration do
 
       String :farm_section_name, null: false
       String :description
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -124,7 +124,7 @@ Sequel.migration do
       String :orchard_code, size: 255, null: false
       String :description
       column :cultivar_ids, 'int[]'
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

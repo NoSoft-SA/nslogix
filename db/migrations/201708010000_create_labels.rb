@@ -18,7 +18,7 @@ Sequel.migration do
       TrueClass :multi_label, default: false
       TrueClass :completed, default: false
       TrueClass :approved, default: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       String :created_by
       String :updated_by
       DateTime :created_at, null: false

@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :program_name, size: 255, null: false
       Integer :program_sequence, default: 0, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       foreign_key :functional_area_id, :functional_areas, null: false

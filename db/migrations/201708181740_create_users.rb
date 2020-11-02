@@ -10,7 +10,7 @@ Sequel.migration do
       String :email, size: 255
       Jsonb :permission_tree
       Jsonb :profile
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

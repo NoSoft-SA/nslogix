@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:address_types, ignore_index_errors: true) do
       primary_key :id
       String :address_type, size: 255, null:false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -29,7 +29,7 @@ Sequel.migration do
       String :city, size: 255
       String :postal_code, size: 255
       String :country, size: 255
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

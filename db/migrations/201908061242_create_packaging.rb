@@ -12,7 +12,7 @@ Sequel.migration do
       String :edi_out_pallet_base
       Integer :cartons_per_layer
       BigDecimal :material_mass, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -35,7 +35,7 @@ Sequel.migration do
       String :stack_type_code, size: 255, null: false
       String :description
       Integer :stack_height, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -58,7 +58,7 @@ Sequel.migration do
       String :description, null: false
       foreign_key :pallet_base_id, :pallet_bases, type: :integer, null: false
       foreign_key :pallet_stack_type_id, :pallet_stack_types, type: :integer, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -83,7 +83,7 @@ Sequel.migration do
       foreign_key :basic_pack_id, :basic_pack_codes, type: :integer, null: false
       Integer :cartons_per_pallet, null: false
       Integer :layers_per_pallet, null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

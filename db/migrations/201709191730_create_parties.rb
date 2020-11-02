@@ -8,7 +8,7 @@ Sequel.migration do
     create_table(:parties, ignore_index_errors: true) do
       primary_key :id
       String :party_type, size: 1, default: 'O', null: false
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
     end
@@ -25,7 +25,7 @@ Sequel.migration do
     create_table(:roles, ignore_index_errors: true) do
       primary_key :id
       String :name, size: 255
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -50,7 +50,7 @@ Sequel.migration do
       String :long_description, size: 255, null: false
       String :vat_number, size: 255
       String :company_reg_no
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -74,7 +74,7 @@ Sequel.migration do
       String :first_name, size: 255, null: false
       String :title, size: 255, null: false
       String :vat_number, size: 255
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -97,7 +97,7 @@ Sequel.migration do
       foreign_key :role_id, :roles, type: :integer, null: false
       foreign_key :organization_id, :organizations, type: :integer
       foreign_key :person_id, :people, type: :integer
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

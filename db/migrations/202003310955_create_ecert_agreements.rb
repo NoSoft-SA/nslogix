@@ -13,7 +13,7 @@ Sequel.migration do
       Date :start_date
       Date :end_date
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:ecert_agreement_code], name: :ecert_agreements_unique_code, unique: true
@@ -36,11 +36,11 @@ Sequel.migration do
       String :industry, null: false
       String :elot_key
       String :verification_key
-      TrueClass :passed, null: false, default: false
+      TrueClass :passed, default: false
       column :process_result, 'text[]'
       column :rejection_reasons, 'text[]'
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 

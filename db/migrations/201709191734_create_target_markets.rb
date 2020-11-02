@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
       String :target_market_group_type_code, null: false
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       unique :target_market_group_type_code
@@ -26,7 +26,7 @@ Sequel.migration do
       String :target_market_group_name, null: false
       String :description
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -47,7 +47,7 @@ Sequel.migration do
       String :target_market_name, null: false
       String :description, null: false
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
@@ -77,7 +77,7 @@ Sequel.migration do
       String :destination_region_name, null: false
       String :description
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:destination_region_name], name: :destination_region_unique_name, unique: true
@@ -98,7 +98,7 @@ Sequel.migration do
       String :description
       String :iso_country_code
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
       index [:destination_region_id], name: :fki_destination_countries_destination_regions
@@ -118,7 +118,7 @@ Sequel.migration do
       foreign_key :destination_country_id, :destination_countries, null: false
       String :city_name, null: false
 
-      TrueClass :active, null: false, default: true
+      TrueClass :active, default: true
       DateTime :updated_at, null: false
       DateTime :created_at, null: false
 
