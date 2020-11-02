@@ -32,7 +32,7 @@ module MasterfilesApp
         print_code: Faker::Lorem.word,
         location_storage_definition_id: location_storage_definition_id,
         can_store_stock: false,
-        units_in_location: Faker::Number.number(digits:4)
+        units_in_location: Faker::Number.number(digits: 4)
       }
       DB[:locations].insert(default.merge(opts))
     end
