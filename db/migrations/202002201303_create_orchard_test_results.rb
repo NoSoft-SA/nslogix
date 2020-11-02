@@ -184,7 +184,6 @@ Sequel.migration do
 
     drop_column :pallet_sequences, :phyto_data
     drop_column :pallet_sequences, :failed_otmc_results
-    drop_column :orchards, :otmc_results
 
     drop_table(:orchard_test_api_attributes)
 
