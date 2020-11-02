@@ -10,7 +10,7 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:masterfile_table, :code], name: :masterfile_variants_unique_code, unique: true
+      index [:masterfile_table, :variant_code], name: :masterfile_variants_unique_code, unique: true
     end
     pgt_created_at(:masterfile_variants,
                    :created_at,

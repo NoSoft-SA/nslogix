@@ -6,11 +6,12 @@ Sequel.migration do
       primary_key :id
       String :pallet_base_code, size: 255, null: false
       String :description
-      Integer :length, null: false
-      Integer :width, null: false
+      Integer :length
+      Integer :width
       String :edi_in_pallet_base
       String :edi_out_pallet_base
-      Integer :cartons_per_layer, null: false
+      Integer :cartons_per_layer
+      BigDecimal :material_mass, null: false
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

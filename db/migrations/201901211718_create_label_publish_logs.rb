@@ -12,6 +12,7 @@ Sequel.migration do
       String :publish_name
       String :status
       String :errors
+      Jsonb :publish_summary
       TrueClass :complete, default: false
       TrueClass :failed, default: false
       DateTime :created_at, null: false

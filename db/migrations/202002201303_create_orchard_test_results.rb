@@ -2,23 +2,60 @@ require 'sequel_postgresql_triggers'
 Sequel.migration do
   up do
     extension :pg_triggers
+
+    create_table(:orchard_test_types, ignore_index_errors: true) do
+      primary_key :id
+      String :test_type_code, null: false
+      String :description
+
+      TrueClass :applies_to_all_markets, default: true
+      TrueClass :applies_to_all_cultivars, default: true
+      TrueClass :applies_to_orchard, default: true
+      TrueClass :allow_result_capturing, default: true
+      TrueClass :pallet_level_result, default: true
+
+      String :api_name
+      String :result_type, null: false
+      String :api_attribute
+      String :api_pass_result
+      String :api_default_result
+
+      column :applicable_tm_group_ids, 'integer[]'
+      column :applicable_cultivar_ids, 'integer[]'
+      column :applicable_commodity_group_ids, 'integer[]'
+
+      TrueClass :active, null: false, default: true
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
+
+      index [:test_type_code], name: :orchard_test_types_unique_code, unique: true
+      index [:api_attribute], name: :orchard_test_types_api_attribute_idx, unique: true
+    end
+    pgt_created_at(:orchard_test_types,
+                   :created_at,
+                   function_name: :pgt_orchard_test_types_set_created_at,
+                   trigger_name: :set_created_at)
+    pgt_updated_at(:orchard_test_types,
+                   :updated_at,
+                   function_name: :pgt_orchard_test_types_set_updated_at,
+                   trigger_name: :set_updated_at)
+
+    # Log changes to this table. Exclude changes to the updated_at column.
+    run "SELECT audit.audit_table('orchard_test_types', true, true, '{updated_at}'::text[]);"
+
+
     create_table(:orchard_test_results, ignore_index_errors: true) do
       primary_key :id
       foreign_key :orchard_test_type_id, :orchard_test_types, type: :integer, null: false
-      foreign_key :puc_id, :pucs, type: :integer
-      foreign_key :orchard_id, :orchards, type: :integer
-      foreign_key :cultivar_id, :cultivars, type: :integer
-
+      foreign_key :puc_id, :pucs, type: :integer, null: false
+      foreign_key :orchard_id, :orchards, type: :integer, null: false
+      foreign_key :cultivar_id, :cultivars, type: :integer, null: false
       String :description
-
       TrueClass :passed, default: false
-      String :classification
-
-      TrueClass :classification_only, default: false
+      String :api_result
+      TrueClass :classification, default: false
       TrueClass :freeze_result, default: false
-      
-      Jsonb :api_result
-
+      Jsonb :api_response
       DateTime :applicable_from
       DateTime :applicable_to
 
@@ -27,7 +64,7 @@ Sequel.migration do
       DateTime :updated_at
 
       index [:orchard_test_type_id], name: :orchard_test_type_id
-      index [:orchard_test_type_id, :orchard_id], name: :orchard_test_type_orchard_unique_code, unique: true
+      index [:orchard_test_type_id, :puc_id, :orchard_id, :cultivar_id], name: :orchard_test_type_orchard_unique_code, unique: true
     end
     pgt_created_at(:orchard_test_results,
                    :created_at,
@@ -52,12 +89,11 @@ Sequel.migration do
       String :description
 
       TrueClass :passed
-      String :classification
+      String :api_result
 
-      TrueClass :classification_only
+      TrueClass :classification
       TrueClass :freeze_result
-
-      Jsonb :api_result
+      Jsonb :api_response
 
       DateTime :applicable_from
       DateTime :applicable_to
@@ -73,6 +109,19 @@ Sequel.migration do
                    :logged_at,
                    function_name: :pgt_orchard_test_logs_set_logged_at,
                    trigger_name: :set_created_at)
+
+    create_table(:orchard_test_api_attributes, ignore_index_errors: true) do
+      primary_key :id
+      String :api_name, null: false
+      String :api_attribute, null: false
+      String :description
+      column :api_results, 'text[]'
+
+      index [:api_attribute], name: :orchard_test_api_attribute_unique_name, unique: true
+    end
+
+    add_column :pallet_sequences, :failed_otmc_results, 'integer[]'
+    add_column :pallet_sequences, :phyto_data, String
 
     run <<~SQL
       CREATE OR REPLACE FUNCTION public.fn_log_orchard_test_result()
@@ -133,6 +182,12 @@ Sequel.migration do
       DROP FUNCTION public.fn_log_orchard_test_result();
     SQL
 
+    drop_column :pallet_sequences, :phyto_data
+    drop_column :pallet_sequences, :failed_otmc_results
+    drop_column :orchards, :otmc_results
+
+    drop_table(:orchard_test_api_attributes)
+
     drop_trigger(:orchard_test_logs, :set_created_at)
     drop_function(:pgt_orchard_test_logs_set_logged_at)
     drop_table(:orchard_test_logs)
@@ -146,5 +201,15 @@ Sequel.migration do
     drop_trigger(:orchard_test_results, :set_updated_at)
     drop_function(:pgt_orchard_test_results_set_updated_at)
     drop_table(:orchard_test_results)
+
+    # Drop logging for this table.
+    drop_trigger(:orchard_test_types, :audit_trigger_row)
+    drop_trigger(:orchard_test_types, :audit_trigger_stm)
+
+    drop_trigger(:orchard_test_types, :set_created_at)
+    drop_function(:pgt_orchard_test_types_set_created_at)
+    drop_trigger(:orchard_test_types, :set_updated_at)
+    drop_function(:pgt_orchard_test_types_set_updated_at)
+    drop_table(:orchard_test_types)
   end
 end

@@ -91,40 +91,18 @@ Sequel.migration do
     # Log changes to this table. Exclude changes to the updated_at column.
     run "SELECT audit.audit_table('farm_pucs', true, true, '{updated_at}'::text[]);"
 
-
-    create_table(:orchards, ignore_index_errors: true) do
-      primary_key :id
-      foreign_key :farm_id, :farms, type: :integer, null: false
-      foreign_key :puc_id, :pucs, type: :integer, null: false
-      String :orchard_code, size: 255, null: false
-      String :description
-      column :cultivar_ids, 'int[]'
-      TrueClass :active, null: false, default: true
-      DateTime :created_at, null: false
-      DateTime :updated_at, null: false
-
-      index [:orchard_code], name: :orchards_unique_code, unique: true
-    end
-    pgt_created_at(:orchards,
-                   :created_at,
-                   function_name: :pgt_orchards_set_created_at,
-                   trigger_name: :set_created_at)
-    pgt_updated_at(:orchards,
-                   :updated_at,
-                   function_name: :pgt_orchards_set_updated_at,
-                   trigger_name: :set_updated_at)
-
-    # Log changes to this table. Exclude changes to the updated_at column.
-    run "SELECT audit.audit_table('orchards', true, true, '{updated_at}'::text[]);"
-
     create_table(:farm_sections, ignore_index_errors: true) do
       primary_key :id
+      foreign_key :farm_id, :farms
       foreign_key :farm_manager_party_role_id, :party_roles, type: :integer, null: false
+
       String :farm_section_name, null: false
       String :description
       TrueClass :active, null: false, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
+
+      unique [:farm_id, :farm_section_name], name: :farm_farm_section_name_unique_code
     end
     pgt_created_at(:farm_sections,
                    :created_at,
@@ -137,10 +115,44 @@ Sequel.migration do
 
     # Log changes to this table. Exclude changes to the updated_at column.
     run "SELECT audit.audit_table('farm_sections', true, true, '{updated_at}'::text[]);"
+
+    create_table(:orchards, ignore_index_errors: true) do
+      primary_key :id
+      foreign_key :farm_id, :farms, type: :integer, null: false
+      foreign_key :puc_id, :pucs, type: :integer, null: false
+      foreign_key :farm_section_id, :farm_sections
+      String :orchard_code, size: 255, null: false
+      String :description
+      column :cultivar_ids, 'int[]'
+      TrueClass :active, null: false, default: true
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
+
+      index [:farm_id, :orchard_code], name: :farm_orchard_unique_code, unique: true
+    end
+    pgt_created_at(:orchards,
+                   :created_at,
+                   function_name: :pgt_orchards_set_created_at,
+                   trigger_name: :set_created_at)
+    pgt_updated_at(:orchards,
+                   :updated_at,
+                   function_name: :pgt_orchards_set_updated_at,
+                   trigger_name: :set_updated_at)
+
+    # Log changes to this table. Exclude changes to the updated_at column.
+    run "SELECT audit.audit_table('orchards', true, true, '{updated_at}'::text[]);"
   end
 
   down do
     # Drop logging for this table.
+    drop_trigger(:orchards, :audit_trigger_row)
+    drop_trigger(:orchards, :audit_trigger_stm)
+
+    drop_trigger(:orchards, :set_created_at)
+    drop_function(:pgt_orchards_set_created_at)
+    drop_trigger(:orchards, :set_updated_at)
+    drop_function(:pgt_orchards_set_updated_at)
+    drop_table(:orchards)
 
     drop_trigger(:farm_sections, :audit_trigger_row)
     drop_trigger(:farm_sections, :audit_trigger_stm)
@@ -150,15 +162,6 @@ Sequel.migration do
     drop_trigger(:farm_sections, :set_updated_at)
     drop_function(:pgt_farm_sections_set_updated_at)
     drop_table(:farm_sections)
-
-    drop_trigger(:orchards, :audit_trigger_row)
-    drop_trigger(:orchards, :audit_trigger_stm)
-
-    drop_trigger(:orchards, :set_created_at)
-    drop_function(:pgt_orchards_set_created_at)
-    drop_trigger(:orchards, :set_updated_at)
-    drop_function(:pgt_orchards_set_updated_at)
-    drop_table(:orchards)
 
     drop_trigger(:farm_pucs, :audit_trigger_row)
     drop_trigger(:farm_pucs, :audit_trigger_stm)

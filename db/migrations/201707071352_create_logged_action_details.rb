@@ -7,6 +7,7 @@ Sequel.migration do
       String :user_name
       String :context
       String :route_url
+      String :request_ip
     end
     run 'ALTER TABLE audit.logged_action_details ALTER COLUMN transaction_id SET DEFAULT txid_current();'
     run 'ALTER TABLE audit.logged_action_details ALTER COLUMN action_tstamp_tx SET DEFAULT current_timestamp;'
