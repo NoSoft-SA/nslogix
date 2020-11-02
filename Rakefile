@@ -67,8 +67,37 @@ namespace :jobs do
 end
 
 namespace :menu do
+  desc 'Check migration filenames'
+  task :check_migration_files do
+    keys = []
+    Dir.new('db/menu').each do |file|
+      match = /\A(\d+)_.+\.rb\z/i.match(File.basename(file))
+
+      unless match
+        puts "Invalid filename: #{file}" unless file =~ /^\.+$/
+        next
+      end
+      key = match[1]
+      raise "Invalid filename prefix: #{key} for #{file}" if key.length != 12
+
+      begin
+        Time.parse(key)
+      rescue StandardError
+        raise "Filename prefix: #{key} is not a valid date - #{file}"
+      end
+
+      keys << key
+    end
+    if keys.uniq == keys
+      puts 'Migration filenames are OK.'
+    else
+      puts 'There are non-unique timestamps for migration filenames...'
+      puts keys.select { |a| keys.count(a) > 1 }.uniq.join("\n")
+    end
+  end
+
   desc 'Run menu migrations'
-  task :migrate, [:version] => :dotenv_with_override do |_, args|
+  task :migrate, [:version] => %i[dotenv_with_override check_migration_files] do |_, args|
     require 'sequel'
     db_name = if ENV.fetch('RACK_ENV') == 'test'
                 ENV.fetch('DATABASE_URL').rpartition('/')[0..1].push(ENV.fetch('DATABASE_NAME')).push('_test').join
@@ -199,8 +228,36 @@ namespace :db do
     puts 'Masterfile seeds applied'
   end
 
+  desc 'Check migration filenames'
+  task :check_migration_files do
+    keys = []
+    Dir.new('db/migrations').each do |file|
+      match = /\A(\d+)_.+\.rb\z/i.match(File.basename(file))
+      unless match
+        puts "Invalid filename: #{file}" unless file =~ /^\.+$/
+        next
+      end
+      key = match[1]
+      raise "Invalid filename prefix: #{key} for #{file}" if key.length != 12
+
+      begin
+        Time.parse(key)
+      rescue StandardError
+        raise "Filename prefix: #{key} is not a valid date - #{file}"
+      end
+
+      keys << key
+    end
+    if keys.uniq == keys
+      puts 'Migration filenames are OK.'
+    else
+      puts 'There are non-unique timestamps for migration filenames...'
+      puts keys.select { |a| keys.count(a) > 1 }.uniq.join("\n")
+    end
+  end
+
   desc 'Run migrations'
-  task :migrate, [:version] => :dotenv_with_override do |_, args|
+  task :migrate, [:version] => %i[dotenv_with_override check_migration_files] do |_, args|
     require 'sequel'
     Sequel.extension :migration
     db_name = if ENV.fetch('RACK_ENV') == 'test'
@@ -282,11 +339,12 @@ namespace :db do
 
           #   pgt_created_at(:table_name,
           #                  :created_at,
-          #                  function_name: :table_name_set_created_at,
+          #                  function_name: :pgt_table_name_set_created_at,
           #                  trigger_name: :set_created_at)
+
           #   pgt_updated_at(:table_name,
           #                  :updated_at,
-          #                  function_name: :table_name_set_updated_at,
+          #                  function_name: :pgt_table_name_set_updated_at,
           #                  trigger_name: :set_updated_at)
           # end
 
@@ -330,10 +388,12 @@ namespace :db do
                # index [:code], name: :#{nm}_unique_code, unique: true
                # index [:some_id], name: :fki_#{nm}_some_table_name
              end
+
              pgt_created_at(:#{nm},
                             :created_at,
                             function_name: :pgt_#{nm}_set_created_at,
                             trigger_name: :set_created_at)
+
              pgt_updated_at(:#{nm},
                             :updated_at,
                             function_name: :pgt_#{nm}_set_updated_at,
