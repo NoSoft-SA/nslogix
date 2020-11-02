@@ -2,8 +2,8 @@
 :caption: Farms
 :sql: "SELECT\r\n  DISTINCT  farms.id,\r\n    farms.owner_party_role_id,\r\n    farms.pdn_region_id,\r\n string_agg(DISTINCT farm_section_name::text, ', '::text) AS sections,
   \   farms.farm_group_id,\r\n    farms.farm_code,\r\n    farms.description,\r\n    (SELECT
-  string_agg(pucs.puc_code, ', ')\r\n     FROM pucs\r\n     JOIN farm_pucs ON pucs.id
-  = farm_pucs.puc_id\r\n     WHERE farm_id = farms.id) AS puc_codes,\r\n    farm_groups.farm_group_code,\r\n
+  string_agg(pucs.puc_code, ', ')\r\n     FROM pucs\r\n     JOIN farms_pucs ON pucs.id
+  = farms_pucs.puc_id\r\n     WHERE farm_id = farms.id) AS puc_codes,\r\n    farm_groups.farm_group_code,\r\n
   \   fn_party_role_name (farms.owner_party_role_id) AS owner_party_role,\r\n    production_regions.production_region_code
   AS pdn_region_production_region_code,\r\n    fn_current_status ('farms', farms.id)
   AS status,\r\n    farms.active,\r\n    farms.created_at,\r\n    farms.updated_at\r\nFROM

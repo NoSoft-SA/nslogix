@@ -116,11 +116,11 @@ module MasterfilesApp
       repo.for_select_farm_groups(where: { owner_party_role_id: owner_party_role_id })
     end
 
-    def associate_farm_pucs(id, farm_pucs_ids)
-      return validation_failed_response(OpenStruct.new(messages: { farm_pucs_ids: ['You did not choose a puc'] })) if farm_pucs_ids.empty?
+    def associate_farms_pucs(id, farms_pucs_ids)
+      return validation_failed_response(OpenStruct.new(messages: { farms_pucs_ids: ['You did not choose a puc'] })) if farms_pucs_ids.empty?
 
       repo.transaction do
-        repo.associate_farm_pucs(id, farm_pucs_ids)
+        repo.associate_farms_pucs(id, farms_pucs_ids)
       end
       success_response('Farm => Puc associated successfully')
     end

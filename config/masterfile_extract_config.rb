@@ -83,7 +83,7 @@ module Crossbeams
       party_roles
       farm_groups
       farms
-      farm_pucs
+      farms_pucs
       farm_sections
       rmt_container_types
       rmt_container_material_types

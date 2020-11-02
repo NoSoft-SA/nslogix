@@ -179,7 +179,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     query = ''
     csv_data.each do |row_data|
       query << "INSERT INTO #{table_name} (#{table_rules[:table_column_names].map(&:to_s).join(', ')}) VALUES( #{csv_data_row_values(row_data).map(&:to_s).join(', ')});\n"
-      query << validate_farm_pucs(row_data) if table_name == 'farms'
+      query << validate_farms_pucs(row_data) if table_name == 'farms'
     end
     @insert_statement = query
   end
@@ -280,7 +280,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     DB[qry].insert
   end
 
-  def validate_farm_pucs(row_data)
+  def validate_farms_pucs(row_data)
     farm_code = row_data['description']
     puc_code = row_data['primary_puc_code']
     gap_code = row_data['gap_code']
@@ -294,7 +294,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
       DB[qry].insert
     end
 
-    "INSERT INTO farm_pucs (puc_id, farm_id) VALUES( (SELECT id FROM pucs WHERE puc_code = '#{puc_code}'), (SELECT id FROM farms WHERE farm_code = '#{farm_code}') );\n"
+    "INSERT INTO farms_pucs (puc_id, farm_id) VALUES( (SELECT id FROM pucs WHERE puc_code = '#{puc_code}'), (SELECT id FROM farms WHERE farm_code = '#{farm_code}') );\n"
   end
 
   def create_record(row_data, col)  # rubocop:disable Metrics/AbcSize

@@ -60,8 +60,8 @@ module MasterfilesApp
       raise Crossbeams::TaskNotPermittedError, res.message unless res.success
     end
 
-    def selected_farm_pucs(farm_id)
-      repo.selected_farm_pucs(farm_id)
+    def selected_farms_pucs(farm_id)
+      repo.selected_farms_pucs(farm_id)
     end
 
     def farm_orchards(farm_id)

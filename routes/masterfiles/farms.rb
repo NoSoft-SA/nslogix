@@ -172,9 +172,9 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
         r.redirect "/list/farm_sections/with_params?key=standard&farm_sections.farm_id=#{id}"
       end
 
-      r.on 'link_farm_pucs' do
+      r.on 'link_farms_pucs' do
         r.post do
-          res = interactor.associate_farm_pucs(id, multiselect_grid_choices(params))
+          res = interactor.associate_farms_pucs(id, multiselect_grid_choices(params))
           if fetch?(r)
             show_json_notice(res.message)
           else
@@ -312,8 +312,8 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
       end
 
       r.on 'farm_changed' do
-        farm_pucs = interactor.selected_farm_pucs(params[:changed_value])
-        json_replace_select_options('orchard_puc_id', farm_pucs)
+        farms_pucs = interactor.selected_farms_pucs(params[:changed_value])
+        json_replace_select_options('orchard_puc_id', farms_pucs)
       end
 
       r.is do
