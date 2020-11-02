@@ -6,11 +6,11 @@ module MasterfilesApp
       default = {
         pallet_base_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
-        length: Faker::Number.number(4),
-        width: Faker::Number.number(4),
+        length: Faker::Number.number(digits:4),
+        width: Faker::Number.number(digits:4),
         edi_in_pallet_base: Faker::Lorem.word,
         edi_out_pallet_base: Faker::Lorem.word,
-        cartons_per_layer: Faker::Number.number(4),
+        cartons_per_layer: Faker::Number.number(digits:4),
         material_mass: Faker::Number.decimal,
         active: true
       }
@@ -21,7 +21,7 @@ module MasterfilesApp
       default = {
         stack_type_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
-        stack_height: Faker::Number.number(4),
+        stack_height: Faker::Number.number(digits:4),
         active: true
       }
       DB[:pallet_stack_types].insert(default.merge(opts))
@@ -48,8 +48,8 @@ module MasterfilesApp
         description: Faker::Lorem.unique.word,
         pallet_format_id: pallet_format_id,
         basic_pack_id: basic_pack_code_id,
-        cartons_per_pallet: Faker::Number.number(4),
-        layers_per_pallet: Faker::Number.number(4),
+        cartons_per_pallet: Faker::Number.number(digits:4),
+        layers_per_pallet: Faker::Number.number(digits:4),
         active: true
       }
       DB[:cartons_per_pallet].insert(default.merge(opts))
