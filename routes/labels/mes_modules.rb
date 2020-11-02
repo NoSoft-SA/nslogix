@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Nspack < Roda
+class Nslogix < Roda
   route 'mes_modules', 'labels' do |r|
     # MES MODULES
     # --------------------------------------------------------------------------
