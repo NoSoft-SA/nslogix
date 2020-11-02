@@ -28,7 +28,6 @@ module Crossbeams
       production_regions
       pucs
       rmt_classes
-      rmt_delivery_destinations
       roles
       season_groups
       standard_pack_codes
