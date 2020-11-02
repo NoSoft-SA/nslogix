@@ -6,6 +6,7 @@ Sequel.migration do
     create_table(:pallets, ignore_index_errors: true) do
       primary_key :id
       foreign_key :pallet_format_id, :pallet_formats
+      foreign_key :edi_in_transaction_id, :edi_in_transactions, type: :integer
       String :pallet_number, null: false
       String :exit_ref
       DateTime :scrapped_at
@@ -46,7 +47,7 @@ Sequel.migration do
       TrueClass :scrapped, default: false
       TrueClass :repacked, default: false
       DateTime :repacked_at
-
+      String :temp_tail
 
       TrueClass :active, default: true
       DateTime :created_at, null: false
@@ -94,7 +95,6 @@ Sequel.migration do
       foreign_key :inventory_code_id, :inventory_codes, type: :integer, null: false
       foreign_key :pallet_format_id, :pallet_formats, type: :integer, null: false
       foreign_key :cartons_per_pallet_id, :cartons_per_pallet, type: :integer, null: false
-      foreign_key :edi_in_transaction_id, :edi_in_transactions, type: :integer
       Jsonb :extended_columns
       String :client_size_reference
       String :client_product_code
@@ -113,7 +113,6 @@ Sequel.migration do
       String :pick_ref
       String :sell_by_code
       String :product_chars
-      String :temp_tail
       DateTime :repacked_at
       Integer :repacked_from_pallet_id
       TrueClass :removed_from_pallet, default: false
