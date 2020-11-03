@@ -3,6 +3,6 @@
 module MasterfilesApp
   UomTypeSchema = Dry::Schema.Params do
     optional(:id).filled(:integer)
-    required(:code).filled(Types::StrippedString)
+    required(:uom_type_code).filled(Types::StrippedString)
   end
 end
