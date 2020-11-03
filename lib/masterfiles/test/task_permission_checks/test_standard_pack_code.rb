@@ -18,8 +18,6 @@ module MasterfilesApp
         use_size_ref_for_edi: false,
         palletizer_incentive_rate: 1.0,
         bin: false,
-        rmt_container_type_id: nil,
-        rmt_container_material_type_id: nil,
         active: true
 
       }

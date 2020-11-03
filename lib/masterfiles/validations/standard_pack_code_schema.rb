@@ -13,16 +13,6 @@ module MasterfilesApp
       required(:use_size_ref_for_edi).maybe(:bool)
       required(:palletizer_incentive_rate).filled(:decimal)
       required(:bin).filled(:bool)
-      required(:rmt_container_type_id).maybe(:integer)
-      required(:rmt_container_material_type_id).maybe(:integer)
-    end
-
-    rule(:rmt_container_type_id, :bin) do
-      key.failure 'must be filled in' if values[:bin] && !values[:rmt_container_type_id]
-    end
-
-    rule(:rmt_container_material_type_id, :bin) do
-      key.failure 'must be filled in' if values[:bin] && !values[:rmt_container_material_type_id]
     end
   end
 end

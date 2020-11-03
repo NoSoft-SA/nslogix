@@ -6,9 +6,6 @@
   \   standard_pack_codes.material_mass,\r\n    standard_pack_codes.plant_resource_button_indicator,\r\n
   \   basic_pack_codes.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
   \   standard_pack_codes.palletizer_incentive_rate,\r\n    standard_pack_codes.bin,\r\n
-  \   standard_pack_codes.rmt_container_type_id,\r\n    rmt_container_types.container_type_code
-  AS container_type,\r\n    standard_pack_codes.rmt_container_material_type_id,\r\n
-  \   rmt_container_material_types.container_material_type_code AS material_type,\r\n
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\nFROM
   standard_pack_codes\r\nLEFT JOIN basic_pack_codes ON basic_pack_codes.id = standard_pack_codes.basic_pack_code_id\r\nLEFT
   JOIN rmt_container_material_types ON rmt_container_material_types.id = standard_pack_codes.rmt_container_material_type_id\r\nLEFT

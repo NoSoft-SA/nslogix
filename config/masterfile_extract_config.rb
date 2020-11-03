@@ -27,7 +27,6 @@ module Crossbeams
       port_types
       production_regions
       pucs
-      rmt_classes
       roles
       season_groups
       standard_pack_codes
@@ -41,12 +40,6 @@ module Crossbeams
       voyage_types
       port_types
     ].freeze
-
-    # self-referential tables. First insert all where the key is NULL, then the rest.
-    # This hash is in the form: table_name: self-referencing key
-    MF_TABLES_SELF_REF = {
-      rmt_container_types: :rmt_inner_container_type_id
-    }.freeze
 
     MF_TABLES_IN_SEQ = %i[
       addresses
@@ -84,8 +77,6 @@ module Crossbeams
       farms
       farms_pucs
       farm_sections
-      rmt_container_types
-      rmt_container_material_types
       orchards
       party_addresses
       party_contact_methods

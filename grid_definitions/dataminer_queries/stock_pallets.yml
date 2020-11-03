@@ -10,7 +10,7 @@
   \   govt_reinspection_at,\r\n    allocated_at,\r\n    verified_at,\r\n    allocated,\r\n
   \   load_id,\r\n    shipped,\r\n    in_stock,\r\n    inspected,\r\n    palletized,\r\n
   \   production_run_id,\r\n    farm_group,\r\n    farm,\r\n    puc,\r\n    orchard,\r\n
-  \   commodity,\r\n    marketing_variety,\r\n    grade,\r\n    rmt_grade,\r\n    std_size,\r\n
+  \   commodity,\r\n    marketing_variety,\r\n    grade,\r\n    std_size,\r\n
   \   actual_count,\r\n    size_ref,\r\n    count_group,\r\n    std_pack,\r\n    packed_tm_group,\r\n
   \   mark,\r\n    inventory_code,\r\n    fruit_sticker,\r\n    fruit_sticker_2,\r\n
   \   marketing_org,\r\n    pallet_base,\r\n    stack_type,\r\n    gross_weight,\r\n

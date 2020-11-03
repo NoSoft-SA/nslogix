@@ -13,7 +13,6 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Size References', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/fruit_size_references', seq: 7, group: 'Sizes'
     add_program_function 'Size Conversions', functional_area: 'Masterfiles', program: 'Fruit', url: '/search/fruit_actual_counts_for_packs', seq: 8, group: 'Sizes'
 
-    add_program_function 'RMT Classes', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/rmt_classes', seq: 9
     add_program_function 'Grades', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/grades', seq: 10
 
     add_program_function 'Types', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/treatment_types', seq: 11, group: 'Treatments'

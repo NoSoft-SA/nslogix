@@ -15,7 +15,6 @@ module Masterfiles
               form.view_only!
               form.add_field :grade_code
               form.add_field :description
-              form.add_field :rmt_grade
               form.add_field :active
             end
           end

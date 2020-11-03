@@ -16,9 +16,6 @@ pallet_sequences:
     - col: id
       op: =
       val: 24
-bins:
-  grid: rmt_bins
-  out_dir: /home/nslogix/csv_exports
 shipped_pallets:
   report: shipped_pallets
   out_dir: /home/nslogix/csv_exports

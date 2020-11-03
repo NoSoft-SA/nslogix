@@ -33,14 +33,6 @@ module UiRules
       fields[:bin] = { renderer: :label,
                        caption: 'Bin?',
                        as_boolean: true }
-      fields[:rmt_container_type_id] = { renderer: :label,
-                                         with_value: @form_object.container_type,
-                                         hide_on_load: !@form_object.bin,
-                                         caption: 'Container Type' }
-      fields[:rmt_container_material_type_id] = { renderer: :label,
-                                                  with_value: @form_object.material_type,
-                                                  hide_on_load: !@form_object.bin,
-                                                  caption: 'Material Type' }
     end
 
     def common_fields # rubocop:disable Metrics/AbcSize
@@ -66,20 +58,7 @@ module UiRules
                                      renderer: :numeric },
         bin: { renderer: :checkbox,
                caption: 'Bin?',
-               as_boolean: true  },
-        rmt_container_type_id: { renderer: :select,
-                                 options: MasterfilesApp::RmtContainerTypeRepo.new.for_select_rmt_container_types,
-                                 disabled_options: MasterfilesApp::RmtContainerTypeRepo.new.for_select_inactive_rmt_container_types,
-                                 prompt: true,
-                                 hide_on_load: !@form_object.bin,
-                                 caption: 'Container Type' },
-        rmt_container_material_type_id: { renderer: :select,
-                                          options: MasterfilesApp::RmtContainerMaterialTypeRepo.new.for_select_rmt_container_material_types(where: { rmt_container_type_id: @form_object.rmt_container_type_id }),
-                                          disabled_options: MasterfilesApp::RmtContainerMaterialTypeRepo.new.for_select_inactive_rmt_container_material_types,
-                                          prompt: true,
-                                          hide_on_load: !@form_object.bin,
-                                          caption: 'Material Type' }
-
+               as_boolean: true  }
       }
     end
 
@@ -98,15 +77,12 @@ module UiRules
                                     basic_pack_code_id: nil,
                                     use_size_ref_for_edi: false,
                                     palletizer_incentive_rate: 0.0,
-                                    bin: false,
-                                    rmt_container_type_id: nil,
-                                    rmt_container_material_type_id: nil)
+                                    bin: false)
     end
 
     def add_behaviours
       behaviours do |behaviour|
         behaviour.input_change :bin, notify: [{ url: '/masterfiles/fruit/standard_pack_codes/bin_changed' }]
-        behaviour.dropdown_change :rmt_container_type_id, notify: [{ url: '/masterfiles/fruit/standard_pack_codes/container_type_changed' }]
       end
     end
   end
