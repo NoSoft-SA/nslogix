@@ -19,7 +19,6 @@ module Masterfiles
               form.add_field :material_mass
               form.add_field :plant_resource_button_indicator
               form.add_field :use_size_ref_for_edi
-              form.add_field :bin
               form.add_field :active
             end
           end

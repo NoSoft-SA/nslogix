@@ -6,7 +6,6 @@ module UiRules
       @repo = MasterfilesApp::FruitSizeRepo.new
       make_form_object
       apply_form_values
-      add_behaviours unless @mode == :show
       common_values_for_fields common_fields
 
       set_show_fields if @mode == :show
@@ -28,9 +27,6 @@ module UiRules
                                       caption: 'Basic Pack Code' }
       fields[:use_size_ref_for_edi] = { renderer: :label,
                                         as_boolean: true }
-      fields[:bin] = { renderer: :label,
-                       caption: 'Bin?',
-                       as_boolean: true }
     end
 
     def common_fields
@@ -45,10 +41,7 @@ module UiRules
                               disabled_options: @repo.for_select_inactive_basic_pack_codes,
                               caption: 'Basic Pack Code',
                               invisible: AppConst::BASE_PACK_EQUALS_STD_PACK },
-        use_size_ref_for_edi: { renderer: :checkbox },
-        bin: { renderer: :checkbox,
-               caption: 'Bin?',
-               as_boolean: true  }
+        use_size_ref_for_edi: { renderer: :checkbox }
       }
     end
 
@@ -64,14 +57,7 @@ module UiRules
                                     std_pack_label_code: nil,
                                     material_mass: nil,
                                     basic_pack_code_id: nil,
-                                    use_size_ref_for_edi: false,
-                                    bin: false)
-    end
-
-    def add_behaviours
-      behaviours do |behaviour|
-        behaviour.input_change :bin, notify: [{ url: '/masterfiles/fruit/standard_pack_codes/bin_changed' }]
-      end
+                                    use_size_ref_for_edi: false)
     end
   end
 end
