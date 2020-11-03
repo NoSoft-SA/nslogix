@@ -20,7 +20,7 @@ module UiRules
       fields[:season_group_id] = { renderer: :label,
                                    with_value: @repo.find_season_group(@form_object.season_group_id)&.season_group_code }
       fields[:commodity_id] = { renderer: :label,
-                                with_value: MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.code }
+                                with_value: MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.commodity_code }
       fields[:season_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
       fields[:season_year] = { renderer: :label }

@@ -26,32 +26,32 @@ module MasterfilesApp
     end
 
     def test_create_fail
-      attrs = fake_commodity_group(code: nil).to_h.reject { |k, _| k == :id }
+      attrs = fake_commodity_group(commodity_group_code: nil).to_h.reject { |k, _| k == :id }
       res = interactor.create_commodity_group(attrs)
       refute res.success, 'should fail validation'
-      assert_equal ['must be filled'], res.errors[:code]
+      assert_equal ['must be filled'], res.errors[:commodity_group_code]
     end
 
     def test_update
       id = create_commodity_group
       attrs = interactor.send(:repo).find_hash(:commodity_groups, id).reject { |k, _| k == :id }
-      value = attrs[:code]
-      attrs[:code] = 'a_change'
+      value = attrs[:commodity_group_code]
+      attrs[:commodity_group_code] = 'a_change'
       res = interactor.update_commodity_group(id, attrs)
       assert res.success, "#{res.message} : #{res.errors.inspect}"
       assert_instance_of(CommodityGroup, res.instance)
-      assert_equal 'a_change', res.instance.code
-      refute_equal value, res.instance.code
+      assert_equal 'a_change', res.instance.commodity_group_code
+      refute_equal value, res.instance.commodity_group_code
     end
 
     def test_update_fail
       id = create_commodity_group
-      attrs = interactor.send(:repo).find_hash(:commodity_groups, id).reject { |k, _| %i[id code].include?(k) }
+      attrs = interactor.send(:repo).find_hash(:commodity_groups, id).reject { |k, _| %i[id commodity_group_code].include?(k) }
       value = attrs[:description]
       attrs[:description] = 'a_change'
       res = interactor.update_commodity_group(id, attrs)
       refute res.success, "#{res.message} : #{res.errors.inspect}"
-      assert_equal ['is missing'], res.errors[:code]
+      assert_equal ['is missing'], res.errors[:commodity_group_code]
       after = interactor.send(:repo).find_hash(:commodity_groups, id)
       refute_equal 'a_change', after[:description]
       assert_equal value, after[:description]

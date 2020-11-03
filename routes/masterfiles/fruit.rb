@@ -277,20 +277,18 @@ class Nslogix < Roda
           show_partial { Masterfiles::Fruit::Cultivar::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_cultivar(id, params[:cultivar]) # Use Interactor - returned instance is "larger" entity (incl. commod code)
+          res = interactor.update_cultivar(id, params[:cultivar])
           if res.success
-            hash = res.instance.to_h
-            hash[:code] = MasterfilesApp::CommodityRepo.new.find_commodity(res.instance[:commodity_id])&.code
             row_keys = %i[
               commodity_id
               cultivar_group_id
               cultivar_group_code
               cultivar_name
-              code
+              commodity_code
               cultivar_code
               description
             ]
-            update_grid_row(id, changes: select_attributes(hash, row_keys), notice: res.message)
+            update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
           else
             re_show_form(r, res) { Masterfiles::Fruit::Cultivar::Edit.call(id, params[:cultivar], res.errors) }
           end

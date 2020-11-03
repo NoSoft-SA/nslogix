@@ -15,7 +15,7 @@ module UiRules
     end
 
     def set_show_fields
-      commodity_id_label = MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.code
+      commodity_id_label = MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.commodity_code
       fields[:commodity_id] = { renderer: :label, with_value: commodity_id_label }
       fields[:cultivar_group_code] = { renderer: :label }
       fields[:description] = { renderer: :label }

@@ -15,7 +15,7 @@ module UiRules
     end
 
     def set_show_fields  # rubocop:disable Metrics/AbcSize
-      commodity_id_label = MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.code
+      commodity_id_label = MasterfilesApp::CommodityRepo.new.find_commodity(@form_object.commodity_id)&.commodity_code
       standard_pack_id_label = MasterfilesApp::FruitSizeRepo.new.find_standard_pack_code(@form_object.standard_pack_id)&.standard_pack_code
       fields[:commodity_id] = { renderer: :label,
                                 with_value: commodity_id_label,

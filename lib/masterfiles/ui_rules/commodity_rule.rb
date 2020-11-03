@@ -15,7 +15,7 @@ module UiRules
 
     def set_show_fields
       fields[:commodity_group_id] = { renderer: :label,
-                                      with_value: @repo.find_commodity_group(@form_object.commodity_group_id)&.code }
+                                      with_value: @repo.find_commodity_group(@form_object.commodity_group_id)&.commodity_group_code }
       fields[:commodity_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
       fields[:hs_code] = { renderer: :label, caption: 'HS code' }
