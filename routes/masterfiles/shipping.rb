@@ -403,7 +403,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
               city_id
               city_name
               depot_code
-              bin_depot
               description
             ]
             update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
@@ -439,7 +438,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
             depot_code
             description
             city_name
-            bin_depot
             active
           ]
           add_grid_row(attrs: select_attributes(res.instance, row_keys),

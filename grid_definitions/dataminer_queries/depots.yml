@@ -1,7 +1,7 @@
 ---
 :caption: Depots
 :sql: "SELECT\r\n    depots.id,\r\n    depots.depot_code,\r\n    depots.description,\r\n
-  \   depots.city_id,\r\n    destination_cities.city_name,\r\n    depots.bin_depot,\r\n
+  \   depots.city_id,\r\n    destination_cities.city_name,\r\n
   \   fn_masterfile_variants('depots', depots.id) AS variant_codes,\r\n    depots.active,\r\n
   \   depots.created_at,\r\n    depots.updated_at\r\n\r\nFROM depots\r\nLEFT JOIN
   destination_cities ON destination_cities.id = city_id\r\nORDER BY depots.depot_code"
@@ -84,22 +84,6 @@
     :hide: false
     :pinned: 
     :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  bin_depot:
-    :name: bin_depot
-    :sequence_no: 6
-    :caption: Bin depot
-    :namespaced_name: depots.bin_depot
-    :data_type: :boolean
-    :width: 70
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: true
     :group_by_seq: 
     :group_sum: false
     :group_avg: false
