@@ -21,8 +21,7 @@
   \                WHEN 'D' THEN\r\n                     'DEL'\r\n                 ELSE\r\n
   \                    'TRUNC'\r\n                 END AS action,\r\n             changed_fields,\r\n
   \            row_data,\r\n             row_data -> 'pallet_number' AS pallet_number,\r\n
-  \            row_data -> 'pallet_format_id' AS pallet_format_id,\r\n             row_data
-  -> 'location_id' AS location_id,\r\n             row_data -> 'in_stock' AS in_stock,\r\n
+  \            row_data -> 'pallet_format_id' AS pallet_format_id,\r\n             row_data -> 'in_stock' AS in_stock,\r\n
   \            row_data -> 'shipped' AS shipped,\r\n             row_data -> 'shipped_at'
   AS shipped_at,\r\n             row_data -> 'inspected' AS inspected,\r\n             row_data
   -> 'govt_first_inspection_at' AS govt_first_inspection_at,\r\n             row_data
@@ -46,7 +45,7 @@
   \            NULL AS route_url,\r\n             NULL AS request_ip,\r\n             fn_current_status
   ('pallets', id) AS status,\r\n             NULL AS transaction_at,\r\n             NULL
   AS action,\r\n             NULL AS changed_fields,\r\n             NULL AS row_data,\r\n
-  \            pallet_number::text,\r\n             pallet_format_id::text,\r\n             location_id::text,\r\n
+  \            pallet_number::text,\r\n             pallet_format_id::text,\r\n
   \            in_stock::text,\r\n             shipped::text,\r\n             shipped_at::text,\r\n
   \            inspected::text,\r\n             govt_first_inspection_at::text,\r\n
   \            govt_reinspection_at::text,\r\n             stock_created_at::text,\r\n
@@ -271,22 +270,6 @@
     :hide: false
     :pinned: 
     :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  location_long_code:
-    :name: location_long_code
-    :sequence_no: 14
-    :caption: Location long code
-    :namespaced_name: location_long_code
-    :data_type: :string
-    :width: 100
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: true
     :group_by_seq: 
     :group_sum: false
     :group_avg: false
