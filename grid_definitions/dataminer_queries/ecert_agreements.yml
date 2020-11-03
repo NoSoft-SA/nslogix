@@ -169,7 +169,7 @@
     :group_min: false
     :group_max: false
 :query_parameter_definitions:
-- :column: ecert_agreements.code
+- :column: ecert_agreements.agreement_code
   :caption: Code
   :data_type: :string
   :control_type: :text

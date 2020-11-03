@@ -8,7 +8,7 @@
   std_fruit_size_counts.size_count_value AS std_count, std_fruit_size_counts.minimum_size_mm,
   std_fruit_size_counts.maximum_size_mm, std_fruit_size_counts.average_size_mm, std_fruit_size_counts.minimum_weight_gm,
   std_fruit_size_counts.maximum_weight_gm, std_fruit_size_counts.average_weight_gm,
-  basic_pack_codes.basic_pack_code, commodities.code AS commodity_code,
+  basic_pack_codes.basic_pack_code, commodities.commodity_code,
   (SELECT array_agg(fruit_spc.standard_pack_code)
   FROM (SELECT spc.standard_pack_code
   FROM standard_pack_codes spc
@@ -337,7 +337,7 @@
     :name: commodity_code
     :sequence_no: 1
     :caption: Commodity
-    :namespaced_name: commodities.code
+    :namespaced_name: commodities.commodity_code
     :data_type: :string
     :width: 120
     :format: 

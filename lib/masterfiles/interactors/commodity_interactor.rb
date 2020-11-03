@@ -8,7 +8,7 @@ module MasterfilesApp
 
       id = repo.create_commodity_group(res)
       instance = commodity_group(id)
-      success_response("Created commodity group #{instance.code}", instance)
+      success_response("Created commodity group #{instance.commodity_group_code}", instance)
     rescue Sequel::UniqueConstraintViolation
       validation_failed_response(OpenStruct.new(messages: { commodity_group_code: ['This commodity group already exists'] }))
     end
@@ -19,11 +19,11 @@ module MasterfilesApp
 
       repo.update_commodity_group(id, res)
       instance = commodity_group(id)
-      success_response("Updated commodity group #{instance.code}", instance)
+      success_response("Updated commodity group #{instance.commodity_group_code}", instance)
     end
 
     def delete_commodity_group(id)
-      name = commodity_group(id).code
+      name = commodity_group(id).commodity_group_code
       res = {}
       repo.transaction do
         res = repo.delete_commodity_group(id)
@@ -41,7 +41,7 @@ module MasterfilesApp
 
       id = repo.create_commodity(res)
       instance = commodity(id)
-      success_response("Created commodity #{instance.code}", instance)
+      success_response("Created commodity #{instance.commodity_code}", instance)
     rescue Sequel::UniqueConstraintViolation
       validation_failed_response(OpenStruct.new(messages: { commodity_code: ['This commodity already exists'] }))
     end
@@ -52,11 +52,11 @@ module MasterfilesApp
 
       repo.update_commodity(id, res)
       instance = commodity(id)
-      success_response("Updated commodity #{instance.code}", instance)
+      success_response("Updated commodity #{instance.commodity_code}", instance)
     end
 
     def delete_commodity(id)
-      name = commodity(id).code
+      name = commodity(id).commodity_code
       res = {}
       repo.transaction do
         res = repo.delete_commodity(id)

@@ -146,7 +146,7 @@
     :name: commodity_code
     :sequence_no: 9
     :caption: Commodity code
-    :namespaced_name: commodities.code
+    :namespaced_name: commodities.commodity_code
     :data_type: :string
     :width: 
     :format: 

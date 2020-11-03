@@ -142,7 +142,7 @@
     :name: commodity_group_code
     :sequence_no: 9
     :caption: Commodity group code
-    :namespaced_name: commodity_groups.code
+    :namespaced_name: commodity_groups.commodity_group_code
     :data_type: :string
     :width: 
     :format: 
@@ -195,7 +195,7 @@
   :ordered_list: true
   :ui_priority: 1
   :list_def: SELECT code, id FROM commodity_groups ORDER BY code
-- :column: commodities.code
+- :column: commodities.commodity_code
   :caption: Code
   :data_type: :string
   :control_type: :text

@@ -1,7 +1,7 @@
 ---
 :caption: eCert Tracking Units
 :sql: "SELECT \r\n    ecert_tracking_units.id,\r\n    ecert_tracking_units.pallet_id,\r\n
-  \   ecert_tracking_units.ecert_agreement_id,\r\n    ecert_agreements.code AS agreement_code,\r\n
+  \   ecert_tracking_units.ecert_agreement_id,\r\n    ecert_agreements.agreement_code AS agreement_code,\r\n
   \   ecert_agreements.name AS agreement_name,\r\n    pallets.pallet_number,\r\n    ecert_tracking_units.elot_key,\r\n
   \   ecert_tracking_units.verification_key,\r\n    ecert_tracking_units.passed,\r\n
   \   ecert_tracking_units.process_result,\r\n    ecert_tracking_units.rejection_reasons,\r\n
@@ -72,7 +72,7 @@
     :name: agreement_code
     :sequence_no: 4
     :caption: Agreement code
-    :namespaced_name: ecert_agreements.code
+    :namespaced_name: ecert_agreements.agreement_code
     :data_type: :string
     :width: 140
     :format: 

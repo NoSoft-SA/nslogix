@@ -126,7 +126,7 @@ module Crossbeams
       pm_product_id: { subquery: 'SELECT id FROM pm_products WHERE product_code = ?', values: 'SELECT product_code FROM pm_products WHERE id = ?' },
       pm_bom_id: { subquery: 'SELECT id FROM pm_boms WHERE bom_code = ?', values: 'SELECT bom_code FROM pm_boms WHERE id = ?' },
       uom_type_id: { subquery: 'SELECT id FROM uom_types WHERE code = ?', values: 'SELECT code FROM uom_types WHERE id = ?' },
-      uom_id: { subquery: 'SELECT id FROM uoms WHERE uom_type_id = (SELECT id FROM uom_types WHERE code = ?) AND uom_code = ?', values: 'SELECT t.code, u.uom_code FROM uoms u JOIN uom_types t ON t.id = u.uom_type_id WHERE u.id = ?' },
+      uom_id: { subquery: 'SELECT id FROM uoms WHERE uom_type_id = (SELECT id FROM uom_types WHERE code = ?) AND uom_code = ?', values: 'SELECT t.uom_type_code, u.uom_code FROM uoms u JOIN uom_types t ON t.id = u.uom_type_id WHERE u.id = ?' },
       season_group_id: { subquery: 'SELECT id FROM season_groups WHERE season_group_code = ?', values: 'SELECT season_group_code FROM season_groups WHERE id = ?' },
       target_market_group_type_id: { subquery: 'SELECT id FROM target_market_group_types WHERE target_market_group_type_code = ?', values: 'SELECT target_market_group_type_code FROM target_market_group_types WHERE id = ?' },
       target_market_id: { subquery: 'SELECT id FROM target_markets WHERE target_market_name = ?', values: 'SELECT target_market_name FROM target_markets WHERE id = ?' },
@@ -139,7 +139,7 @@ module Crossbeams
       farm_id: { subquery: 'SELECT id FROM farms WHERE farm_code = ?', values: 'SELECT farm_code FROM farms WHERE id = ?' },
       farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
       farm_section_id: { subquery: 'SELECT id FROM farm_sections WHERE farm_section_name = ? AND farm_id = (SELECT id FROM farms WHERE farm_code = ?)', values: 'SELECT s.farm_section_name, f.farm_code FROM farm_sections s JOIN farms f ON f.id = s.farm_id WHERE s.id = ?' },
-      std_fruit_size_count_id: { subquery: 'SELECT id FROM std_fruit_size_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM std_fruit_size_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
+      std_fruit_size_count_id: { subquery: 'SELECT id FROM std_fruit_size_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.commodity_code FROM std_fruit_size_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
       # standard_pack_code_ids, size_reference_ids, cultivar_ids
       role_id: { subquery: 'SELECT id FROM roles WHERE name = ?', values: 'SELECT name FROM roles WHERE id = ?' },
       organization_id: { subquery: 'SELECT id FROM organizations WHERE short_description = ?', values: 'SELECT short_description FROM organizations WHERE id = ?' },

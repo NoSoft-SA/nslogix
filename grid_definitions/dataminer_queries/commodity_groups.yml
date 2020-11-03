@@ -97,7 +97,7 @@
     :group_min: false
     :group_max: false
 :query_parameter_definitions:
-- :column: commodity_groups.code
+- :column: commodity_groups.commodity_group_code
   :caption: Code
   :data_type: :string
   :control_type: :text
