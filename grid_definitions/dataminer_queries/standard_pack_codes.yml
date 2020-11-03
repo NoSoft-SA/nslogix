@@ -9,8 +9,7 @@
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\nFROM
   standard_pack_codes\r\nLEFT JOIN basic_pack_codes ON basic_pack_codes.id = standard_pack_codes.basic_pack_code_id\r\nLEFT
   JOIN rmt_container_material_types ON rmt_container_material_types.id = standard_pack_codes.rmt_container_material_type_id\r\nLEFT
-  JOIN rmt_container_types ON rmt_container_types.id = standard_pack_codes.rmt_container_type_id\r\nORDER
-  BY\r\n    standard_pack_codes.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
+  ORDER BY\r\n    standard_pack_codes.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -168,54 +167,6 @@
     :width: 
     :format: 
     :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  container_type:
-    :name: container_type
-    :sequence_no: 13
-    :caption: Container type
-    :namespaced_name: rmt_container_types.container_type_code
-    :data_type: :string
-    :width: 120
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  rmt_container_material_type_id:
-    :name: rmt_container_material_type_id
-    :sequence_no: 14
-    :caption: Rmt container material type
-    :namespaced_name: standard_pack_codes.rmt_container_material_type_id
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  material_type:
-    :name: material_type
-    :sequence_no: 15
-    :caption: Material type
-    :namespaced_name: rmt_container_material_types.container_material_type_code
-    :data_type: :string
-    :width: 120
-    :format: 
-    :hide: false
     :pinned: 
     :groupable: false
     :group_by_seq: 

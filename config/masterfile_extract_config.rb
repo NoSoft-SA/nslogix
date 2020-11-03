@@ -146,8 +146,6 @@ module Crossbeams
       farm_id: { subquery: 'SELECT id FROM farms WHERE farm_code = ?', values: 'SELECT farm_code FROM farms WHERE id = ?' },
       farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
       farm_section_id: { subquery: 'SELECT id FROM farm_sections WHERE farm_section_name = ? AND farm_id = (SELECT id FROM farms WHERE farm_code = ?)', values: 'SELECT s.farm_section_name, f.farm_code FROM farm_sections s JOIN farms f ON f.id = s.farm_id WHERE s.id = ?' },
-      rmt_container_type_id: { subquery: 'SELECT id FROM rmt_container_types WHERE container_type_code = ?', values: 'SELECT container_type_code FROM rmt_container_types WHERE id = ?' },
-      rmt_inner_container_type_id: { subquery: 'SELECT id FROM rmt_container_types WHERE container_type_code = ?', values: 'SELECT container_type_code FROM rmt_container_types WHERE id = ?' },
       std_fruit_size_count_id: { subquery: 'SELECT id FROM std_fruit_size_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM std_fruit_size_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
       # standard_pack_code_ids, size_reference_ids, cultivar_ids
       role_id: { subquery: 'SELECT id FROM roles WHERE name = ?', values: 'SELECT name FROM roles WHERE id = ?' },
