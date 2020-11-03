@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_pallet_stack_type(res)
-        log_status('pallet_stack_types', id, 'CREATED')
+        log_status(:pallet_stack_types, id, 'CREATED')
         log_transaction
       end
       instance = pallet_stack_type(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = pallet_stack_type(id).stack_type_code
       repo.transaction do
         repo.delete_pallet_stack_type(id)
-        log_status('pallet_stack_types', id, 'DELETED')
+        log_status(:pallet_stack_types, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted pallet stack type #{name}")

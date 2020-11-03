@@ -62,12 +62,10 @@ module MasterfilesApp
                                    id,
                                    parent_tables: [{ parent_table: :cultivar_groups,
                                                      columns: [:cultivar_group_code],
-                                                     flatten_columns: { cultivar_group_code: :cultivar_group_code }
-                                                   },
+                                                     flatten_columns: { cultivar_group_code: :cultivar_group_code } },
                                                    { parent_table: :commodities,
                                                      columns: [:commodity_code],
-                                                     flatten_columns: { commodity_code: :commodity_code },
-                                                   }])
+                                                     flatten_columns: { commodity_code: :commodity_code } }])
       return nil if hash.nil?
 
       Cultivar.new(hash)

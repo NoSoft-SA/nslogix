@@ -12,7 +12,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_customer_variety(res, marketing_variety_ids)
-        log_status('customer_varieties', id, 'CREATED')
+        log_status(:customer_varieties, id, 'CREATED')
         log_transaction
       end
       instance = customer_variety(id)
@@ -43,7 +43,7 @@ module MasterfilesApp
       name = customer_variety(id).id
       repo.transaction do
         repo.delete_customer_variety(id)
-        log_status('customer_varieties', id, 'DELETED')
+        log_status(:customer_varieties, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted customer variety #{name}")
@@ -55,7 +55,7 @@ module MasterfilesApp
       name = customer_variety_variety(id).id
       repo.transaction do
         repo.delete_customer_variety_variety(id)
-        log_status('customer_variety_variety', id, 'DELETED')
+        log_status(:customer_variety_variety, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted customer variety variety #{name}")

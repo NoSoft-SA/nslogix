@@ -14,7 +14,7 @@ module UiRules
       form_name 'standard_pack_code'
     end
 
-    def set_show_fields # rubocop:disable Metrics/AbcSize
+    def set_show_fields
       basic_pack_code_id_label = @repo.find_basic_pack_code(@form_object.basic_pack_code_id)&.basic_pack_code
       fields[:standard_pack_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
@@ -33,7 +33,7 @@ module UiRules
                        as_boolean: true }
     end
 
-    def common_fields # rubocop:disable Metrics/AbcSize
+    def common_fields
       {
         standard_pack_code: { required: true },
         description: {},

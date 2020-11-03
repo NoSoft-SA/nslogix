@@ -145,7 +145,7 @@ module EdiApp
       Time.new(date[0, 4], date[4, 2], date[6, 3], *time.split(':'))
     end
 
-    def build_pallet(pallet_number, seq)
+    def build_pallet(pallet_number, seq) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       records[pallet_number] = {
         lookup_data: {},  # data looked up from masterfiles.
         missing_mf: {},   # details about failed lookups

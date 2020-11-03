@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  module PackagingFactory  # rubocop:disable Metrics/ModuleLength
+  module PackagingFactory
     def create_pallet_base(opts = {})
       default = {
         pallet_base_code: Faker::Lorem.unique.word,

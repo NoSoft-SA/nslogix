@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_fruit_size_reference(res)
-        log_status('fruit_size_references', id, 'CREATED')
+        log_status(:fruit_size_references, id, 'CREATED')
         log_transaction
       end
       instance = fruit_size_reference(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = fruit_size_reference(id).size_reference
       repo.transaction do
         repo.delete_fruit_size_reference(id)
-        log_status('fruit_size_references', id, 'DELETED')
+        log_status(:fruit_size_references, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted fruit size reference #{name}")

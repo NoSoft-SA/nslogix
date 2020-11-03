@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_pallet_base(res)
-        log_status('pallet_bases', id, 'CREATED')
+        log_status(:pallet_bases, id, 'CREATED')
         log_transaction
       end
       instance = pallet_base(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = pallet_base(id).pallet_base_code
       repo.transaction do
         repo.delete_pallet_base(id)
-        log_status('pallet_bases', id, 'DELETED')
+        log_status(:pallet_bases, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted pallet base #{name}")

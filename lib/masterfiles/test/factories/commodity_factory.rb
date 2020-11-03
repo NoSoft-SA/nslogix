@@ -18,7 +18,7 @@ module MasterfilesApp
 
     def create_commodity_group(opts = {})
       default = {
-          commodity_group_code: Faker::Lorem.unique.word,
+        commodity_group_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         active: true
       }

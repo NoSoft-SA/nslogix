@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_farm_group(res)
-        log_status('farm_groups', id, 'CREATED')
+        log_status(:farm_groups, id, 'CREATED')
         log_transaction
       end
       instance = farm_group(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = farm_group(id).farm_group_code
       repo.transaction do
         repo.delete_farm_group(id)
-        log_status('farm_groups', id, 'DELETED')
+        log_status(:farm_groups, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted farm group #{name}")

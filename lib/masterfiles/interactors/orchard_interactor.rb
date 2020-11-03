@@ -13,7 +13,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_orchard(attrs)
-        log_status('orchards', id, 'CREATED')
+        log_status(:orchards, id, 'CREATED')
         log_transaction
       end
       instance = orchard(id)
@@ -47,7 +47,7 @@ module MasterfilesApp
       name = orchard(id).orchard_code
       repo.transaction do
         repo.delete_orchard(id)
-        log_status('orchards', id, 'DELETED')
+        log_status(:orchards, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted orchard #{name}")

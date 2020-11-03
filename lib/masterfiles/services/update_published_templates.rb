@@ -46,7 +46,7 @@ module MasterfilesApp
         variables: variables_list(label_def),
         variable_rules: variables_as_json(label_def)
       )
-      repo.log_status('label_templates', id, 'CREATED', comment: 'from PUBLISH event', user_name: 'system')
+      repo.log_status(:label_templates, id, 'CREATED', comment: 'from PUBLISH event', user_name: 'system')
     end
 
     def update_label_template(label_template, label_def)
@@ -55,7 +55,7 @@ module MasterfilesApp
         variables: variables_list(label_def),
         variable_rules: variables_as_json(label_def)
       )
-      repo.log_status('label_templates', label_template.id, 'VARIABLE_LIST_UPDATED', comment: 'from PUBLISH event', user_name: 'system')
+      repo.log_status(:label_templates, label_template.id, 'VARIABLE_LIST_UPDATED', comment: 'from PUBLISH event', user_name: 'system')
     end
 
     def variables_as_json(label_def)

@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_inventory_code(res)
-        log_status('inventory_codes', id, 'CREATED')
+        log_status(:inventory_codes, id, 'CREATED')
         log_transaction
       end
       instance = inventory_code(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = inventory_code(id).inventory_code
       repo.transaction do
         repo.delete_inventory_code(id)
-        log_status('inventory_codes', id, 'DELETED')
+        log_status(:inventory_codes, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted inventory code #{name}")

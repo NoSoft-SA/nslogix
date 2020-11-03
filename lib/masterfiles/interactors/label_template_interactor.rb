@@ -21,7 +21,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_label_template(res)
-        log_status('label_templates', id, 'CREATED')
+        log_status(:label_templates, id, 'CREATED')
         log_transaction
       end
       instance = label_template(id)
@@ -48,7 +48,7 @@ module MasterfilesApp
       name = label_template(id).label_template_name
       repo.transaction do
         repo.delete_label_template(id)
-        log_status('label_templates', id, 'DELETED')
+        log_status(:label_templates, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted label template #{name}")

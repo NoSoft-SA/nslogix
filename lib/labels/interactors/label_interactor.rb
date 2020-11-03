@@ -71,7 +71,7 @@ module LabelApp
         else
           repo.delete_label(id)
         end
-        log_status('labels', id, 'DELETED')
+        log_status(:labels, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted label #{instance.label_name}")
@@ -80,7 +80,7 @@ module LabelApp
     def archive_label(id)
       repo.transaction do
         repo.update_label(id, active: false)
-        log_status('labels', id, 'ARCHIVED')
+        log_status(:labels, id, 'ARCHIVED')
         log_transaction
       end
       instance = label(id)
@@ -90,7 +90,7 @@ module LabelApp
     def un_archive_label(id)
       repo.transaction do
         repo.update_label(id, active: true)
-        log_status('labels', id, 'UN-ARCHIVED')
+        log_status(:labels, id, 'UN-ARCHIVED')
         log_transaction
       end
       instance = label(id)
@@ -100,7 +100,7 @@ module LabelApp
     def link_multi_label(id, sub_label_ids)
       repo.transaction do
         repo.link_multi_label(id, sub_label_ids)
-        log_status('labels', id, 'SUB_LABELS_LINKED')
+        log_status(:labels, id, 'SUB_LABELS_LINKED')
       end
       success_response('Linked sub-labels for a multi-label')
     end
@@ -263,7 +263,7 @@ module LabelApp
         }
         mail_opts[:cc] = params[:cc] if params[:cc]
         DevelopmentApp::SendMailJob.enqueue(mail_opts)
-        log_status('labels', id, 'EMAILED FOR APPROVAL', comment: "to #{params[:to]}")
+        log_status(:labels, id, 'EMAILED FOR APPROVAL', comment: "to #{params[:to]}")
         success_response('Email has been queued for sending. Please check your inbox for a copy.')
       else
         failed_response(res.message)

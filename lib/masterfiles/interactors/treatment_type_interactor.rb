@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_treatment_type(res)
-        log_status('treatment_types', id, 'CREATED')
+        log_status(:treatment_types, id, 'CREATED')
         log_transaction
       end
       instance = treatment_type(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = treatment_type(id).treatment_type_code
       repo.transaction do
         repo.delete_treatment_type(id)
-        log_status('treatment_types', id, 'DELETED')
+        log_status(:treatment_types, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted treatment type #{name}")

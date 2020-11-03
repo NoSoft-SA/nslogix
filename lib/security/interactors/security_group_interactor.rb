@@ -22,7 +22,7 @@ module SecurityApp
       id = nil
       repo.transaction do
         id = repo.create_security_group(res)
-        log_status('security_groups', id, 'CREATED')
+        log_status(:security_groups, id, 'CREATED')
         log_transaction
       end
       instance = security_group(id)
@@ -39,7 +39,7 @@ module SecurityApp
       # res = validate_security_group... etc.
       repo.transaction do
         repo.update_security_group(id, res)
-        log_status('security_groups', id, 'UPDATED', comment: Time.now.strftime('%H:%M'))
+        log_status(:security_groups, id, 'UPDATED', comment: Time.now.strftime('%H:%M'))
         log_transaction
       end
       instance = security_group(id)
@@ -61,13 +61,12 @@ module SecurityApp
       if params[:security_permissions]
         repo.transaction do
           repo.assign_security_permissions(id, params[:security_permissions].map(&:to_i))
-          log_status('security_groups', id, 'PERMISSION_CHANGE')
-          log_multiple_statuses('security_permissions', params[:security_permissions].map(&:to_i), 'ASSIGNED TO', comment: name)
+          log_status(:security_groups, id, 'PERMISSION_CHANGE')
+          log_multiple_statuses(:security_permissions, params[:security_permissions].map(&:to_i), 'ASSIGNED TO', comment: name)
           log_transaction
         end
         security_group_ex = repo.find_with_permissions(id)
-        success_response("Updated permissions on security group #{security_group_ex.security_group_name}",
-                         security_group_ex)
+        success_response("Updated permissions on security group #{security_group_ex.security_group_name}", security_group_ex)
       else
         validation_failed_response(OpenStruct.new(messages: { security_permissions: ['You did not choose a permission'] }))
       end

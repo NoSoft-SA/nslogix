@@ -360,7 +360,7 @@ class AppConst # rubocop:disable Metrics/ClassLength
       roles: [ROLE_CUSTOMER, ROLE_EXPORTER]
     }
   }.freeze
-  
+
   MF_VARIANT_RULES = { Cities: { table_name: 'destination_cities', column_name: 'city_name' },
                        Depots: { table_name: 'depots', column_name: 'depot_code' },
                        Fruit_Size_References: { table_name: 'fruit_size_references', column_name: 'size_reference' },

@@ -10,7 +10,7 @@ module MasterfilesApp
       repo.transaction do
         id = repo.create_puc(res)
         # repo.create_farms_pucs(id,@puc_id)
-        log_status('pucs', id, 'CREATED')
+        log_status(:pucs, id, 'CREATED')
         log_transaction
       end
       instance = puc(id)
@@ -42,7 +42,7 @@ module MasterfilesApp
       repo.transaction do
         repo.delete_farms_pucs(id)
         repo.delete_puc(id)
-        log_status('pucs', id, 'DELETED')
+        log_status(:pucs, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted puc #{name}")

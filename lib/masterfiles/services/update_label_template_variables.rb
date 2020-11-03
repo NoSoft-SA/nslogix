@@ -25,7 +25,7 @@ module MasterfilesApp
       repo.transaction do
         repo.update_label_template(label_template.id, package)
         repo.log_action(user_name: user.user_name, context: 'NSLD label refreshed')
-        repo.log_status('label_templates', label_template.id, 'VARIABLE_LIST_UPDATED', comment: 'from refresh event', user_name: user.user_name)
+        repo.log_status(:label_templates, label_template.id, 'VARIABLE_LIST_UPDATED', comment: 'from refresh event', user_name: user.user_name)
       end
       success_response('Variables stored', label_template)
     end

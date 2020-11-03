@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_mark(res)
-        log_status('marks', id, 'CREATED')
+        log_status(:marks, id, 'CREATED')
         log_transaction
       end
       instance = mark(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = mark(id).mark_code
       repo.transaction do
         repo.delete_mark(id)
-        log_status('marks', id, 'DELETED')
+        log_status(:marks, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted mark #{name}")

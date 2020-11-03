@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_cargo_temperature(res)
-        log_status('cargo_temperatures', id, 'CREATED')
+        log_status(:cargo_temperatures, id, 'CREATED')
         log_transaction
       end
       instance = cargo_temperature(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = cargo_temperature(id).temperature_code
       repo.transaction do
         repo.delete_cargo_temperature(id)
-        log_status('cargo_temperatures', id, 'DELETED')
+        log_status(:cargo_temperatures, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted cargo temperature #{name}")

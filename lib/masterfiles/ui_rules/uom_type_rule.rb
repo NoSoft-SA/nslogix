@@ -21,7 +21,7 @@ module UiRules
 
     def common_fields
       {
-          uom_type_code: { required: true }
+        uom_type_code: { required: true }
       }
     end
 

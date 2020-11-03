@@ -21,7 +21,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_production_region(res)
-        log_status('production_regions', id, 'CREATED')
+        log_status(:production_regions, id, 'CREATED')
         log_transaction
       end
       instance = production_region(id)
@@ -52,7 +52,7 @@ module MasterfilesApp
       name = production_region(id).production_region_code
       repo.transaction do
         repo.delete_production_region(id)
-        log_status('production_regions', id, 'DELETED')
+        log_status(:production_regions, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted production region #{name}")

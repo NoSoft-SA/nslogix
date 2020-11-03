@@ -11,7 +11,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_season(res)
-        log_status('seasons', id, 'CREATED')
+        log_status(:seasons, id, 'CREATED')
         log_transaction
       end
       instance = season(id)
@@ -46,7 +46,7 @@ module MasterfilesApp
       name = season(id).season_code
       repo.transaction do
         repo.delete_season(id)
-        log_status('seasons', id, 'DELETED')
+        log_status(:seasons, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted season #{name}")

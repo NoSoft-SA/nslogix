@@ -2,7 +2,7 @@
 
 module MasterfilesApp
   class UomTypeInteractor < BaseInteractor
-    def create_uom_type(params)
+    def create_uom_type(params) # rubocop:disable Metrics/AbcSize
       res = validate_uom_type_params(params)
       return validation_failed_response(res) if res.failure?
 
@@ -34,7 +34,7 @@ module MasterfilesApp
       failed_response(e.message)
     end
 
-    def delete_uom_type(id)
+    def delete_uom_type(id) # rubocop:disable Metrics/AbcSize
       name = uom_type(id).uom_type_code
       repo.transaction do
         repo.delete_uom_type(id)

@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_pallet_format(res)
-        log_status('pallet_formats', id, 'CREATED')
+        log_status(:pallet_formats, id, 'CREATED')
         log_transaction
       end
       instance = pallet_format(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = pallet_format(id).description
       repo.transaction do
         repo.delete_pallet_format(id)
-        log_status('pallet_formats', id, 'DELETED')
+        log_status(:pallet_formats, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted pallet format #{name}")

@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_grade(res)
-        log_status('grades', id, 'CREATED')
+        log_status(:grades, id, 'CREATED')
         log_transaction
       end
       instance = grade(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = grade(id).grade_code
       repo.transaction do
         repo.delete_grade(id)
-        log_status('grades', id, 'DELETED')
+        log_status(:grades, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted grade #{name}")

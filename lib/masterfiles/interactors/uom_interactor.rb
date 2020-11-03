@@ -2,7 +2,7 @@
 
 module MasterfilesApp
   class UomInteractor < BaseInteractor
-    def create_uom(params)
+    def create_uom(params) # rubocop:disable Metrics/AbcSize
       res = validate_uom_params(params)
       return validation_failed_response(res) if res.failure?
 
@@ -35,7 +35,7 @@ module MasterfilesApp
       failed_response(e.message)
     end
 
-    def delete_uom(id)
+    def delete_uom(id) # rubocop:disable Metrics/AbcSize
       name = uom(id).uom_code
       repo.transaction do
         repo.delete_uom(id)

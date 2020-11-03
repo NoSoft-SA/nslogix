@@ -9,7 +9,7 @@ module MasterfilesApp
       id = nil
       repo.transaction do
         id = repo.create_cartons_per_pallet(res)
-        log_status('cartons_per_pallet', id, 'CREATED')
+        log_status(:cartons_per_pallet, id, 'CREATED')
         log_transaction
       end
       instance = cartons_per_pallet(id)
@@ -40,7 +40,7 @@ module MasterfilesApp
       name = cartons_per_pallet(id).description
       repo.transaction do
         repo.delete_cartons_per_pallet(id)
-        log_status('cartons_per_pallet', id, 'DELETED')
+        log_status(:cartons_per_pallet, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted cartons per pallet #{name}")
