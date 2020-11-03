@@ -11,7 +11,7 @@ Sequel.migration do
       BigDecimal :nett_weight, null: false
       BigDecimal :standard_carton_nett_weight, null: false
       BigDecimal :ratio_to_standard_carton, null: false
-      TrueClass :is_standard_carton, default: false
+      TrueClass :standard_carton, default: false
 
       TrueClass :active, default: true
       DateTime :created_at, null: false

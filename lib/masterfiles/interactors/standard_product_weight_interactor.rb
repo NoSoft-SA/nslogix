@@ -95,7 +95,7 @@ module MasterfilesApp
     end
 
     def calculate_ratio_to_standard_carton(attrs, standard_product_weight_id = nil)
-      ratio_to_standard_carton = if attrs[:is_standard_carton]
+      ratio_to_standard_carton = if attrs[:standard_carton]
                                    repo.update_same_commodity_ratios(attrs[:commodity_id], attrs[:standard_carton_nett_weight], standard_product_weight_id)
                                    1
                                  else

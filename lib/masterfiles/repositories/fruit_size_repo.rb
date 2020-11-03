@@ -211,13 +211,13 @@ module MasterfilesApp
     def standard_carton_nett_weight(commodity_id)
       DB[:standard_product_weights]
         .where(commodity_id: commodity_id)
-        .where(is_standard_carton: true)
+        .where(standard_carton: true)
         .get(:standard_carton_nett_weight)
     end
 
     def standard_carton_product_weights
       DB[:standard_product_weights]
-        .where(is_standard_carton: true)
+        .where(standard_carton: true)
         .all
     end
   end

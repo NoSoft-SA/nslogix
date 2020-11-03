@@ -9,6 +9,6 @@ module MasterfilesApp
     required(:nett_weight).filled(:decimal)
     required(:standard_carton_nett_weight).maybe(:decimal)
     optional(:ratio_to_standard_carton).maybe(:decimal)
-    required(:is_standard_carton).maybe(:bool)
+    required(:standard_carton).maybe(:bool)
   end
 end

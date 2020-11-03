@@ -21,7 +21,7 @@
   :text: derive ratios
   :icon: play
   :popup: false
-  :hide_if_false: is_standard_carton
+  :hide_if_false: standard_carton
 - :separator: true
 - :url: "/development/statuses/list/standard_product_weights/$:id$"
   :text: status

@@ -28,7 +28,7 @@ module UiRules
       fields[:active] = { renderer: :label, as_boolean: true }
       fields[:standard_carton_nett_weight] = { renderer: :label }
       fields[:ratio_to_standard_carton] = { renderer: :label }
-      fields[:is_standard_carton] = { renderer: :label, as_boolean: true }
+      fields[:standard_carton] = { renderer: :label, as_boolean: true }
     end
 
     def common_fields
@@ -47,7 +47,7 @@ module UiRules
                        required: true },
         standard_carton_nett_weight: { renderer: :numeric },
         ratio_to_standard_carton: { renderer: :numeric },
-        is_standard_carton: { renderer: :checkbox }
+        standard_carton: { renderer: :checkbox }
       }
     end
 
@@ -67,7 +67,7 @@ module UiRules
                                     nett_weight: nil,
                                     standard_carton_nett_weight: nil,
                                     ratio_to_standard_carton: nil,
-                                    is_standard_carton: nil)
+                                    standard_carton: nil)
     end
   end
 end

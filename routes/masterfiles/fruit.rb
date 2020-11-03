@@ -560,7 +560,7 @@ class Nslogix < Roda
               nett_weight
               standard_carton_nett_weight
               ratio_to_standard_carton
-              is_standard_carton
+              standard_carton
             ]
             update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
           else
@@ -611,7 +611,7 @@ class Nslogix < Roda
             active
             standard_carton_nett_weight
             ratio_to_standard_carton
-            is_standard_carton
+            standard_carton
           ]
           add_grid_row(attrs: select_attributes(res.instance, row_keys),
                        notice: res.message)

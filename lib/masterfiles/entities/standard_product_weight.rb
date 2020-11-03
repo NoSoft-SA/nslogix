@@ -10,7 +10,7 @@ module MasterfilesApp
     attribute? :active, Types::Bool
     attribute :standard_carton_nett_weight, Types::Decimal
     attribute :ratio_to_standard_carton, Types::Decimal
-    attribute :is_standard_carton, Types::Bool
+    attribute :standard_carton, Types::Bool
   end
 
   class StandardProductWeightFlat < Dry::Struct
@@ -24,6 +24,6 @@ module MasterfilesApp
     attribute? :active, Types::Bool
     attribute :standard_carton_nett_weight, Types::Decimal
     attribute :ratio_to_standard_carton, Types::Decimal
-    attribute :is_standard_carton, Types::Bool
+    attribute :standard_carton, Types::Bool
   end
 end

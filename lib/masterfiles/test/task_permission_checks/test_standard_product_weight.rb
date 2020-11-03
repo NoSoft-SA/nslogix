@@ -17,7 +17,7 @@ module MasterfilesApp
         active: true,
         standard_carton_nett_weight: 1.0,
         ratio_to_standard_carton: 1.0,
-        is_standard_carton: false
+        standard_carton: false
       }
       MasterfilesApp::StandardProductWeight.new(base_attrs.merge(attrs))
     end
