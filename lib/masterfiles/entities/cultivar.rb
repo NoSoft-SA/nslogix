@@ -4,7 +4,6 @@ module MasterfilesApp
   class Cultivar < Dry::Struct
     attribute :id, Types::Integer
     attribute :commodity_id, Types::Integer
-    attribute :commodity_code, Types::String
     attribute :cultivar_group_id, Types::Integer
     attribute :cultivar_group_code, Types::String
     attribute :cultivar_name, Types::String
