@@ -26,7 +26,7 @@ module MasterfilesApp
 
       default = {
         commodity_group_id: commodity_group_id,
-        commodity_group_code: Faker::Lorem.unique.word,
+        commodity_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         hs_code: Faker::Lorem.word,
         active: true,
