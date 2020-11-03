@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class GeneralRepo < BaseRepo
+  class UomRepo < BaseRepo
     build_for_select :uom_types,
                      label: :uom_type_code,
                      value: :id,
@@ -30,7 +30,7 @@ module MasterfilesApp
     end
 
     def default_uom_type_id
-      DB[:uom_types].where(code: AppConst::UOM_TYPE).get(:id)
+      get_id(:uom_types, uom_type_code: AppConst::UOM_TYPE)
     end
   end
 end

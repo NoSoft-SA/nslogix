@@ -8,11 +8,11 @@ module MasterfilesApp
 
     def test_repo
       repo = interactor.send(:repo)
-      assert repo.is_a?(MasterfilesApp::GeneralRepo)
+      assert repo.is_a?(MasterfilesApp::UomRepo)
     end
 
     def test_uom
-      MasterfilesApp::GeneralRepo.any_instance.stubs(:find_uom).returns(fake_uom)
+      MasterfilesApp::UomRepo.any_instance.stubs(:find_uom).returns(fake_uom)
       entity = interactor.send(:uom, 1)
       assert entity.is_a?(Uom)
     end

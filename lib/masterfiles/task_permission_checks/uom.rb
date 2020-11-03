@@ -6,7 +6,7 @@ module MasterfilesApp
       attr_reader :task, :entity
       def initialize(task, uom_id = nil)
         @task = task
-        @repo = GeneralRepo.new
+        @repo = UomRepo.new
         @id = uom_id
         @entity = @id ? @repo.find_uom(@id) : nil
       end

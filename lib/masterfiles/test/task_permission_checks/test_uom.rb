@@ -22,13 +22,13 @@ module MasterfilesApp
     end
 
     def test_edit
-      MasterfilesApp::GeneralRepo.any_instance.stubs(:find_uom).returns(entity)
+      MasterfilesApp::UomRepo.any_instance.stubs(:find_uom).returns(entity)
       res = MasterfilesApp::TaskPermissionCheck::Uom.call(:edit, 1)
       assert res.success, 'Should be able to edit a uom'
     end
 
     def test_delete
-      MasterfilesApp::GeneralRepo.any_instance.stubs(:find_uom).returns(entity)
+      MasterfilesApp::UomRepo.any_instance.stubs(:find_uom).returns(entity)
       res = MasterfilesApp::TaskPermissionCheck::Uom.call(:delete, 1)
       assert res.success, 'Should be able to delete a uom'
     end

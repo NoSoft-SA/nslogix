@@ -3,7 +3,7 @@
 require File.join(File.expand_path('../../../../test', __dir__), 'test_helper')
 
 module MasterfilesApp
-  class TestGeneralRepo < MiniTestWithHooks
+  class TestUomRepo < MiniTestWithHooks
     def test_for_selects
       assert_respond_to repo, :for_select_uom_types
       assert_respond_to repo, :for_select_uoms
@@ -17,7 +17,7 @@ module MasterfilesApp
     private
 
     def repo
-      GeneralRepo.new
+      UomRepo.new
     end
   end
 end

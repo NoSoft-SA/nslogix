@@ -3,7 +3,7 @@
 module UiRules
   class UomRule < Base
     def generate_rules
-      @repo = MasterfilesApp::GeneralRepo.new
+      @repo = MasterfilesApp::UomRepo.new
       make_form_object
       apply_form_values
 
