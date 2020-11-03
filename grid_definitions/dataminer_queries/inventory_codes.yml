@@ -1,7 +1,7 @@
 ---
 :caption: Inventory Codes
 :sql: "SELECT\r\n    inventory_codes.id,\r\n    inventory_codes.inventory_code,\r\n
-  \   inventory_codes.description,\r\n    inventory_codes.edi_out_inventory_code,\r\n
+  \   inventory_codes.description,\r\n
   \   fn_masterfile_variants('inventory_codes', inventory_codes.id) AS variant_codes,\r\n
   \   inventory_codes.fruit_item_incentive_rate,\r\n    inventory_codes.active,\r\n
   \   inventory_codes.created_at,\r\n    inventory_codes.updated_at\r\nFROM\r\n    inventory_codes\r\n"
@@ -52,22 +52,6 @@
     :hide: false
     :pinned: 
     :groupable: true
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  edi_out_inventory_code:
-    :name: edi_out_inventory_code
-    :sequence_no: 4
-    :caption: EDI out code
-    :namespaced_name: inventory_codes.edi_out_inventory_code
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
     :group_by_seq: 
     :group_sum: false
     :group_avg: false

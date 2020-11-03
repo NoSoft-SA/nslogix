@@ -72,7 +72,6 @@ module MasterfilesApp
         id: 1,
         inventory_code: Faker::Lorem.unique.word,
         description: 'ABC',
-        edi_out_inventory_code: 'ABC',
         fruit_item_incentive_rate: 1.0,
         active: true
       }

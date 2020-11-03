@@ -24,7 +24,7 @@ module EdiApp
                             fruit_size_references.size_reference,
                             fruit_actual_counts_for_packs.actual_count_for_pack) AS size_count,
           marks.mark_code AS mark,
-          COALESCE(inventory_codes.edi_out_inventory_code, inventory_codes.inventory_code) AS inventory_code,
+          inventory_codes.inventory_code,
           pallet_sequences.pick_ref AS picking_reference,
           pallet_sequences.product_chars AS product_characteristic_code,
           target_market_groups.target_market_group_name AS target_market,

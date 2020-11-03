@@ -36,7 +36,6 @@ module MasterfilesApp
       default = {
         inventory_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
-        edi_out_inventory_code: Faker::Lorem.word,
         fruit_item_incentive_rate: Faker::Number.decimal,
         active: true
       }
