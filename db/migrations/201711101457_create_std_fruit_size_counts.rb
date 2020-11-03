@@ -106,7 +106,6 @@ Sequel.migration do
 
     create_table(:fruit_size_references, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :fruit_actual_counts_for_pack_id, :fruit_actual_counts_for_packs, null: false
       String :size_reference, null: false
       String :edi_out_code
       TrueClass :active, default: true
