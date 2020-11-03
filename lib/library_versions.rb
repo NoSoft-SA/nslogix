@@ -7,7 +7,6 @@ class LibraryVersions
     layout: [:gemver, 'Crossbeams::Layout'],
     dataminer: [:gemver, 'Crossbeams::Dataminer'],
     label_designer: [:gemver, 'Crossbeams::LabelDesigner'],
-    rackmid: [:gemver, 'Crossbeams::RackMiddleware'],
     datagrid: [:gemver, 'Roda::DataGrid'],
     ag_grid: %i[jsver ag_grid],
     selectr: %i[jsver selectr],
