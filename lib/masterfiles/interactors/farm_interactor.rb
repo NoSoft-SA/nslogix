@@ -8,8 +8,7 @@ module MasterfilesApp
 
       id = nil
       repo.transaction do
-        response = repo.create_farm(res)
-        id = response
+        id = repo.create_farm(res)
         log_status(:farms, id, 'CREATED')
         log_transaction
       end
