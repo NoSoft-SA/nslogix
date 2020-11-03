@@ -3,7 +3,7 @@
 :sql: "SELECT\r\n    standard_pack_codes.id,\r\n    standard_pack_codes.standard_pack_code,\r\n
   \   fn_masterfile_variants('standard_pack_codes', standard_pack_codes.id) AS variant_codes,\r\n
   \   standard_pack_codes.description,\r\n    standard_pack_codes.std_pack_label_code,\r\n
-  \   standard_pack_codes.material_mass,\r\n    standard_pack_codes.plant_resource_button_indicator,\r\n
+  \   standard_pack_codes.material_mass,\r\n
   \   basic_pack_codes.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
   \   standard_pack_codes.palletizer_incentive_rate,\r\n    standard_pack_codes.bin,\r\n
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\nFROM
@@ -103,22 +103,6 @@
     :data_type: :number
     :width: 
     :format: :delimited_1000
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  plant_resource_button_indicator:
-    :name: plant_resource_button_indicator
-    :sequence_no: 7
-    :caption: Plant resource button indicator
-    :namespaced_name: standard_pack_codes.plant_resource_button_indicator
-    :data_type: :string
-    :width: 150
-    :format: 
     :hide: false
     :pinned: 
     :groupable: false

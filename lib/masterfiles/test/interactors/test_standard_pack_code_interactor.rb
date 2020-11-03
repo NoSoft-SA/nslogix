@@ -78,7 +78,6 @@ module MasterfilesApp
         std_pack_label_code: 'ABC',
         active: true,
         material_mass: 1.0,
-        plant_resource_button_indicator: 'ABC',
         basic_pack_code_id: basic_pack_code_id,
         basic_pack_code: 'ABC',
         use_size_ref_for_edi: false,

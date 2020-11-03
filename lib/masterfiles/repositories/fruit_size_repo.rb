@@ -194,16 +194,6 @@ module MasterfilesApp
       DB[query].select_map(:id)
     end
 
-    def for_select_plant_resource_button_indicator(plant_resource_type_code)
-      query = <<~SQL
-        SELECT DISTINCT substring("system_resource_code"  from '..$') AS button
-        FROM "system_resources"
-        INNER JOIN "system_resource_types" ON ("system_resource_types"."id" = "system_resources"."system_resource_type_id")
-        WHERE ("system_resource_type_code" = ?)
-      SQL
-      DB[query, plant_resource_type_code].select_map(:button)
-    end
-
     def update_same_commodity_ratios(commodity_id, std_carton_nett_weight, standard_product_weight_id)
       standard_product_weight_ids = commodity_standard_product_weights(commodity_id, standard_product_weight_id)
       return if standard_product_weight_ids.empty?

@@ -5,7 +5,6 @@ module MasterfilesApp
     attribute :id, Types::Integer
     attribute :standard_pack_code, Types::String
     attribute :material_mass, Types::Decimal
-    attribute :plant_resource_button_indicator, Types::String
     attribute :description, Types::String
     attribute :std_pack_label_code, Types::String
     attribute :basic_pack_code_id, Types::Integer
@@ -19,7 +18,6 @@ module MasterfilesApp
     attribute :id, Types::Integer
     attribute :standard_pack_code, Types::String
     attribute :material_mass, Types::Decimal
-    attribute :plant_resource_button_indicator, Types::String
     attribute :description, Types::String
     attribute :std_pack_label_code, Types::String
     attribute :basic_pack_code_id, Types::Integer

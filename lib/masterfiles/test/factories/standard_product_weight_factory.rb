@@ -55,7 +55,6 @@ module MasterfilesApp
         updated_at: '2010-01-01 12:00',
         active: true,
         material_mass: Faker::Number.decimal,
-        plant_resource_button_indicator: Faker::Lorem.word,
         description: Faker::Lorem.word,
         std_pack_label_code: Faker::Lorem.word
       }
