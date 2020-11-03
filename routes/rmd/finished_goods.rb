@@ -326,10 +326,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
                            data_type: 'string',
                            force_uppercase: true,
                            required: true)
-            form.add_select(:vehicle_type_id,
-                            'Vehicle Type',
-                            items: MasterfilesApp::VehicleTypeRepo.new.for_select_vehicle_types,
-                            prompt: true)
             form.add_select(:haulier_party_role_id,
                             'Haulier',
                             items: MasterfilesApp::PartyRepo.new.for_select_party_roles(AppConst::ROLE_HAULIER),

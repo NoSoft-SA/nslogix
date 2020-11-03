@@ -36,7 +36,6 @@ module Crossbeams
       treatment_types
       uom_types
       user_email_groups
-      vehicle_types
       voyage_types
       port_types
     ].freeze
