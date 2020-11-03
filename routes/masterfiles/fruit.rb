@@ -462,7 +462,6 @@ class Nslogix < Roda
               std_pack_label_code
               basic_pack_code
               use_size_ref_for_edi
-              palletizer_incentive_rate
               bin
               container_type
               material_type

@@ -15,7 +15,6 @@ module MasterfilesApp
         material_mass: 1.0,
         basic_pack_code_id: 1,
         use_size_ref_for_edi: false,
-        palletizer_incentive_rate: 1.0,
         bin: false,
         active: true
 

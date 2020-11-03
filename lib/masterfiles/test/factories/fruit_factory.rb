@@ -64,8 +64,7 @@ module MasterfilesApp
         active: true,
         material_mass: Faker::Number.decimal,
         basic_pack_code_id: basic_pack_code_id,
-        use_size_ref_for_edi: false,
-        palletizer_incentive_rate: Faker::Number.decimal
+        use_size_ref_for_edi: false
       }
       DB[:standard_pack_codes].insert(default.merge(opts))
     end
