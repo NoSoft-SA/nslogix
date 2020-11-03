@@ -53,8 +53,7 @@
   \  aggregated.marketing_order_numbers,\r\n   aggregated.pm_type_ids,\r\n   aggregated.pm_type_codes,\r\n
   \  aggregated.pm_subtype_ids,\r\n   aggregated.subtype_codes,\r\n   aggregated.sequence_carton_quantity,\r\n
   \  aggregated.scanned_cartons,\r\n   aggregated.seq_scrapped_at,\r\n   aggregated.seq_exit_refs,\r\n
-  \  aggregated.verification_results,\r\n   aggregated.pallet_verification_failure_reason_ids,\r\n
-  \  aggregated.verification_failure_reasons,\r\n   aggregated.verified,\r\n   aggregated.verified_by,\r\n
+  \  aggregated.verification_results,\r\n   aggregated.verified,\r\n   aggregated.verified_by,\r\n
   \  aggregated.verified_at,\r\n   aggregated.verifications_passed,\r\n   aggregated.pick_refs,\r\n
   \  aggregated.grade_ids,\r\n   aggregated.grade_codes,\r\n   aggregated.rmt_grades,\r\n
   \  aggregated.scrapped_from_pallet_ids,\r\n   aggregated.removed_from_pallets,\r\n
@@ -2428,38 +2427,6 @@
     :sequence_no: 148
     :caption: Verification results
     :namespaced_name: aggregated.verification_results
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: true
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  pallet_verification_failure_reason_ids:
-    :name: pallet_verification_failure_reason_ids
-    :sequence_no: 149
-    :caption: Pallet verification failure reason ids
-    :namespaced_name: aggregated.pallet_verification_failure_reason_ids
-    :data_type: :integer_array
-    :width: 
-    :format: 
-    :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  verification_failure_reasons:
-    :name: verification_failure_reasons
-    :sequence_no: 150
-    :caption: Verification failure reasons
-    :namespaced_name: aggregated.verification_failure_reasons
     :data_type: :string
     :width: 
     :format: 

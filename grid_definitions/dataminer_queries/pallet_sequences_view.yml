@@ -29,8 +29,7 @@
   vw_pallet_sequences.pm_type_id, vw_pallet_sequences.pm_type_code, vw_pallet_sequences.pm_subtype_id,
   vw_pallet_sequences.subtype_code,\r\n    vw_pallet_sequences.sequence_carton_quantity,
   vw_pallet_sequences.scanned_carton, vw_pallet_sequences.seq_scrapped_at, vw_pallet_sequences.seq_exit_ref,
-  vw_pallet_sequences.verification_result,\r\n    vw_pallet_sequences.pallet_verification_failure_reason_id,
-  vw_pallet_sequences.verification_failure_reason, vw_pallet_sequences.verified, vw_pallet_sequences.verified_by,
+  vw_pallet_sequences.verification_result, vw_pallet_sequences.verified, vw_pallet_sequences.verified_by,
   vw_pallet_sequences.verified_at,\r\n    vw_pallet_sequences.verification_passed,
   vw_pallet_sequences.sequence_nett_weight, vw_pallet_sequences.pick_ref, vw_pallet_sequences.grade_id,
   vw_pallet_sequences.grade_code, vw_pallet_sequences.rmt_grade, vw_pallet_sequences.scrapped_from_pallet_id,\r\n
@@ -1258,38 +1257,6 @@
     :sequence_no: 73
     :caption: Verification result
     :namespaced_name: vw_pallet_sequences.verification_result
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: true
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  pallet_verification_failure_reason_id:
-    :name: pallet_verification_failure_reason_id
-    :sequence_no: 74
-    :caption: Pallet verification failure reason id
-    :namespaced_name: vw_pallet_sequences.pallet_verification_failure_reason_id
-    :data_type: :integer
-    :width: 
-    :format: 
-    :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  verification_failure_reason:
-    :name: verification_failure_reason
-    :sequence_no: 75
-    :caption: Verification failure reason
-    :namespaced_name: vw_pallet_sequences.verification_failure_reason
     :data_type: :string
     :width: 
     :format: 

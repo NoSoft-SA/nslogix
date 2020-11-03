@@ -856,7 +856,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
           fields_for_rmd_pallet_sequence_display(form, pallet_sequence)
           form.add_csrf_tag csrf_tag
           form.add_label(:verification_result, 'Verification Result', pallet_sequence[:verification_result])
-          form.add_label(:verification_failure_reason, 'Verification Failure Reason', pallet_sequence[:verification_failure_reason])
           form.add_label(:fruit_sticker, 'Fruit Sticker', pallet_sequence[:fruit_sticker]) if AppConst::REQUIRE_FRUIT_STICKER_AT_PALLET_VERIFICATION
           form.add_prev_next_nav('/rmd/finished_goods/repack_pallet/scan_pallet_sequence/$:id$', ps_ids, id)
           view(inline: form.render, layout: :layout_rmd)
@@ -910,7 +909,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
           fields_for_rmd_pallet_sequence_display(form, pallet_sequence)
           form.add_csrf_tag csrf_tag
           form.add_label(:verification_result, 'Verification Result', pallet_sequence[:verification_result])
-          form.add_label(:verification_failure_reason, 'Verification Failure Reason', pallet_sequence[:verification_failure_reason])
           form.add_label(:fruit_sticker, 'Fruit Sticker', pallet_sequence[:fruit_sticker]) if AppConst::REQUIRE_FRUIT_STICKER_AT_PALLET_VERIFICATION
           form.add_select(:pallet_label_name, 'Pallet Label', value: prod_interactor.find_pallet_label_name_by_resource_allocation_id(pallet_sequence[:resource_allocation_id]), items: prod_interactor.find_pallet_labels, required: false)
           form.add_select(:printer, 'Printer', items: printer_repo.select_printers_for_application(AppConst::PRINT_APP_PALLET), required: false, value: printer_repo.default_printer_for_application(AppConst::PRINT_APP_PALLET))
