@@ -20,7 +20,6 @@ module LabelApp
       return validation_failed_response(res) if res.failure?
 
       attrs = {
-        # container_type: params[:container_type],
         # commodity: params[:commodity],
         # market: params[:market],
         # language: params[:language],
@@ -187,7 +186,6 @@ module LabelApp
 
       attrs = {
         label_name: params[:label_name],
-        # container_type: params[:container_type],
         # commodity: params[:commodity],
         # market: params[:market],
         # language: params[:language],

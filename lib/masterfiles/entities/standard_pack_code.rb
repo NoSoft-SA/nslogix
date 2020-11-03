@@ -21,8 +21,6 @@ module MasterfilesApp
     attribute :basic_pack_code_id, Types::Integer
     attribute :basic_pack_code, Types::String
     attribute :use_size_ref_for_edi, Types::Bool
-    attribute :container_type, Types::String
-    attribute :material_type, Types::String
     attribute? :active, Types::Bool
   end
 end

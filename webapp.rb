@@ -367,7 +367,6 @@ class Nslogix < Roda
                       label_name: params[:labelName],
                       label_dimension: params[:labelDimension],
                       px_per_mm: params[:pixelPerMM],
-                      # container_type: extra_attributes[:container_type],
                       # commodity: extra_attributes[:commodity],
                       # market: extra_attributes[:market],
                       # language: extra_attributes[:language],

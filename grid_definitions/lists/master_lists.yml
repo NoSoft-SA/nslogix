@@ -31,10 +31,6 @@
     - :col: master_lists.list_type
       :op: =
       :val: commodity
-  :container_type:
-    - :col: master_lists.list_type
-      :op: =
-      :val: container_type
   :market:
     - :col: master_lists.list_type
       :op: =
