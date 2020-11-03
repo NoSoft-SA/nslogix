@@ -12,7 +12,7 @@ module Masterfiles
             page.form_object ui_rule.form_object
             page.form do |form|
               form.view_only!
-              form.add_field :code
+              form.add_field :commodity_group_code
               form.add_field :description
               form.add_field :active
             end

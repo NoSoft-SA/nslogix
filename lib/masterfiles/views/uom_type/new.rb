@@ -16,7 +16,7 @@ module Masterfiles
               form.caption 'New UOM Type'
               form.action '/masterfiles/general/uom_types'
               form.remote! if remote
-              form.add_field :code
+              form.add_field :uom_type_code
             end
           end
 

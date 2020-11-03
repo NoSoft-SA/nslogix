@@ -16,7 +16,7 @@ module Masterfiles
               form.action '/masterfiles/fruit/commodities'
               form.remote! if remote
               form.add_field :commodity_group_id
-              form.add_field :code
+              form.add_field :commodity_code
               form.add_field :description
               form.add_field :hs_code
               form.add_field :requires_standard_counts

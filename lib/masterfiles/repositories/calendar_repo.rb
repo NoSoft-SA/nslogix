@@ -61,7 +61,8 @@ module MasterfilesApp
     end
 
     def season_code(season_year, commodity_id)
-      "#{season_year}_#{DB[:commodities].where(id: commodity_id).get(:code)}"
+      commodity_code = get(:commodities, commodity_id, :commodity_code)
+      "#{season_year}_#{commodity_code}"
     end
   end
 end

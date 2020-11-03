@@ -15,7 +15,7 @@ module Masterfiles
             page.form do |form|
               form.action '/masterfiles/fruit/commodity_groups'
               form.remote! if remote
-              form.add_field :code
+              form.add_field :commodity_group_code
               form.add_field :description
             end
           end

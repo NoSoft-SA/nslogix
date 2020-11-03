@@ -10,7 +10,7 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:code], name: :commodity_groups_unique_code, unique: true
+      index [:commodity_group_code], name: :commodity_groups_unique_code, unique: true
     end
     pgt_created_at(:commodity_groups,
                    :created_at,
@@ -32,7 +32,7 @@ Sequel.migration do
       TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
-      index [:code], name: :commodities_unique_code, unique: true
+      index [:commodity_code], name: :commodities_unique_code, unique: true
     end
     pgt_created_at(:commodities,
                    :created_at,
