@@ -263,15 +263,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
             r.redirect('/rmd/finished_goods/dispatch/truck_arrival/load')
           end
 
-          r.on 'vehicle_type_changed' do
-            value = MasterfilesApp::VehicleTypeRepo.new.find_vehicle_type(params[:changed_value])&.has_container
-            UiRules::ChangeRenderer.render_json(:rmd_load,
-                                                self,
-                                                :change_container_use,
-                                                use_container: value,
-                                                load_id: load_id)
-          end
-
           r.on 'container_changed' do
             UiRules::ChangeRenderer.render_json(:rmd_load,
                                                 self,
@@ -312,8 +303,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
                                            action: "/rmd/finished_goods/dispatch/truck_arrival/load/#{load_id}",
                                            button_caption: 'Submit')
             form.behaviours do |behaviour|
-              behaviour.dropdown_change :vehicle_type_id,
-                                        notify: [{ url: "/rmd/finished_goods/dispatch/truck_arrival/load/#{load_id}/vehicle_type_changed" }]
               behaviour.input_change :container,
                                      notify: [{ url: "/rmd/finished_goods/dispatch/truck_arrival/load/#{load_id}/container_changed" }]
             end
