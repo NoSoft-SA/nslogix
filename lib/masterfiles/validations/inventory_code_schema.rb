@@ -5,6 +5,5 @@ module MasterfilesApp
     optional(:id).filled(:integer)
     required(:inventory_code).filled(Types::StrippedString)
     required(:description).maybe(Types::StrippedString)
-    required(:fruit_item_incentive_rate).maybe(:decimal)
   end
 end

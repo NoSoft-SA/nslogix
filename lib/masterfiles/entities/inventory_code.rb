@@ -5,7 +5,6 @@ module MasterfilesApp
     attribute :id, Types::Integer
     attribute :inventory_code, Types::String
     attribute :description, Types::String
-    attribute :fruit_item_incentive_rate, Types::Decimal
     attribute? :active, Types::Bool
   end
 end

@@ -18,14 +18,12 @@ module UiRules
       fields[:inventory_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
       fields[:active] = { renderer: :label, as_boolean: true }
-      fields[:fruit_item_incentive_rate] = { renderer: :label }
     end
 
     def common_fields
       {
         inventory_code: { required: true },
-        description: {},
-        fruit_item_incentive_rate: {}
+        description: {}
       }
     end
 
@@ -40,8 +38,7 @@ module UiRules
 
     def make_new_form_object
       @form_object = OpenStruct.new(inventory_code: nil,
-                                    description: nil,
-                                    fruit_item_incentive_rate: nil)
+                                    description: nil)
     end
   end
 end

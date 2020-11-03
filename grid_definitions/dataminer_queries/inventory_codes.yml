@@ -3,7 +3,7 @@
 :sql: "SELECT\r\n    inventory_codes.id,\r\n    inventory_codes.inventory_code,\r\n
   \   inventory_codes.description,\r\n
   \   fn_masterfile_variants('inventory_codes', inventory_codes.id) AS variant_codes,\r\n
-  \   inventory_codes.fruit_item_incentive_rate,\r\n    inventory_codes.active,\r\n
+  \   inventory_codes.active,\r\n
   \   inventory_codes.created_at,\r\n    inventory_codes.updated_at\r\nFROM\r\n    inventory_codes\r\n"
 :limit: 
 :offset: 
@@ -65,22 +65,6 @@
     :data_type: :string
     :width: 
     :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  fruit_item_incentive_rate:
-    :name: fruit_item_incentive_rate
-    :sequence_no: 6
-    :caption: Fruit item incentive rate
-    :namespaced_name: inventory_codes.fruit_item_incentive_rate
-    :data_type: :number
-    :width: 200
-    :format: :delimited_1000
     :hide: false
     :pinned: 
     :groupable: false

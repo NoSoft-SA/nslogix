@@ -1146,8 +1146,7 @@ class Nslogix < Roda
           res = interactor.update_inventory_code(id, params[:inventory_code])
           if res.success
             update_grid_row(id, changes: { inventory_code: res.instance[:inventory_code],
-                                           description: res.instance[:description],
-                                           fruit_item_incentive_rate: res.instance[:fruit_item_incentive_rate]},
+                                           description: res.instance[:description]},
                                 notice: res.message)
           else
             re_show_form(r, res) { Masterfiles::Fruit::InventoryCode::Edit.call(id, form_values: params[:inventory_code], form_errors: res.errors) }
@@ -1179,7 +1178,6 @@ class Nslogix < Roda
             id
             inventory_code
             description
-            fruit_item_incentive_rate
             active
           ]
           add_grid_row(attrs: select_attributes(res.instance, row_keys),
