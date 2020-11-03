@@ -49,10 +49,6 @@ module Crossbeams
       cartons_per_pallet
       destination_countries
       destination_cities
-      locations
-      location_assignments_locations
-      location_storage_types_locations
-      tree_locations
       system_resources
       plant_resources
       plant_resources_system_resources
@@ -118,9 +114,6 @@ module Crossbeams
       primary_assignment_id: { subquery: 'SELECT id FROM location_assignments WHERE assignment_code = ?', values: 'SELECT assignment_code FROM location_assignments WHERE id = ?' },
       location_assignment_id: { subquery: 'SELECT id FROM location_assignments WHERE assignment_code = ?', values: 'SELECT assignment_code FROM location_assignments WHERE id = ?' },
       location_storage_definition_id: { subquery: 'SELECT id FROM location_storage_definitions WHERE storage_definition_code = ?', values: 'SELECT storage_definition_code FROM location_storage_definitions WHERE id = ?' },
-      location_id: { subquery: 'SELECT id FROM locations WHERE location_short_code = ?', values: 'SELECT location_short_code FROM locations WHERE id = ?' },
-      ancestor_location_id: { subquery: 'SELECT id FROM locations WHERE location_short_code = ?', values: 'SELECT location_short_code FROM locations WHERE id = ?' },
-      descendant_location_id: { subquery: 'SELECT id FROM locations WHERE location_short_code = ?', values: 'SELECT location_short_code FROM locations WHERE id = ?' },
       marketing_variety_id: { subquery: 'SELECT id FROM marketing_varieties WHERE marketing_variety_code = ?', values: 'SELECT marketing_variety_code FROM marketing_varieties WHERE id = ?' },
       plant_resource_type_id: { subquery: 'SELECT id FROM plant_resource_types WHERE plant_resource_type_code = ?', values: 'SELECT plant_resource_type_code FROM plant_resource_types WHERE id = ?' },
       system_resource_type_id: { subquery: 'SELECT id FROM system_resource_types WHERE system_resource_type_code = ?', values: 'SELECT system_resource_type_code FROM system_resource_types WHERE id = ?' },

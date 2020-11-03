@@ -187,10 +187,6 @@ class AppConst # rubocop:disable Metrics/ClassLength
   # The rules for that field are: the table to read, the field to match the scanned value and the field to display in the form.
   # If a join is required, specify join: table_name and on: Hash of field on source table: field on target table.
   BARCODE_LOOKUP_RULES = {
-    location: {
-      id: { table: :locations, field: :id, show_field: :location_long_code },
-      location_short_code: { table: :locations, field: :location_short_code, show_field: :location_long_code }
-    },
     sku: {
       sku_number: { table: :mr_skus,
                     field: :sku_number,
@@ -224,11 +220,6 @@ class AppConst # rubocop:disable Metrics/ClassLength
   # Storage Types
   STORAGE_TYPE_PALLETS = 'PALLETS'
 
-  # Locations: Location Types
-  # LOCATION_TYPES_WAREHOUSE = 'WAREHOUSE'
-  # LOCATION_TYPES_RECEIVING_BAY = 'RECEIVING BAY'
-  # LOCATION_TYPES_COLD_BAY_DECK = ENV.fetch('LOCATION_TYPES_COLD_BAY_DECK', 'DECK')
-  # LOCATION_TYPES_EMPTY_BIN = 'EMPTY_BIN'
   INSTALL_LOCATION = ENV.fetch('INSTALL_LOCATION')
   raise "Install location #{INSTALL_LOCATION} cannot be more than 7 characters in length" if INSTALL_LOCATION.length > 7
 

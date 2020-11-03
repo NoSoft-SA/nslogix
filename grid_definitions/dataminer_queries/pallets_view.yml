@@ -4,7 +4,7 @@
   \  vw_pallets.pallet_number,\r\n   vw_pallets.target_customer_party_role_id,\r\n
   \  vw_pallets.target_customer,\r\n   vw_pallets.pallet_verification_failed,\r\n
   \  vw_pallets.in_stock,\r\n   vw_pallets.stock_created_at,\r\n   vw_pallets.exit_ref,\r\n
-  \  vw_pallets.location_id,\r\n   vw_pallets.location_long_code,\r\n   vw_pallets.pallet_format_id,\r\n
+  \  vw_pallets.pallet_format_id,\r\n
   \  vw_pallets.pallet_base_code,\r\n   vw_pallets.stack_type_code,\r\n   vw_pallets.pallet_carton_quantity,\r\n
   \  vw_pallets.individual_cartons,\r\n   vw_pallets.build_status,\r\n   vw_pallets.phc,\r\n
   \  vw_pallets.intake_created_at,\r\n   vw_pallets.first_cold_storage_at,\r\n   vw_pallets.first_cold_storage_date,\r\n
@@ -238,38 +238,6 @@
     :namespaced_name: vw_pallets.exit_ref
     :data_type: :string
     :width: 100
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: true
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  location_id:
-    :name: location_id
-    :sequence_no: 10
-    :caption: Location
-    :namespaced_name: vw_pallets.location_id
-    :data_type: :integer
-    :width: 
-    :format: 
-    :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  location_long_code:
-    :name: location_long_code
-    :sequence_no: 11
-    :caption: Location long code
-    :namespaced_name: vw_pallets.location_long_code
-    :data_type: :string
-    :width: 200
     :format: 
     :hide: false
     :pinned: 

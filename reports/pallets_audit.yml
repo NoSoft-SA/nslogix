@@ -56,8 +56,7 @@
   \        FROM\r\n             pallets) sq\r\n         LEFT JOIN pallet_formats ON
   pallet_formats.id = sq.pallet_format_id::int\r\n         LEFT JOIN pallet_bases
   ON pallet_bases.id = pallet_formats.pallet_base_id\r\n         LEFT JOIN pallet_stack_types
-  ON pallet_stack_types.id = pallet_formats.pallet_stack_type_id\r\n         LEFT
-  JOIN locations ON locations.id = sq.location_id::int\r\nORDER BY\r\n    row_data_id
+  ON pallet_stack_types.id = pallet_formats.pallet_stack_type_id\r\n ORDER BY\r\n    row_data_id
   DESC,\r\n    event_id"
 :limit: 
 :offset: 

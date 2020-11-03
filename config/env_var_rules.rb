@@ -36,7 +36,6 @@ class EnvVarRules # rubocop:disable Metrics/ClassLength
 #    { CARTON_VERIFICATION_REQUIRED: 'Determines if the system implementation requires carton_verification' },
 #    { PALLET_IS_IN_STOCK_WHEN_VERIFIED: 'When a pallet is verified, take it into stock immediately. (Do not wait for an inspection)' },
 #    { PROVIDE_PACK_TYPE_AT_VERIFICATION: 'Provide pack type at carton verification' },
-#    { LABEL_LOCATION_BARCODE: 'Label name for Locations' },
 #    { LABEL_BIN_BARCODE: 'Label name for Bins' },
 #    { LABEL_CARTON_VERIFICATION: 'Label name for Cartons' },
 #    { VGM_REQUIRED: 'Sets if verified gross mass as required for RMD load_containers.' },

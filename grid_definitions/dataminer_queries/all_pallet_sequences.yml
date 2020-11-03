@@ -2480,14 +2480,6 @@
   :list_def: SELECT plant_resources.plant_resource_code FROM plant_resources JOIN
     plant_resource_types ON plant_resource_types.id = plant_resources.plant_resource_type_id
     WHERE plant_resource_type_code = 'LINE' ORDER BY plant_resource_code
-- :column: location
-  :caption: Location
-  :data_type: :string
-  :control_type: :list
-  :default_value: 
-  :ordered_list: false
-  :ui_priority: 6
-  :list_def: SELECT locations.location_short_code FROM locations
 - :column: shipped
   :caption: Shipped?
   :data_type: :boolean

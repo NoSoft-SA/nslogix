@@ -145,10 +145,7 @@ module EdiApp
       Time.new(date[0, 4], date[4, 2], date[6, 3], *time.split(':'))
     end
 
-    def build_pallet(pallet_number, seq) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-      location_id = MasterfilesApp::LocationRepo.new.location_id_from_short_code(AppConst::INSTALL_LOCATION)
-      raise Crossbeams::InfoError, "There is no INSTALL location named #{AppConst::INSTALL_LOCATION}" if location_id.nil?
-
+    def build_pallet(pallet_number, seq)
       records[pallet_number] = {
         lookup_data: {},  # data looked up from masterfiles.
         missing_mf: {},   # details about failed lookups
@@ -187,7 +184,6 @@ module EdiApp
         edi_in_consignment_note_number: seq[:cons_no],
         edi_in_transaction_id: edi_in_transaction.id,
         pallet_number: pallet_number,
-        location_id: location_id,
         in_stock: true,
         inspected: !orig_inspec_date.nil? || !inspec_date.nil?,
         govt_first_inspection_at: orig_inspec_date || inspec_date,

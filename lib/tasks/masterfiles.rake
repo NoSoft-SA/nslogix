@@ -77,19 +77,3 @@ namespace :app do
   end
 end
 
-# class AppMfTasks
-#   include Rake::DSL
-#
-#   def initialize
-#     namespace :app do
-#       namespace :masterfiles do
-#         desc 'AAA'
-#         task :import_locations do
-#           puts 'In DSL'
-#         end
-#       end
-#     end
-#   end
-# end
-# # Instantiate the class to define the tasks:
-# AppMfTasks.new
