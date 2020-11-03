@@ -76,6 +76,9 @@ Sequel.migration do
     create_table(:farms_pucs, ignore_index_errors: true) do
       foreign_key :puc_id, :pucs, type: :integer, null: false
       foreign_key :farm_id, :farms, type: :integer, null: false
+      TrueClass :active, default: true
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
 
       index [:puc_id, :farm_id], name: :farms_pucs_idx, unique: true
     end

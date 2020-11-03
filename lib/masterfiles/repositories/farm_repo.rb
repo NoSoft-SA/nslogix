@@ -109,7 +109,7 @@ module MasterfilesApp
 
     def create_farm(attrs)
       params = attrs.to_h
-      farms_pucs_ids = Array(params.to_h.delete(:puc_id))
+      farms_pucs_ids = Array(params.delete(:puc_id))
       farm_id = DB[:farms].insert(params)
       farms_pucs_ids.each do |puc_id|
         DB[:farms_pucs].insert(farm_id: farm_id, puc_id: puc_id)
