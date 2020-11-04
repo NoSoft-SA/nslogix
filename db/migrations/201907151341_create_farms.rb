@@ -74,6 +74,7 @@ Sequel.migration do
     run "SELECT audit.audit_table('pucs', true, true, '{updated_at}'::text[]);"
 
     create_table(:farms_pucs, ignore_index_errors: true) do
+      primary_key :id
       foreign_key :puc_id, :pucs, type: :integer, null: false
       foreign_key :farm_id, :farms, type: :integer, null: false
       TrueClass :active, default: true
