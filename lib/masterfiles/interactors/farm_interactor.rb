@@ -41,7 +41,6 @@ module MasterfilesApp
       name = farm(id).farm_code
       repo.transaction do
         repo.delete_farm(id)
-        log_status(:farms, id, 'DELETED')
         log_transaction
       end
       success_response("Deleted farm #{name}")

@@ -1,5 +1,7 @@
 ---
 :dataminer_definition: pucs
+:captions:
+  :grid_caption: PUC's
 :actions:
 - :url: "/masterfiles/farms/pucs/$:id$"
   :text: view
@@ -24,6 +26,6 @@
 :page_controls:
   - :control_type: :link
     :url: "/masterfiles/farms/pucs/new"
-    :text: New Puc
+    :text: New PUC
     :style: :button
     :behaviour: :popup

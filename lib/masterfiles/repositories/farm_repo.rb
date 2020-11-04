@@ -109,11 +109,9 @@ module MasterfilesApp
 
     def create_farm(attrs)
       params = attrs.to_h
-      farms_pucs_ids = Array(params.delete(:puc_id))
-      farm_id = DB[:farms].insert(params)
-      farms_pucs_ids.each do |puc_id|
-        DB[:farms_pucs].insert(farm_id: farm_id, puc_id: puc_id)
-      end
+      puc_id = params.delete(:puc_id)
+      farm_id = create(:farms, params)
+      create(:farms_pucs, farm_id: farm_id, puc_id: puc_id)
       farm_id
     end
 
@@ -131,8 +129,7 @@ module MasterfilesApp
 
     def delete_farm(id)
       DB[:farms_pucs].where(farm_id: id).delete
-      DB[:farms].where(id: id).delete
-      { success: true }
+      delete(:farms, id)
     end
 
     def delete_farms_pucs(puc_id)
