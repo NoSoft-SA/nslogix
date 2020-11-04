@@ -9,6 +9,7 @@ Sequel.migration do
       index [:program_id], name: :fki_programs_users_program
       index [:security_group_id], name: :fki_programs_users_security_group
       index [:user_id], name: :fki_programs_users_user
+      index [:user_id, :program_id, :security_group_id], name: :programs_users_unique, unique: true
     end
   end
 
