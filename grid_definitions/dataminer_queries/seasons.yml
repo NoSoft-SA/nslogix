@@ -1,11 +1,11 @@
 ---
 :caption: Seasons
-:sql: "SELECT \"seasons\".\"id\", \"seasons\".\"season_group_id\", \"seasons\".\"commodity_id\",
-  \"seasons\".\"season_code\", \"seasons\".\"description\", \"seasons\".\"season_year\",
-  \"seasons\".\"start_date\", \"seasons\".\"end_date\", \"seasons\".\"active\", \"seasons\".\"created_at\",
-  \"seasons\".\"updated_at\", \"commodities\".\"code\" AS commodity_code, \"season_groups\".\"season_group_code\"\r\nFROM
-  \"seasons\" JOIN \"commodities\" ON \"commodities\".\"id\" = \"seasons\".\"commodity_id\"
-  JOIN \"season_groups\" ON \"season_groups\".\"id\" = \"seasons\".\"season_group_id\""
+:sql: "SELECT\r\n    seasons.id,\r\n    seasons.season_group_id,\r\n    seasons.commodity_id,\r\n
+  \   seasons.season_code,\r\n    seasons.description,\r\n    seasons.season_year,\r\n
+  \   seasons.start_date,\r\n    seasons.end_date,\r\n    seasons.active,\r\n    seasons.created_at,\r\n
+  \   seasons.updated_at,\r\n    commodities.commodity_code,\r\n    season_groups.season_group_code\r\nFROM
+  seasons \r\nJOIN commodities ON commodities.id = seasons.commodity_id \r\nJOIN season_groups
+  ON season_groups.id = seasons.season_group_id"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -28,7 +28,7 @@
     :group_max: false
   season_group_id:
     :name: season_group_id
-    :sequence_no: 11
+    :sequence_no: 2
     :caption: Season group
     :namespaced_name: seasons.season_group_id
     :data_type: :integer
@@ -44,7 +44,7 @@
     :group_max: false
   commodity_id:
     :name: commodity_id
-    :sequence_no: 10
+    :sequence_no: 3
     :caption: Commodity
     :namespaced_name: seasons.commodity_id
     :data_type: :integer
@@ -156,7 +156,7 @@
     :group_max: false
   created_at:
     :name: created_at
-    :sequence_no: 12
+    :sequence_no: 10
     :caption: Created at
     :namespaced_name: seasons.created_at
     :data_type: :datetime
@@ -172,7 +172,7 @@
     :group_max: false
   updated_at:
     :name: updated_at
-    :sequence_no: 13
+    :sequence_no: 11
     :caption: Updated at
     :namespaced_name: seasons.updated_at
     :data_type: :datetime
@@ -188,7 +188,7 @@
     :group_max: false
   commodity_code:
     :name: commodity_code
-    :sequence_no: 2
+    :sequence_no: 12
     :caption: Commodity code
     :namespaced_name: commodities.commodity_code
     :data_type: :string
@@ -204,7 +204,7 @@
     :group_max: false
   season_group_code:
     :name: season_group_code
-    :sequence_no: 3
+    :sequence_no: 13
     :caption: Season group code
     :namespaced_name: season_groups.season_group_code
     :data_type: :string

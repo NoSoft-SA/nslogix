@@ -7,23 +7,23 @@
   pol_voyage_ports.ata::character varying, ', ') AS ata,\r\n    string_agg(distinct
   pod_ports.port_code, ', ') AS POD,\r\n    string_agg(distinct pod_voyage_ports.etd::character
   varying, ', ') AS etd,\r\n    string_agg(distinct pod_voyage_ports.atd::character
-  varying, ', ') AS atd,\r\n    string_agg(distinct loads.id::character varying, ',
-  ') AS load_id,\r\n    string_agg(distinct depots.depot_code, ', ') AS depot_code,\r\n
+  varying, ', ') AS atd,\r\n    --string_agg(distinct loads.id::character varying,
+  ', ') AS load_id,\r\n    --string_agg(distinct depots.depot_code, ', ') AS depot_code,\r\n
   \   voyages.created_at,\r\n    voyages.updated_at,\r\n    voyages.completed,\r\n
   \   voyages.completed_at,\r\n    voyages.active,\r\n    fn_current_status('voyages',
-  voyages.id) AS status,\r\n    CASE\r\n        WHEN COUNT(loads.id) > 0  THEN TRUE\r\n
-  \       ELSE FALSE\r\n        END AS loaded,\r\n    CASE\r\n        WHEN completed
-  THEN 'ready'\r\n        WHEN COUNT(loads.id) > 0  THEN 'ok'\r\n        END AS colour_rule\r\n\r\nFROM
-  voyages\r\n         LEFT JOIN vessels ON vessels.id = voyages.vessel_id\r\n         LEFT
-  JOIN voyage_types ON voyage_types.id = voyages.voyage_type_id\r\n         LEFT JOIN
-  voyage_ports pol_voyage_ports ON pol_voyage_ports.voyage_id = voyages.id\r\n         LEFT
-  JOIN voyage_ports pod_voyage_ports ON pod_voyage_ports.voyage_id = voyages.id\r\n\r\n
-  \        LEFT JOIN ports pol_ports ON pol_ports.id = pol_voyage_ports.port_id AND
-  ARRAY[pol_ports.port_type_ids] <@ ARRAY[(SELECT id FROM port_types WHERE port_type_code
+  voyages.id) AS status,\r\n    --CASE\r\n        --WHEN COUNT(loads.id) > 0  THEN
+  TRUE\r\n        -- FALSE\r\n        --END AS loaded,\r\n    CASE\r\n        WHEN
+  completed THEN 'ready'\r\n        --WHEN COUNT(loads.id) > 0  THEN 'ok'\r\n        END
+  AS colour_rule\r\n\r\nFROM voyages\r\n         LEFT JOIN vessels ON vessels.id =
+  voyages.vessel_id\r\n         LEFT JOIN voyage_types ON voyage_types.id = voyages.voyage_type_id\r\n
+  \        LEFT JOIN voyage_ports pol_voyage_ports ON pol_voyage_ports.voyage_id =
+  voyages.id\r\n         LEFT JOIN voyage_ports pod_voyage_ports ON pod_voyage_ports.voyage_id
+  = voyages.id\r\n\r\n         LEFT JOIN ports pol_ports ON pol_ports.id = pol_voyage_ports.port_id
+  AND ARRAY[pol_ports.port_type_ids] <@ ARRAY[(SELECT id FROM port_types WHERE port_type_code
   = 'POL')]\r\n         LEFT JOIN ports pod_ports ON pod_ports.id = pod_voyage_ports.port_id
   AND ARRAY[pod_ports.port_type_ids] <@ ARRAY[(SELECT id FROM port_types WHERE port_type_code
-  = 'POD')]\r\n\r\n         LEFT JOIN loads ON pol_voyage_ports.id = loads.pol_voyage_port_id\r\n
-  \        LEFT JOIN depots ON loads.depot_id = depots.id\r\nGROUP BY voyages.id,
+  = 'POD')]\r\n\r\n         --LEFT JOIN loads ON pol_voyage_ports.id = loads.pol_voyage_port_id\r\n
+  \        --LEFT JOIN depots ON loads.depot_id = depots.id\r\nGROUP BY voyages.id,
   voyages.created_at, vessels.id, voyage_types.id\r\nORDER BY voyages.created_at DESC"
 :limit: 
 :offset: 
@@ -31,7 +31,6 @@
   :render_url: 
   :colour_key:
     ready: Completed
-    ok: Loaded
 :columns:
   id:
     :name: id
@@ -225,41 +224,9 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  load_id:
-    :name: load_id
-    :sequence_no: 13
-    :caption: Load
-    :namespaced_name: 
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  depot_code:
-    :name: depot_code
-    :sequence_no: 14
-    :caption: Depot code
-    :namespaced_name: 
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
   created_at:
     :name: created_at
-    :sequence_no: 15
+    :sequence_no: 13
     :caption: Created at
     :namespaced_name: voyages.created_at
     :data_type: :datetime
@@ -275,7 +242,7 @@
     :group_max: false
   updated_at:
     :name: updated_at
-    :sequence_no: 16
+    :sequence_no: 14
     :caption: Updated at
     :namespaced_name: voyages.updated_at
     :data_type: :datetime
@@ -291,7 +258,7 @@
     :group_max: false
   completed:
     :name: completed
-    :sequence_no: 17
+    :sequence_no: 15
     :caption: Completed
     :namespaced_name: voyages.completed
     :data_type: :boolean
@@ -307,7 +274,7 @@
     :group_max: false
   completed_at:
     :name: completed_at
-    :sequence_no: 18
+    :sequence_no: 16
     :caption: Completed at
     :namespaced_name: voyages.completed_at
     :data_type: :datetime
@@ -323,7 +290,7 @@
     :group_max: false
   active:
     :name: active
-    :sequence_no: 19
+    :sequence_no: 17
     :caption: Active
     :namespaced_name: voyages.active
     :data_type: :boolean
@@ -339,7 +306,7 @@
     :group_max: false
   status:
     :name: status
-    :sequence_no: 20
+    :sequence_no: 18
     :caption: Status
     :namespaced_name: 
     :data_type: :string
@@ -353,25 +320,9 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  loaded:
-    :name: loaded
-    :sequence_no: 21
-    :caption: Loaded
-    :namespaced_name: 
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
   colour_rule:
     :name: colour_rule
-    :sequence_no: 22
+    :sequence_no: 19
     :caption: Colour rule
     :namespaced_name: 
     :data_type: :string

@@ -1,9 +1,9 @@
 ---
 :caption: Cultivar Groups
-:sql: "SELECT \"cultivar_groups\".\"id\", \"cultivar_groups\".\"cultivar_group_code\",
-  \r\n\"commodities\".\"code\" AS commodity_code,\r\n\"cultivar_groups\".\"description\",
-  \"cultivar_groups\".\"created_at\",\r\n\"cultivar_groups\".\"updated_at\", \"cultivar_groups\".\"active\"\r\nFROM
-  \"cultivar_groups\"\r\nJOIN \"commodities\" ON \"commodities\".\"id\" = \"cultivar_groups\".\"commodity_id\""
+:sql: "SELECT \r\n    cultivar_groups.id,\r\n    cultivar_groups.cultivar_group_code,\r\n
+  \   commodities.commodity_code,\r\n    cultivar_groups.description,\r\n    cultivar_groups.created_at,\r\n
+  \   cultivar_groups.updated_at,\r\n    cultivar_groups.active\r\nFROM cultivar_groups\r\nJOIN
+  commodities ON commodities.id = cultivar_groups.commodity_id"
 :limit: 
 :offset: 
 :external_settings: {}

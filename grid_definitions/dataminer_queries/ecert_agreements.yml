@@ -1,9 +1,10 @@
 ---
 :caption: eCert Agreements
-:sql: SELECT "ecert_agreements"."id", "ecert_agreements"."ecert_agreement_code", "ecert_agreements"."name",
-  "ecert_agreements"."description", "ecert_agreements"."start_date", "ecert_agreements"."end_date",
-  "ecert_agreements"."active", "ecert_agreements"."created_at", "ecert_agreements"."updated_at",
-  fn_current_status('ecert_agreements', "ecert_agreements"."id") AS status FROM "ecert_agreements"
+:sql: "SELECT\r\n    ecert_agreements.id,\r\n    ecert_agreements.ecert_agreement_code,\r\n
+  \   ecert_agreements.ecert_agreement_name,\r\n    ecert_agreements.description,\r\n
+  \   ecert_agreements.start_date,\r\n    ecert_agreements.end_date,\r\n    ecert_agreements.active,\r\n
+  \   ecert_agreements.created_at,\r\n    ecert_agreements.updated_at,\r\n    fn_current_status('ecert_agreements',id)
+  AS status\r\nFROM ecert_agreements"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -40,17 +41,17 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  name:
-    :name: name
+  ecert_agreement_name:
+    :name: ecert_agreement_name
     :sequence_no: 3
-    :caption: Name
-    :namespaced_name: ecert_agreements.name
+    :caption: Ecert agreement name
+    :namespaced_name: ecert_agreements.ecert_agreement_name
     :data_type: :string
     :width: 
     :format: 
     :hide: false
     :pinned: 
-    :groupable: true
+    :groupable: false
     :group_by_seq: 
     :group_sum: false
     :group_avg: false

@@ -1,11 +1,10 @@
 ---
 :caption: Commodities
-:sql: "SELECT\r\n  \"commodities\".\"id\",\r\n  \"commodities\".\"commodity_group_id\",\r\n
-  \ \"commodities\".\"commodity_code\",\r\n  \"commodities\".\"description\",\r\n  \"commodities\".\"hs_code\",\r\n
-  \ \"commodities\".\"active\",\r\n  \"commodities\".\"created_at\",\r\n  \"commodities\".\"updated_at\",\r\n
-  \ \"commodity_groups\".\"code\" AS commodity_group_code,\r\n  \"commodities\".\"requires_standard_counts\",\r\n
-  \ \"commodities\".\"use_size_ref_for_edi\"\r\nFROM\r\n  \"commodities\"\r\n  JOIN
-  \"commodity_groups\" ON \"commodity_groups\".\"id\" = \"commodities\".\"commodity_group_id\""
+:sql: "SELECT\r\n    commodities.id,\r\n    commodities.commodity_group_id,\r\n    commodities.commodity_code,\r\n
+  \   commodities.description,\r\n    commodities.hs_code,\r\n    commodities.active,\r\n
+  \   commodities.created_at,\r\n    commodities.updated_at,\r\n    commodity_groups.commodity_group_code,\r\n
+  \   commodities.requires_standard_counts,\r\n    commodities.use_size_ref_for_edi\r\nFROM
+  commodities\r\nJOIN commodity_groups ON commodity_groups.id = commodities.commodity_group_id"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -43,7 +42,7 @@
     :group_min: false
     :group_max: false
   commodity_code:
-    :name: code
+    :name: commodity_code
     :sequence_no: 3
     :caption: Code
     :namespaced_name: commodities.commodity_code

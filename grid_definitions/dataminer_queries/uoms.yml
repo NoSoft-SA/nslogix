@@ -1,8 +1,8 @@
 ---
 :caption: UOMs
-:sql: SELECT "uoms"."id", "uoms"."uom_type_id", "uoms"."uom_code", "uoms"."created_at",
-  "uoms"."updated_at", "uom_types"."code" AS uom_type_code, "uoms"."active"
-  FROM "uoms" JOIN "uom_types" ON "uom_types"."id" = "uoms"."uom_type_id"
+:sql: "SELECT \r\n    uoms.id,\r\n    uoms.uom_type_id,\r\n    uoms.uom_code,\r\n
+  \   uoms.created_at,\r\n    uoms.updated_at,\r\n    uom_types.uom_type_code,\r\n
+  \   uoms.active \r\nFROM uoms \r\nJOIN uom_types ON uom_types.id = uoms.uom_type_id"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -18,7 +18,7 @@
     :hide: true
     :pinned: 
     :groupable: true
-    :group_by_seq:
+    :group_by_seq: 
     :group_sum: false
     :group_avg: false
     :group_min: false
@@ -29,12 +29,12 @@
     :caption: UOM Type
     :namespaced_name: uoms.uom_type_id
     :data_type: :integer
-    :width:
-    :format:
+    :width: 
+    :format: 
     :hide: true
-    :pinned:
+    :pinned: 
     :groupable: false
-    :group_by_seq:
+    :group_by_seq: 
     :group_sum: false
     :group_avg: false
     :group_min: false
@@ -93,12 +93,12 @@
     :caption: Uoms type code
     :namespaced_name: uom_types.uom_type_code
     :data_type: :string
-    :width:
-    :format:
+    :width: 
+    :format: 
     :hide: true
-    :pinned:
+    :pinned: 
     :groupable: false
-    :group_by_seq:
+    :group_by_seq: 
     :group_sum: false
     :group_avg: false
     :group_min: false
@@ -109,12 +109,12 @@
     :caption: Active
     :namespaced_name: uoms.active
     :data_type: :boolean
-    :width:
-    :format:
+    :width: 
+    :format: 
     :hide: false
-    :pinned:
+    :pinned: 
     :groupable: true
-    :group_by_seq:
+    :group_by_seq: 
     :group_sum: false
     :group_avg: false
     :group_min: false
@@ -124,7 +124,7 @@
   :caption: UOM type
   :data_type: :integer
   :control_type: :list
-  :default_value:
+  :default_value: 
   :ordered_list: true
   :ui_priority: 1
   :list_def: SELECT code, id FROM uom_types ORDER BY code
