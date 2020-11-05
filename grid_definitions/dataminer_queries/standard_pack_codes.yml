@@ -5,7 +5,6 @@
   \   standard_pack_codes.description,\r\n    standard_pack_codes.std_pack_label_code,\r\n
   \   standard_pack_codes.material_mass,\r\n
   \   basic_pack_codes.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
-  \   standard_pack_codes.bin,\r\n
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\n
   FROM standard_pack_codes\r\nLEFT JOIN basic_pack_codes ON basic_pack_codes.id = standard_pack_codes.basic_pack_code_id
   ORDER BY\r\n    standard_pack_codes.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
@@ -134,38 +133,6 @@
     :width: 100
     :format: 
     :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  bin:
-    :name: bin
-    :sequence_no: 11
-    :caption: Bin?
-    :namespaced_name: standard_pack_codes.bin
-    :data_type: :boolean
-    :width: 100
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  rmt_container_type_id:
-    :name: rmt_container_type_id
-    :sequence_no: 12
-    :caption: Rmt container type
-    :namespaced_name: standard_pack_codes.rmt_container_type_id
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: true
     :pinned: 
     :groupable: false
     :group_by_seq: 

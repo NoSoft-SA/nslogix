@@ -3,7 +3,7 @@
 :sql: SELECT "standard_product_weights"."id", "standard_product_weights"."commodity_id",
   "standard_product_weights"."standard_pack_id", "standard_product_weights"."gross_weight",
   "standard_product_weights"."nett_weight", "standard_product_weights"."active", "standard_product_weights"."created_at",
-  "standard_product_weights"."updated_at", "commodities"."code" AS commodity_code,
+  "standard_product_weights"."updated_at", "commodities"."commodity_code",
   "standard_pack_codes"."standard_pack_code", "standard_product_weights"."standard_carton_nett_weight",
   "standard_product_weights"."ratio_to_standard_carton", "standard_product_weights"."standard_carton",
   fn_current_status('standard_product_weights', "standard_product_weights"."id") AS
