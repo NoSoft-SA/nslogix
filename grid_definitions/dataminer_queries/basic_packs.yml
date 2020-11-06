@@ -1,8 +1,8 @@
 ---
 :caption: Basic Pack Codes
-:sql: SELECT "basic_pack_codes"."id", "basic_pack_codes"."basic_pack_code", "basic_pack_codes"."description",
-  "basic_pack_codes"."length_mm", "basic_pack_codes"."width_mm", "basic_pack_codes"."height_mm",
-  "basic_pack_codes"."created_at", "basic_pack_codes"."updated_at", "basic_pack_codes"."active" FROM "basic_pack_codes"
+:sql: SELECT "basic_packs"."id", "basic_packs"."basic_pack_code", "basic_packs"."description",
+  "basic_packs"."length_mm", "basic_packs"."width_mm", "basic_packs"."height_mm",
+  "basic_packs"."created_at", "basic_packs"."updated_at", "basic_packs"."active" FROM "basic_packs"
 :limit: 
 :offset: 
 :columns:
@@ -10,7 +10,7 @@
     :name: id
     :sequence_no: 1
     :caption: Id
-    :namespaced_name: basic_pack_codes.id
+    :namespaced_name: basic_packs.id
     :data_type: :integer
     :width: 
     :format: 
@@ -25,7 +25,7 @@
     :name: basic_pack_code
     :sequence_no: 2
     :caption: Basic pack code
-    :namespaced_name: basic_pack_codes.basic_pack_code
+    :namespaced_name: basic_packs.basic_pack_code
     :data_type: :string
     :width: 
     :format: 
@@ -40,7 +40,7 @@
     :name: description
     :sequence_no: 3
     :caption: Description
-    :namespaced_name: basic_pack_codes.description
+    :namespaced_name: basic_packs.description
     :data_type: :string
     :width: 
     :format: 
@@ -55,7 +55,7 @@
     :name: length_mm
     :sequence_no: 4
     :caption: Length mm
-    :namespaced_name: basic_pack_codes.length_mm
+    :namespaced_name: basic_packs.length_mm
     :data_type: :integer
     :width: 120
     :format: 
@@ -70,7 +70,7 @@
     :name: width_mm
     :sequence_no: 5
     :caption: Width mm
-    :namespaced_name: basic_pack_codes.width_mm
+    :namespaced_name: basic_packs.width_mm
     :data_type: :integer
     :width: 
     :format: 
@@ -85,7 +85,7 @@
     :name: height_mm
     :sequence_no: 6
     :caption: Height mm
-    :namespaced_name: basic_pack_codes.height_mm
+    :namespaced_name: basic_packs.height_mm
     :data_type: :integer
     :width: 120
     :format: 
@@ -100,7 +100,7 @@
     :name: created_at
     :sequence_no: 7
     :caption: Created at
-    :namespaced_name: basic_pack_codes.created_at
+    :namespaced_name: basic_packs.created_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -115,7 +115,7 @@
     :name: updated_at
     :sequence_no: 8
     :caption: Updated at
-    :namespaced_name: basic_pack_codes.updated_at
+    :namespaced_name: basic_packs.updated_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -130,7 +130,7 @@
     :name: active
     :sequence_no: 9
     :caption: Active
-    :namespaced_name: basic_pack_codes.active
+    :namespaced_name: basic_packs.active
     :data_type: :boolean
     :width:
     :format:

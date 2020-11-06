@@ -3,10 +3,10 @@
 :sql: SELECT cartons_per_pallet.id, cartons_per_pallet.description, cartons_per_pallet.pallet_format_id,
   cartons_per_pallet.basic_pack_id, cartons_per_pallet.cartons_per_pallet, cartons_per_pallet.layers_per_pallet,
   cartons_per_pallet.active, cartons_per_pallet.created_at, cartons_per_pallet.updated_at,
-  basic_pack_codes.basic_pack_code, pallet_formats.description AS pallet_formats_description,
+  basic_packs.basic_pack_code, pallet_formats.description AS pallet_formats_description,
   pallet_bases.pallet_base_code, pallet_stack_types.stack_type_code, pallet_formats.pallet_base_id,
-  pallet_formats.pallet_stack_type_id FROM cartons_per_pallet JOIN basic_pack_codes
-  ON basic_pack_codes.id = cartons_per_pallet.basic_pack_id JOIN pallet_formats ON
+  pallet_formats.pallet_stack_type_id FROM cartons_per_pallet JOIN basic_packs
+  ON basic_packs.id = cartons_per_pallet.basic_pack_id JOIN pallet_formats ON
   pallet_formats.id = cartons_per_pallet.pallet_format_id JOIN pallet_bases ON pallet_bases.id
   = pallet_formats.pallet_base_id JOIN pallet_stack_types ON pallet_stack_types.id
   = pallet_formats.pallet_stack_type_id
@@ -163,7 +163,7 @@
     :name: basic_pack_code
     :sequence_no: 2
     :caption: Basic pack code
-    :namespaced_name: basic_pack_codes.basic_pack_code
+    :namespaced_name: basic_packs.basic_pack_code
     :data_type: :string
     :width: 
     :format: 
@@ -271,7 +271,7 @@
   :default_value: 
   :ordered_list: true
   :ui_priority: 1
-  :list_def: SELECT basic_pack_code, id FROM basic_pack_codes ORDER BY basic_pack_code
+  :list_def: SELECT basic_pack_code, id FROM basic_packs ORDER BY basic_pack_code
 - :column: pallet_formats.pallet_base_id
   :caption: Pallet base code
   :data_type: :integer

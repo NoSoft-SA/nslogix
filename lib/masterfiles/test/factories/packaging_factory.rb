@@ -42,12 +42,12 @@ module MasterfilesApp
 
     def create_cartons_per_pallet(opts = {})
       pallet_format_id = create_pallet_format
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
 
       default = {
         description: Faker::Lorem.unique.word,
         pallet_format_id: pallet_format_id,
-        basic_pack_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         cartons_per_pallet: Faker::Number.number(digits: 4),
         layers_per_pallet: Faker::Number.number(digits: 4),
         active: true

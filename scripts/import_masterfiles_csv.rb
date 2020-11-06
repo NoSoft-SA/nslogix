@@ -86,9 +86,9 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     orchards: { rules: { table_column_names: %w[farm_id puc_id orchard_code cultivar_ids], required_columns: %w[farm_code puc_code orchard_code], lookup_columns: %w[farm_id puc_id], lookup_arrays: %w[farm_id puc_id] } },
     pucs: { rules: { table_column_names: %w[puc_code gap_code], required_columns: %w[puc_code] } },
     std_fruit_size_counts: { rules: { table_column_names: %w[commodity_id size_count_value size_count_description uom_id marketing_size_range_mm marketing_weight_range size_count_interval_group minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm average_weight_gm], required_columns: %w[commodity_code size_count_value size_count_description uom], lookup_columns: %w[commodity_id uom_id] } },
-    standard_pack_codes: { rules: { table_column_names: %w[standard_pack_code material_mass basic_pack_code_id], required_columns: %w[standard_pack_code material_mass], lookup_columns: %w[basic_pack_code_id] } },
-    basic_pack_codes: { rules: { table_column_names: %w[basic_pack_code], required_columns: %w[basic_pack_code description] } },
-    fruit_actual_counts_for_packs: { rules: { table_column_names: %w[std_fruit_size_count_id basic_pack_code_id actual_count_for_pack standard_pack_code_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_for_pack], lookup_columns: %w[std_fruit_size_count_id basic_pack_code_id], lookup_arrays: %w[standard_pack_code_ids size_reference_ids] } }
+    standard_pack_codes: { rules: { table_column_names: %w[standard_pack_code material_mass basic_pack_id], required_columns: %w[standard_pack_code material_mass], lookup_columns: %w[basic_pack_id] } },
+    basic_packs: { rules: { table_column_names: %w[basic_pack_code], required_columns: %w[basic_pack_code description] } },
+    fruit_actual_counts_for_packs: { rules: { table_column_names: %w[std_fruit_size_count_id basic_pack_id actual_count_for_pack standard_pack_code_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_for_pack], lookup_columns: %w[std_fruit_size_count_id basic_pack_id], lookup_arrays: %w[standard_pack_code_ids size_reference_ids] } }
   }.freeze
 
   MF_COLUMN_LOOKUP_DEFINATIONS = {
@@ -99,7 +99,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     marketing_variety_id: { subquery: 'SELECT id FROM marketing_varieties WHERE marketing_variety_code = ?', values: 'SELECT marketing_variety_code FROM marketing_varieties WHERE id = ?' },
     farm_id: { subquery: 'SELECT id FROM farms WHERE farm_code = ?', values: 'SELECT farm_code FROM farms WHERE id = ?' },
     puc_id: { subquery: 'SELECT id FROM pucs WHERE puc_code = ?', values: 'SELECT puc_code FROM pucs WHERE id = ?' },
-    basic_pack_code_id: { subquery: 'SELECT id FROM basic_pack_codes WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_pack_codes WHERE id = ?' },
+    basic_pack_id: { subquery: 'SELECT id FROM basic_packs WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_packs WHERE id = ?' },
     standard_pack_code_id: { subquery: 'SELECT id FROM standard_pack_codes WHERE standard_pack_code = ?', values: 'SELECT standard_pack_code FROM standard_pack_codes WHERE id = ?' },
     standard_pack_code_ids: { subquery: 'SELECT array_agg(id) FROM standard_pack_codes WHERE standard_pack_code IN ?', values: 'SELECT standard_pack_code FROM standard_pack_codes WHERE id IN ?' },
     size_reference_ids: { subquery: 'SELECT array_agg(id) FROM fruit_size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM fruit_size_references WHERE id IN ?' },
@@ -120,9 +120,9 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     farm_code: { column_name: 'description' },
     farm_id: { column_name: 'farm_code' },
     puc_id: { column_name: 'puc_code', params: %w[puc_code gap_code], create_table: 'pucs' },
-    basic_pack_code_id: { column_name: 'basic_pack_code', params: %w[standard_pack_code], create_table: 'basic_pack_codes' },
+    basic_pack_id: { column_name: 'basic_pack_code', params: %w[standard_pack_code], create_table: 'basic_packs' },
     standard_pack_code_id: { column_name: 'standard_pack_code' },
-    standard_pack_code_ids: { column_name: 'standard_pack_codes', alt_column: 'basic_pack_code_id' },
+    standard_pack_code_ids: { column_name: 'standard_pack_codes', alt_column: 'basic_pack_id' },
     size_reference_ids: { column_name: 'size_references' },
     uom_id: { column_name: 'uom' },
     pdn_region_id: { column_name: 'production_region_code' },

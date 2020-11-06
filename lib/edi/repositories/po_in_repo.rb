@@ -30,8 +30,8 @@ module EdiApp
       find_variant_id(:standard_pack_codes, code)
     end
 
-    def find_basic_pack_code_id(standard_pack_code_id)
-      DB[:standard_pack_codes].where(id: standard_pack_code_id).get(:basic_pack_code_id)
+    def find_basic_pack_id(standard_pack_code_id)
+      DB[:standard_pack_codes].where(id: standard_pack_code_id).get(:basic_pack_id)
     end
 
     def find_puc_id(code)

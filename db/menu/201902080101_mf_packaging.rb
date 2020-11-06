@@ -4,7 +4,7 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Pallet Bases', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/pallet_bases', seq: 1
     add_program_function 'Pallet Stack Types', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/pallet_stack_types', seq: 2
 
-    add_program_function 'Basic', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/basic_pack_codes', seq: 3, group: 'Pack codes'
+    add_program_function 'Basic', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/basic_packs', seq: 3, group: 'Pack codes'
     add_program_function 'Standard', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/standard_pack_codes', seq: 4, group: 'Pack codes'
     add_program_function 'STD Product Weights', functional_area: 'Masterfiles', program: 'Packaging', url: '/list/standard_product_weights', seq: 5, group: 'Pack codes'
 

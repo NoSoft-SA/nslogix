@@ -13,7 +13,7 @@ module MasterfilesApp
         description: 'ABC',
         std_pack_label_code: 'ABC',
         material_mass: 1.0,
-        basic_pack_code_id: 1,
+        basic_pack_id: 1,
         use_size_ref_for_edi: false,
         bin: false,
         active: true

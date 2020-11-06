@@ -2,11 +2,11 @@
 
 module MasterfilesApp
   class FruitSizeRepo < BaseRepo # rubocop:disable Metrics/ClassLength
-    build_for_select :basic_pack_codes,
+    build_for_select :basic_packs,
                      label: :basic_pack_code,
                      value: :id,
                      order_by: :basic_pack_code
-    build_inactive_select :basic_pack_codes,
+    build_inactive_select :basic_packs,
                           label: :basic_pack_code,
                           value: :id,
                           order_by: :basic_pack_code
@@ -56,7 +56,7 @@ module MasterfilesApp
                           value: :id,
                           order_by: :size_reference
 
-    crud_calls_for :basic_pack_codes, name: :basic_pack_code, wrapper: BasicPackCode
+    crud_calls_for :basic_packs, name: :basic_pack, wrapper: BasicPack
     crud_calls_for :standard_pack_codes, name: :standard_pack_code, wrapper: StandardPackCode
     crud_calls_for :standard_product_weights, name: :standard_product_weight, wrapper: StandardProductWeight
     crud_calls_for :std_fruit_size_counts, name: :std_fruit_size_count, wrapper: StdFruitSizeCount
@@ -79,24 +79,24 @@ module MasterfilesApp
     def find_standard_pack_code_flat(id)
       find_with_association(:standard_pack_codes,
                             id,
-                            parent_tables: [{ parent_table: :basic_pack_codes,
+                            parent_tables: [{ parent_table: :basic_packs,
                                               columns: %i[basic_pack_code],
                                               flatten_columns: { basic_pack_code: :basic_pack_code } }],
                             wrapper: StandardPackCodeFlat)
     end
 
-    def delete_basic_pack_code(id)
-      dependents = DB[:fruit_actual_counts_for_packs].where(basic_pack_code_id: id).select_map(:id)
+    def delete_basic_pack(id)
+      dependents = DB[:fruit_actual_counts_for_packs].where(basic_pack_id: id).select_map(:id)
       return { error: 'This pack code is in use.' } unless dependents.empty?
 
-      DB[:basic_pack_codes].where(id: id).delete
+      DB[:basic_packs].where(id: id).delete
       { success: true }
     end
 
     def create_standard_pack_code(attrs)
       if AppConst::BASE_PACK_EQUALS_STD_PACK
-        base_pack_id = DB[:basic_pack_codes].insert(basic_pack_code: attrs[:standard_pack_code])
-        DB[:standard_pack_codes].insert(attrs.to_h.merge(basic_pack_code_id: base_pack_id))
+        base_pack_id = DB[:basic_packs].insert(basic_pack_code: attrs[:standard_pack_code])
+        DB[:standard_pack_codes].insert(attrs.to_h.merge(basic_pack_id: base_pack_id))
       else
         DB[:standard_pack_codes].insert(attrs.to_h)
       end
@@ -104,8 +104,8 @@ module MasterfilesApp
 
     def update_standard_pack_code(id, attrs)
       if AppConst::BASE_PACK_EQUALS_STD_PACK && attrs.to_h.key?(:standard_pack_code)
-        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_code_id)
-        DB[:basic_pack_codes].where(id: bp_id).update(basic_pack_code: attrs[:standard_pack_code])
+        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_id)
+        DB[:basic_packs].where(id: bp_id).update(basic_pack_code: attrs[:standard_pack_code])
       end
       DB[:standard_pack_codes].where(id: id).update(attrs.to_h)
     end
@@ -116,13 +116,13 @@ module MasterfilesApp
 
       bp_id = nil
       if AppConst::BASE_PACK_EQUALS_STD_PACK
-        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_code_id)
-        cnt = DB[:standard_pack_codes].where(basic_pack_code_id: bp_id).count
+        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_id)
+        cnt = DB[:standard_pack_codes].where(basic_pack_id: bp_id).count
         bp_id = nil if cnt > 1
       end
 
       DB[:standard_pack_codes].where(id: id).delete
-      DB[:basic_pack_codes].where(id: bp_id).delete if bp_id
+      DB[:basic_packs].where(id: bp_id).delete if bp_id
       ok_response
     end
 
@@ -141,7 +141,7 @@ module MasterfilesApp
                                    parent_tables: [{ parent_table: :std_fruit_size_counts,
                                                      columns: [:size_count_description],
                                                      flatten_columns: { size_count_description: :std_fruit_size_count } },
-                                                   { parent_table: :basic_pack_codes,
+                                                   { parent_table: :basic_packs,
                                                      columns: [:basic_pack_code],
                                                      flatten_columns: { basic_pack_code: :basic_pack_code } }],
                                    sub_tables: [{ sub_table: :fruit_size_references,

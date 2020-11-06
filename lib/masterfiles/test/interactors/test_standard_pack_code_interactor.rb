@@ -70,7 +70,7 @@ module MasterfilesApp
     private
 
     def standard_pack_code_attrs
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
       {
         id: 1,
         standard_pack_code: Faker::Lorem.unique.word,
@@ -78,7 +78,7 @@ module MasterfilesApp
         std_pack_label_code: 'ABC',
         active: true,
         material_mass: 1.0,
-        basic_pack_code_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         basic_pack_code: 'ABC',
         use_size_ref_for_edi: false,
         bin: false,

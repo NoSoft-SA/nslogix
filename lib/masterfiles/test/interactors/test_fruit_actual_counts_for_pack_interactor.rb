@@ -29,11 +29,11 @@ module MasterfilesApp
     end
 
     def test_create_fruit_actual_counts_for_pack_fail
-      attrs = fake_fruit_actual_counts_for_pack(basic_pack_code_id: nil).to_h.reject { |k, _| k == :id }
+      attrs = fake_fruit_actual_counts_for_pack(basic_pack_id: nil).to_h.reject { |k, _| k == :id }
       attrs = attrs.to_h
       res = interactor.create_fruit_actual_counts_for_pack(attrs[:std_fruit_size_count_id], attrs)
       refute res.success, 'should fail validation'
-      assert_equal ['must be filled'], res.errors[:basic_pack_code_id]
+      assert_equal ['must be filled'], res.errors[:basic_pack_id]
     end
 
     def test_update_fruit_actual_counts_for_pack
@@ -53,12 +53,12 @@ module MasterfilesApp
       id = create_fruit_actual_counts_for_pack
       attrs = interactor.send(:repo).find_fruit_actual_counts_for_pack(id)
       attrs = attrs.to_h
-      attrs.delete(:basic_pack_code_id)
+      attrs.delete(:basic_pack_id)
       value = attrs[:actual_count_for_pack]
       attrs[:actual_count_for_pack] = 20
       res = interactor.update_fruit_actual_counts_for_pack(id, attrs)
       refute res.success, "#{res.message} : #{res.errors.inspect}"
-      assert_equal ['is missing'], res.errors[:basic_pack_code_id]
+      assert_equal ['is missing'], res.errors[:basic_pack_id]
       after = interactor.send(:repo).find_fruit_actual_counts_for_pack(id)
       after = after.to_h
       refute_equal 20, after[:actual_count_for_pack]
@@ -77,14 +77,14 @@ module MasterfilesApp
 
     def fruit_actual_counts_for_pack_attrs
       std_fruit_size_count_id = create_std_fruit_size_count
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
       standard_pack_code_ids = create_standard_pack_code
       size_reference_ids = create_fruit_size_reference
 
       {
         id: 1,
         std_fruit_size_count_id: std_fruit_size_count_id,
-        basic_pack_code_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         actual_count_for_pack: 1,
         standard_pack_code_ids: [standard_pack_code_ids],
         size_reference_ids: [size_reference_ids],

@@ -63,29 +63,29 @@ module EdiApp
     def build_pallet(pallet_number, sequence) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       originally_inspected_at = repo.time_from_date_val(sequence[:orig_inspec_date])
       inspected_at = repo.time_from_date_val(sequence[:inspec_date])
-      intake_created_at = repo.time_from_date_val(sequence[:intake_date])
-      weight_measured_at = repo.time_from_date_and_time(sequence[:weighing_date], sequence[:weighing_time])
+      # intake_created_at = repo.time_from_date_val(sequence[:intake_date])
+      # weight_measured_at = repo.time_from_date_and_time(sequence[:weighing_date], sequence[:weighing_time])
 
       pallet = {}
       pallet[:govt_first_inspection_at] = originally_inspected_at
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
       pallet[:standard_pack_code_id] = repo.get_masterfile_or_variant(:standard_pack_codes, standard_pack_code: sequence[:pack])
 
-      get_masterfile_or_variant(:basic_pack_codes, basic_pack_code: sequence[:pack])
+      get_masterfile_or_variant(:basic_packs, basic_pack_code: sequence[:pack])
 
-      pallet[:basic_pack_code_id] = repo.get_masterfile_value(table_name, column, args)
+      pallet[:basic_pack_id] = repo.get_masterfile_value(table_name, column, args)
 
       pallet[:fruit_size_reference_id] = repo.get_masterfile_or_variant(:fruit_size_references, fruit_size_reference: sequence[:size_count])
 
-      basic_pack_code_id = repo.find_basic_pack_code_id(standard_pack_code_id)
-      rec[:lookup_data][:basic_pack_code_id] = basic_pack_code_id
-      rec[:missing_mf][:basic_pack_code_id] = { mode: :direct, raise: false, keys: { size_count: sequence[:size_count] } } if basic_pack_code_id.nil?
+      basic_pack_id = repo.find_basic_pack_id(standard_pack_code_id)
+      rec[:lookup_data][:basic_pack_id] = basic_pack_id
+      rec[:missing_mf][:basic_pack_id] = { mode: :direct, raise: false, keys: { size_count: sequence[:size_count] } } if basic_pack_id.nil?
 
-      pallet_format_id, cartons_per_pallet_id = repo.find_pallet_format_and_cpp_id(sequence[:pallet_btype], tot_cartons, basic_pack_code_id)
+      pallet_format_id, cartons_per_pallet_id = repo.find_pallet_format_and_cpp_id(sequence[:pallet_btype], tot_cartons, basic_pack_id)
       rec[:lookup_data][:pallet_format_id] = pallet_format_id
-      rec[:missing_mf][:pallet_format_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_code_id: basic_pack_code_id } } if pallet_format_id.nil?
+      rec[:missing_mf][:pallet_format_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_id: basic_pack_id } } if pallet_format_id.nil?
       rec[:lookup_data][:cartons_per_pallet_id] = cartons_per_pallet_id
-      rec[:missing_mf][:cartons_per_pallet_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_code_id: basic_pack_code_id } } if cartons_per_pallet_id.nil?
+      rec[:missing_mf][:cartons_per_pallet_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_id: basic_pack_id } } if cartons_per_pallet_id.nil?
 
       # pallet_format_id: 0, # lookup
       {
@@ -164,7 +164,7 @@ module EdiApp
       rec[:lookup_data][:grade_id] = grade_id
       rec[:missing_mf][:grade_id] = { mode: :direct, keys: { grade: sequence[:grade] } } if grade_id.nil?
 
-      rec[:lookup_data][:basic_pack_code_id] = parent[:lookup_data][:basic_pack_code_id]
+      rec[:lookup_data][:basic_pack_id] = parent[:lookup_data][:basic_pack_id]
       rec[:lookup_data][:standard_pack_code_id] = parent[:lookup_data][:standard_pack_code_id]
       rec[:lookup_data][:pallet_format_id] = parent[:lookup_data][:pallet_format_id]
       rec[:lookup_data][:cartons_per_pallet_id] = parent[:lookup_data][:cartons_per_pallet_id]

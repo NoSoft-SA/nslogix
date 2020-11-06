@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class BasicPackCode < Dry::Struct
+  class BasicPack < Dry::Struct
     attribute :id, Types::Integer
     attribute :basic_pack_code, Types::String
     attribute :description, Types::String

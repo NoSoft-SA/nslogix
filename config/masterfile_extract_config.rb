@@ -4,7 +4,7 @@ module Crossbeams
   module Config # rubocop:disable Metrics/ModuleLength
     MF_BASE_TABLES = %i[
       address_types
-      basic_pack_codes
+      basic_packs
       commodity_groups
       contact_method_types
       cultivar_groups
@@ -104,8 +104,7 @@ module Crossbeams
       pallet_base_id: { subquery: 'SELECT id FROM pallet_bases WHERE pallet_base_code = ?', values: 'SELECT pallet_base_code FROM pallet_bases WHERE id = ?' },
       pallet_stack_type_id: { subquery: 'SELECT id FROM pallet_stack_types WHERE stack_type_code = ?', values: 'SELECT stack_type_code FROM pallet_stack_types WHERE id = ?' },
       pallet_format_id: { subquery: 'SELECT id FROM pallet_formats WHERE pallet_base_id = (SELECT id FROM pallet_bases WHERE pallet_base_code = ?) AND pallet_stack_type_id = (SELECT id FROM pallet_stack_types WHERE stack_type_code = ?)', values: 'SELECT b.pallet_base_code, s.stack_type_code FROM pallet_formats f JOIN pallet_bases b ON b.id = f.pallet_base_id JOIN pallet_stack_types s ON s.id = f.pallet_stack_type_id WHERE f.id = ?' },
-      basic_pack_id: { subquery: 'SELECT id FROM basic_pack_codes WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_pack_codes WHERE id = ?' },
-      basic_pack_code_id: { subquery: 'SELECT id FROM basic_pack_codes WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_pack_codes WHERE id = ?' },
+      basic_pack_id: { subquery: 'SELECT id FROM basic_packs WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_packs WHERE id = ?' },
       destination_region_id: { subquery: 'SELECT id FROM destination_regions WHERE destination_region_name = ?', values: 'SELECT destination_region_name FROM destination_regions WHERE id = ?' },
       destination_country_id: { subquery: 'SELECT id FROM destination_countries WHERE country_name = ?', values: 'SELECT country_name FROM destination_countries WHERE id = ?' },
       primary_storage_type_id: { subquery: 'SELECT id FROM location_storage_types WHERE storage_type_code = ?', values: 'SELECT storage_type_code FROM location_storage_types WHERE id = ?' },

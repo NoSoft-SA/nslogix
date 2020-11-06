@@ -4,9 +4,9 @@
   \   fn_masterfile_variants('standard_pack_codes', standard_pack_codes.id) AS variant_codes,\r\n
   \   standard_pack_codes.description,\r\n    standard_pack_codes.std_pack_label_code,\r\n
   \   standard_pack_codes.material_mass,\r\n
-  \   basic_pack_codes.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
+  \   basic_packs.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\n
-  FROM standard_pack_codes\r\nLEFT JOIN basic_pack_codes ON basic_pack_codes.id = standard_pack_codes.basic_pack_code_id
+  FROM standard_pack_codes\r\nLEFT JOIN basic_packs ON basic_packs.id = standard_pack_codes.basic_pack_id
   ORDER BY\r\n    standard_pack_codes.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
 :limit: 
 :offset: 
@@ -112,7 +112,7 @@
     :name: basic_pack_code
     :sequence_no: 8
     :caption: Basic pack code
-    :namespaced_name: basic_pack_codes.basic_pack_code
+    :namespaced_name: basic_packs.basic_pack_code
     :data_type: :string
     :width: 150
     :format: 

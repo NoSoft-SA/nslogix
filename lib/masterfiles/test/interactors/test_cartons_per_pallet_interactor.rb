@@ -74,13 +74,13 @@ module MasterfilesApp
 
     def cartons_per_pallet_attrs
       pallet_format_id = create_pallet_format
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
 
       {
         id: 1,
         description: Faker::Lorem.unique.word,
         pallet_format_id: pallet_format_id,
-        basic_pack_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         cartons_per_pallet: 1,
         layers_per_pallet: 1,
         active: true,

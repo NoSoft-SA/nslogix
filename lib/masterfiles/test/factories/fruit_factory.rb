@@ -41,7 +41,7 @@ module MasterfilesApp
       DB[:inventory_codes].insert(default.merge(opts))
     end
 
-    def create_basic_pack_code(opts = {})
+    def create_basic_pack(opts = {})
       default = {
         basic_pack_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
@@ -50,18 +50,18 @@ module MasterfilesApp
         height_mm: Faker::Number.number(digits: 4),
         active: true
       }
-      DB[:basic_pack_codes].insert(default.merge(opts))
+      DB[:basic_packs].insert(default.merge(opts))
     end
 
     def create_standard_pack_code(opts = {})
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
       default = {
         standard_pack_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         std_pack_label_code: Faker::Lorem.word,
         active: true,
         material_mass: Faker::Number.decimal,
-        basic_pack_code_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         use_size_ref_for_edi: false
       }
       DB[:standard_pack_codes].insert(default.merge(opts))
@@ -92,13 +92,13 @@ module MasterfilesApp
 
     def create_fruit_actual_counts_for_pack(opts = {})
       std_fruit_size_count_id = create_std_fruit_size_count
-      basic_pack_code_id = create_basic_pack_code
+      basic_pack_id = create_basic_pack
       standard_pack_code_ids = create_standard_pack_code
       size_reference_ids = create_fruit_size_reference
 
       default = {
         std_fruit_size_count_id: std_fruit_size_count_id,
-        basic_pack_code_id: basic_pack_code_id,
+        basic_pack_id: basic_pack_id,
         actual_count_for_pack: Faker::Number.number(digits: 4),
         standard_pack_code_ids: "{#{standard_pack_code_ids}}",
         size_reference_ids: "{#{size_reference_ids}}",

@@ -1,10 +1,10 @@
 ---
 :caption: Fruit Actual Counts For Packs
 :sql: SELECT fruit_actual_counts_for_packs.id, fruit_actual_counts_for_packs.std_fruit_size_count_id,
-      fruit_actual_counts_for_packs.basic_pack_code_id, fruit_actual_counts_for_packs.actual_count_for_pack,
+      fruit_actual_counts_for_packs.basic_pack_id, fruit_actual_counts_for_packs.actual_count_for_pack,
       fruit_actual_counts_for_packs.created_at, fruit_actual_counts_for_packs.updated_at, fruit_actual_counts_for_packs.active,
       fruit_actual_counts_for_packs.standard_pack_code_ids, fruit_actual_counts_for_packs.size_reference_ids,
-      std_fruit_size_counts.size_count_value AS std_fruit_size_count, basic_pack_codes.basic_pack_code,
+      std_fruit_size_counts.size_count_value AS std_fruit_size_count, basic_packs.basic_pack_code,
       (SELECT array_agg(fruit_spc.standard_pack_code)
       FROM (SELECT spc.standard_pack_code
       FROM standard_pack_codes spc
@@ -19,7 +19,7 @@
       ORDER BY sr.size_reference) AS fruit_sr) AS size_references
       FROM fruit_actual_counts_for_packs
       JOIN std_fruit_size_counts ON std_fruit_size_counts.id = fruit_actual_counts_for_packs.std_fruit_size_count_id
-      JOIN basic_pack_codes ON basic_pack_codes.id = fruit_actual_counts_for_packs.basic_pack_code_id
+      JOIN basic_packs ON basic_packs.id = fruit_actual_counts_for_packs.basic_pack_id
 :limit: 
 :offset: 
 :external_settings: {}
@@ -56,11 +56,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  basic_pack_code_id:
-    :name: basic_pack_code_id
+  basic_pack_id:
+    :name: basic_pack_id
     :sequence_no: 10
     :caption: Basic pack code
-    :namespaced_name: fruit_actual_counts_for_packs.basic_pack_code_id
+    :namespaced_name: fruit_actual_counts_for_packs.basic_pack_id
     :data_type: :integer
     :width: 
     :format: 
@@ -172,7 +172,7 @@
     :name: basic_pack_code
     :sequence_no: 2
     :caption: Basic pack code
-    :namespaced_name: basic_pack_codes.basic_pack_code
+    :namespaced_name: basic_packs.basic_pack_code
     :data_type: :string
     :width: 
     :format: 
@@ -242,11 +242,11 @@
   :ui_priority: 1
   :list_def: SELECT size_count_description, id FROM std_fruit_size_counts ORDER BY
     size_count_description
-- :column: fruit_actual_counts_for_packs.basic_pack_code_id
+- :column: fruit_actual_counts_for_packs.basic_pack_id
   :caption: Basic pack code
   :data_type: :integer
   :control_type: :list
   :default_value: 
   :ordered_list: true
   :ui_priority: 1
-  :list_def: SELECT basic_pack_code, id FROM basic_pack_codes ORDER BY basic_pack_code
+  :list_def: SELECT basic_pack_code, id FROM basic_packs ORDER BY basic_pack_code

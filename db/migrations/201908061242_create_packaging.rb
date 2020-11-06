@@ -80,7 +80,7 @@ Sequel.migration do
       primary_key :id
       String :description
       foreign_key :pallet_format_id, :pallet_formats, type: :integer, null: false
-      foreign_key :basic_pack_id, :basic_pack_codes, type: :integer, null: false
+      foreign_key :basic_pack_id, :basic_packs, type: :integer, null: false
       Integer :cartons_per_pallet, null: false
       Integer :layers_per_pallet, null: false
       TrueClass :active, default: true

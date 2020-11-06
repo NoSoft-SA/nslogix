@@ -77,7 +77,7 @@ module MasterfilesApp
     def find_cartons_per_pallet(id)
       hash = find_with_association(:cartons_per_pallet,
                                    id,
-                                   parent_tables: [{ parent_table: :basic_pack_codes,
+                                   parent_tables: [{ parent_table: :basic_packs,
                                                      columns: [:basic_pack_code],
                                                      foreign_key: :basic_pack_id,
                                                      flatten_columns: { basic_pack_code: :basic_pack_code } },
@@ -94,7 +94,7 @@ module MasterfilesApp
         SELECT distinct c.*
         FROM cartons_per_pallet c
         JOIN pallet_formats p on p.id=c.pallet_format_id
-        JOIN pallet_sequences s on s.basic_pack_code_id=c.basic_pack_id
+        JOIN pallet_sequences s on s.basic_pack_id=c.basic_pack_id
         WHERE s.pallet_number='#{pallet_number}' and s.pallet_sequence_number=#{pallet_sequence_number} and p.id=#{pallet_format_id}
       SQL
       DB[qry].first

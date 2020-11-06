@@ -365,25 +365,25 @@ class Nslogix < Roda
 
     # BASIC PACK CODES
     # --------------------------------------------------------------------------
-    r.on 'basic_pack_codes', Integer do |id|
-      interactor = MasterfilesApp::BasicPackCodeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'basic_packs', Integer do |id|
+      interactor = MasterfilesApp::BasicPackInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
 
       # Check for notfound:
-      r.on !interactor.exists?(:basic_pack_codes, id) do
+      r.on !interactor.exists?(:basic_packs, id) do
         handle_not_found(r)
       end
 
       r.on 'edit' do   # EDIT
         check_auth!('fruit', 'edit')
-        show_partial { Masterfiles::Fruit::BasicPackCode::Edit.call(id) }
+        show_partial { Masterfiles::Fruit::BasicPack::Edit.call(id) }
       end
       r.is do
         r.get do       # SHOW
           check_auth!('fruit', 'read')
-          show_partial { Masterfiles::Fruit::BasicPackCode::Show.call(id) }
+          show_partial { Masterfiles::Fruit::BasicPack::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_basic_pack_code(id, params[:basic_pack_code])
+          res = interactor.update_basic_pack(id, params[:basic_pack_code])
           if res.success
             update_grid_row(id,
                             changes: { basic_pack_code: res.instance[:basic_pack_code],
@@ -393,12 +393,12 @@ class Nslogix < Roda
                                        height_mm: res.instance[:height_mm] },
                             notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::BasicPackCode::Edit.call(id, params[:basic_pack_code], res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::BasicPack::Edit.call(id, params[:basic_pack_code], res.errors) }
           end
         end
         r.delete do    # DELETE
           check_auth!('fruit', 'delete')
-          res = interactor.delete_basic_pack_code(id)
+          res = interactor.delete_basic_pack(id)
           if res.success
             delete_grid_row(id, notice: res.message)
           else
@@ -408,23 +408,23 @@ class Nslogix < Roda
       end
     end
 
-    r.on 'basic_pack_codes' do
-      interactor = MasterfilesApp::BasicPackCodeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'basic_packs' do
+      interactor = MasterfilesApp::BasicPackInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
       r.on 'new' do    # NEW
         check_auth!('fruit', 'new')
         interactor.assert_permission!(:create)
-        show_partial_or_page(r) { Masterfiles::Fruit::BasicPackCode::New.call(remote: fetch?(r)) }
+        show_partial_or_page(r) { Masterfiles::Fruit::BasicPack::New.call(remote: fetch?(r)) }
       end
       r.post do        # CREATE
-        res = interactor.create_basic_pack_code(params[:basic_pack_code])
+        res = interactor.create_basic_pack(params[:basic_pack_code])
         if res.success
           flash[:notice] = res.message
           redirect_to_last_grid(r)
         else
-          re_show_form(r, res, url: '/masterfiles/fruit/basic_pack_codes/new') do
-            Masterfiles::Fruit::BasicPackCode::New.call(form_values: params[:basic_pack_code],
-                                                        form_errors: res.errors,
-                                                        remote: fetch?(r))
+          re_show_form(r, res, url: '/masterfiles/fruit/basic_packs/new') do
+            Masterfiles::Fruit::BasicPack::New.call(form_values: params[:basic_pack_code],
+                                                    form_errors: res.errors,
+                                                    remote: fetch?(r))
           end
         end
       end

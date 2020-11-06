@@ -2,7 +2,7 @@
 
 module Masterfiles
   module Fruit
-    module BasicPackCode
+    module BasicPack
       class Show
         def self.call(id)
           ui_rule = UiRules::Compiler.new(:basic_pack_code, :show, id: id)

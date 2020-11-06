@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UiRules
-  class BasicPackCodeRule < Base
+  class BasicPackRule < Base
     def generate_rules
       @this_repo = MasterfilesApp::FruitSizeRepo.new
       make_form_object
@@ -36,7 +36,7 @@ module UiRules
     def make_form_object
       make_new_form_object && return if @mode == :new
 
-      @form_object = @this_repo.find_basic_pack_code(@options[:id])
+      @form_object = @this_repo.find_basic_pack(@options[:id])
     end
 
     def make_new_form_object

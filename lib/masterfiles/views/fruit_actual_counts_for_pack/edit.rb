@@ -17,7 +17,7 @@ module Masterfiles
               form.remote!
               form.method :update
               form.add_field :std_fruit_size_count_id
-              form.add_field :basic_pack_code_id
+              form.add_field :basic_pack_id
               form.add_field :actual_count_for_pack
               form.add_field :standard_pack_code_ids
               form.add_field :size_reference_ids

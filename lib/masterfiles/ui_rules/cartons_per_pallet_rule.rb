@@ -16,7 +16,7 @@ module UiRules
 
     def set_show_fields # rubocop:disable Metrics/AbcSize
       pallet_format_id_label = @repo.find_hash(:pallet_formats, @form_object.pallet_format_id)[:description]
-      basic_pack_id_label = MasterfilesApp::FruitSizeRepo.new.find_hash(:basic_pack_codes,  @form_object.basic_pack_id)[:basic_pack_code]
+      basic_pack_id_label = MasterfilesApp::FruitSizeRepo.new.find_hash(:basic_packs,  @form_object.basic_pack_id)[:basic_pack_code]
       fields[:description] = { renderer: :label }
       fields[:pallet_format_id] = { renderer: :label, with_value: pallet_format_id_label, caption: 'Pallet Format' }
       fields[:basic_pack_id] = { renderer: :label, with_value: basic_pack_id_label, caption: 'Basic Pack' }
@@ -34,8 +34,8 @@ module UiRules
                             caption: 'Pallet Format',
                             required: true },
         basic_pack_id: { renderer: :select,
-                         options: MasterfilesApp::FruitSizeRepo.new.for_select_basic_pack_codes,
-                         disabled_options: MasterfilesApp::FruitSizeRepo.new.for_select_inactive_basic_pack_codes,
+                         options: MasterfilesApp::FruitSizeRepo.new.for_select_basic_packs,
+                         disabled_options: MasterfilesApp::FruitSizeRepo.new.for_select_inactive_basic_packs,
                          caption: 'Basic Pack',
                          required: true },
         cartons_per_pallet: { renderer: :integer, required: true },
