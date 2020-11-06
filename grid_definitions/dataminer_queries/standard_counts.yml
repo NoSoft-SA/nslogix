@@ -1,16 +1,16 @@
 ---
-:caption: Std Fruit Size Counts
-:sql: "SELECT\r\n    std_fruit_size_counts.id,\r\n    std_fruit_size_counts.commodity_id,\r\n
-  \   commodities.commodity_code,\r\n    uoms.uom_code,\r\n    std_fruit_size_counts.size_count_value,\r\n
-  \   std_fruit_size_counts.size_count_description,\r\n    std_fruit_size_counts.marketing_size_range_mm,\r\n
-  \   std_fruit_size_counts.marketing_weight_range,\r\n    std_fruit_size_counts.size_count_interval_group,\r\n
-  \   std_fruit_size_counts.minimum_size_mm,\r\n    std_fruit_size_counts.maximum_size_mm,\r\n
-  \   std_fruit_size_counts.average_size_mm,\r\n    std_fruit_size_counts.minimum_weight_gm,\r\n
-  \   std_fruit_size_counts.maximum_weight_gm,\r\n    std_fruit_size_counts.average_weight_gm,\r\n
-  \   std_fruit_size_counts.created_at,\r\n    std_fruit_size_counts.updated_at,\r\n
-  \   std_fruit_size_counts.active\r\nFROM\r\n    std_fruit_size_counts\r\nJOIN commodities
-  ON commodities.id = std_fruit_size_counts.commodity_id\r\nJOIN uoms ON uoms.id =
-  std_fruit_size_counts.uom_id"
+:caption: Standard Counts
+:sql: "SELECT\r\n    standard_counts.id,\r\n    standard_counts.commodity_id,\r\n
+  \   commodities.commodity_code,\r\n    uoms.uom_code,\r\n    standard_counts.size_count_value,\r\n
+  \   standard_counts.size_count_description,\r\n    standard_counts.marketing_size_range_mm,\r\n
+  \   standard_counts.marketing_weight_range,\r\n    standard_counts.size_count_interval_group,\r\n
+  \   standard_counts.minimum_size_mm,\r\n    standard_counts.maximum_size_mm,\r\n
+  \   standard_counts.average_size_mm,\r\n    standard_counts.minimum_weight_gm,\r\n
+  \   standard_counts.maximum_weight_gm,\r\n    standard_counts.average_weight_gm,\r\n
+  \   standard_counts.created_at,\r\n    standard_counts.updated_at,\r\n
+  \   standard_counts.active\r\nFROM\r\n    standard_counts\r\nJOIN commodities
+  ON commodities.id = standard_counts.commodity_id\r\nJOIN uoms ON uoms.id =
+  standard_counts.uom_id"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -19,7 +19,7 @@
     :name: id
     :sequence_no: 1
     :caption: Id
-    :namespaced_name: std_fruit_size_counts.id
+    :namespaced_name: standard_counts.id
     :data_type: :integer
     :width: 
     :format: 
@@ -35,7 +35,7 @@
     :name: commodity_id
     :sequence_no: 2
     :caption: Commodity
-    :namespaced_name: std_fruit_size_counts.commodity_id
+    :namespaced_name: standard_counts.commodity_id
     :data_type: :integer
     :width: 
     :format: 
@@ -83,7 +83,7 @@
     :name: size_count_value
     :sequence_no: 5
     :caption: Size count value
-    :namespaced_name: std_fruit_size_counts.size_count_value
+    :namespaced_name: standard_counts.size_count_value
     :data_type: :integer
     :width: 
     :format: 
@@ -99,7 +99,7 @@
     :name: size_count_description
     :sequence_no: 6
     :caption: Size count description
-    :namespaced_name: std_fruit_size_counts.size_count_description
+    :namespaced_name: standard_counts.size_count_description
     :data_type: :string
     :width: 
     :format: 
@@ -115,7 +115,7 @@
     :name: marketing_size_range_mm
     :sequence_no: 7
     :caption: Marketing size range mm
-    :namespaced_name: std_fruit_size_counts.marketing_size_range_mm
+    :namespaced_name: standard_counts.marketing_size_range_mm
     :data_type: :string
     :width: 
     :format: 
@@ -131,7 +131,7 @@
     :name: marketing_weight_range
     :sequence_no: 8
     :caption: Marketing weight range
-    :namespaced_name: std_fruit_size_counts.marketing_weight_range
+    :namespaced_name: standard_counts.marketing_weight_range
     :data_type: :string
     :width: 
     :format: 
@@ -147,7 +147,7 @@
     :name: size_count_interval_group
     :sequence_no: 9
     :caption: Size count interval group
-    :namespaced_name: std_fruit_size_counts.size_count_interval_group
+    :namespaced_name: standard_counts.size_count_interval_group
     :data_type: :string
     :width: 
     :format: 
@@ -163,7 +163,7 @@
     :name: minimum_size_mm
     :sequence_no: 10
     :caption: Minimum size mm
-    :namespaced_name: std_fruit_size_counts.minimum_size_mm
+    :namespaced_name: standard_counts.minimum_size_mm
     :data_type: :integer
     :width: 
     :format: 
@@ -179,7 +179,7 @@
     :name: maximum_size_mm
     :sequence_no: 11
     :caption: Maximum size mm
-    :namespaced_name: std_fruit_size_counts.maximum_size_mm
+    :namespaced_name: standard_counts.maximum_size_mm
     :data_type: :integer
     :width: 
     :format: 
@@ -195,7 +195,7 @@
     :name: average_size_mm
     :sequence_no: 12
     :caption: Average size mm
-    :namespaced_name: std_fruit_size_counts.average_size_mm
+    :namespaced_name: standard_counts.average_size_mm
     :data_type: :integer
     :width: 
     :format: 
@@ -211,7 +211,7 @@
     :name: minimum_weight_gm
     :sequence_no: 13
     :caption: Minimum weight gm
-    :namespaced_name: std_fruit_size_counts.minimum_weight_gm
+    :namespaced_name: standard_counts.minimum_weight_gm
     :data_type: :number
     :width: 
     :format: :delimited_1000
@@ -227,7 +227,7 @@
     :name: maximum_weight_gm
     :sequence_no: 14
     :caption: Maximum weight gm
-    :namespaced_name: std_fruit_size_counts.maximum_weight_gm
+    :namespaced_name: standard_counts.maximum_weight_gm
     :data_type: :number
     :width: 
     :format: :delimited_1000
@@ -243,7 +243,7 @@
     :name: average_weight_gm
     :sequence_no: 15
     :caption: Average weight gm
-    :namespaced_name: std_fruit_size_counts.average_weight_gm
+    :namespaced_name: standard_counts.average_weight_gm
     :data_type: :number
     :width: 
     :format: :delimited_1000
@@ -259,7 +259,7 @@
     :name: created_at
     :sequence_no: 16
     :caption: Created at
-    :namespaced_name: std_fruit_size_counts.created_at
+    :namespaced_name: standard_counts.created_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -275,7 +275,7 @@
     :name: updated_at
     :sequence_no: 17
     :caption: Updated at
-    :namespaced_name: std_fruit_size_counts.updated_at
+    :namespaced_name: standard_counts.updated_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -291,7 +291,7 @@
     :name: active
     :sequence_no: 18
     :caption: Active
-    :namespaced_name: std_fruit_size_counts.active
+    :namespaced_name: standard_counts.active
     :data_type: :boolean
     :width: 
     :format: 
@@ -304,7 +304,7 @@
     :group_min: false
     :group_max: false
 :query_parameter_definitions:
-- :column: std_fruit_size_counts.commodity_id
+- :column: standard_counts.commodity_id
   :caption: Commodity
   :data_type: :integer
   :control_type: :list

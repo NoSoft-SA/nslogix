@@ -13,9 +13,9 @@ module Masterfiles
             page.form_values form_values
             page.form_errors form_errors
             page.form do |form|
-              form.action "/masterfiles/fruit/std_fruit_size_counts/#{parent_id}/fruit_actual_counts_for_packs"
+              form.action "/masterfiles/fruit/standard_counts/#{parent_id}/fruit_actual_counts_for_packs"
               form.remote! if remote
-              # form.add_field :std_fruit_size_count_id
+              # form.add_field :standard_count_id
               form.add_field :basic_pack_id
               form.add_field :actual_count_for_pack
               form.add_field :standard_pack_ids

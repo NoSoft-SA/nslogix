@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/AbcSize
 
 module UiRules
-  class StdFruitSizeCountRule < Base
+  class StandardCountRule < Base
     def generate_rules
       @this_repo = MasterfilesApp::FruitSizeRepo.new
       @uom_repo = MasterfilesApp::UomRepo.new
@@ -14,7 +14,7 @@ module UiRules
 
       set_show_fields if @mode == :show
 
-      form_name 'std_fruit_size_count'
+      form_name 'standard_count'
     end
 
     def set_show_fields
@@ -57,7 +57,7 @@ module UiRules
     def make_form_object
       make_new_form_object && return if @mode == :new
 
-      @form_object = @this_repo.find_std_fruit_size_count(@options[:id])
+      @form_object = @this_repo.find_standard_count(@options[:id])
     end
 
     def make_new_form_object

@@ -1,0 +1,32 @@
+---
+:dataminer_definition: standard_counts
+:actions:
+- :url: "/masterfiles/fruit/standard_counts/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/standard_counts/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/standard_counts/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/fruit/standard_counts/$:id$/fruit_actual_counts_for_packs/new"
+  :text: add actual count
+  :icon: add
+  :title: Add Actual Count for Std Count $:size_count_value$
+  :popup: true
+- :url: "/list/fruit_actual_counts_for_packs/with_params?key=standard&fruit_actual_counts_for_packs.standard_count_id=$:id$"
+  :text: actual counts list
+  :icon: list
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/fruit/standard_counts/new"
+  :text: New standard count
+  :style: :button
+  :behaviour: :popup

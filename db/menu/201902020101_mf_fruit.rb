@@ -9,7 +9,7 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
     add_program_function 'Marketing Varieties', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/marketing_varieties', seq: 5, group: 'Cultivars'
     add_program_function 'Marketing Varieties For Cultivars', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/marketing_varieties_for_cultivars', seq: 6, group: 'Cultivars'
 
-    add_program_function 'Std Fruit Size Counts', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/std_fruit_size_counts', seq: 6, group: 'Sizes'
+    add_program_function 'Standard Counts', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/standard_counts', seq: 6, group: 'Sizes'
     add_program_function 'Size References', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/fruit_size_references', seq: 7, group: 'Sizes'
     add_program_function 'Size Conversions', functional_area: 'Masterfiles', program: 'Fruit', url: '/search/fruit_actual_counts_for_packs', seq: 8, group: 'Sizes'
 

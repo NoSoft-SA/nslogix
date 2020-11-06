@@ -2,10 +2,10 @@
 
 module Masterfiles
   module Fruit
-    module StdFruitSizeCount
+    module StandardCount
       class Show
         def self.call(id) # rubocop:disable Metrics/AbcSize
-          ui_rule = UiRules::Compiler.new(:std_fruit_size_count, :show, id: id)
+          ui_rule = UiRules::Compiler.new(:standard_count, :show, id: id)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|

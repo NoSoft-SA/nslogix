@@ -70,7 +70,7 @@ class TestFruitActualCountsForPackRoutes < RouteTester
     authorise_pass!
     ensure_exists!(INTERACTOR)
     Masterfiles::Fruit::FruitActualCountsForPack::New.stub(:call, bland_page) do
-      get  'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs/new', {}, 'rack.session' => { user_id: 1 }
+      get  'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs/new', {}, 'rack.session' => { user_id: 1 }
     end
     expect_bland_page
   end
@@ -78,7 +78,7 @@ class TestFruitActualCountsForPackRoutes < RouteTester
   def test_new_fail
     authorise_fail!
     ensure_exists!(INTERACTOR)
-    get 'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs/new', {}, 'rack.session' => { user_id: 1 }
+    get 'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs/new', {}, 'rack.session' => { user_id: 1 }
     refute last_response.ok?
     assert_match(/permission/i, last_response.body)
   end
@@ -87,7 +87,7 @@ class TestFruitActualCountsForPackRoutes < RouteTester
     authorise_pass!
     ensure_exists!(INTERACTOR)
     INTERACTOR.any_instance.stubs(:create_fruit_actual_counts_for_pack).returns(ok_response)
-    post 'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
+    post 'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
     expect_ok_redirect
   end
 
@@ -95,7 +95,7 @@ class TestFruitActualCountsForPackRoutes < RouteTester
     authorise_pass!
     ensure_exists!(INTERACTOR)
     INTERACTOR.any_instance.stubs(:create_fruit_actual_counts_for_pack).returns(ok_response)
-    post_as_fetch 'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
+    post_as_fetch 'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
     expect_ok_json_redirect
   end
 
@@ -104,9 +104,9 @@ class TestFruitActualCountsForPackRoutes < RouteTester
     ensure_exists!(INTERACTOR)
     INTERACTOR.any_instance.stubs(:create_fruit_actual_counts_for_pack).returns(bad_response)
     Masterfiles::Fruit::FruitActualCountsForPack::New.stub(:call, bland_page) do
-      post 'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
+      post 'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
     end
-    expect_bad_redirect(url: '/masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs/new')
+    expect_bad_redirect(url: '/masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs/new')
   end
 
   def test_create_remotely_fail
@@ -114,7 +114,7 @@ class TestFruitActualCountsForPackRoutes < RouteTester
     ensure_exists!(INTERACTOR)
     INTERACTOR.any_instance.stubs(:create_fruit_actual_counts_for_pack).returns(bad_response)
     Masterfiles::Fruit::FruitActualCountsForPack::New.stub(:call, bland_page) do
-      post_as_fetch 'masterfiles/fruit/std_fruit_size_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
+      post_as_fetch 'masterfiles/fruit/standard_counts/1/fruit_actual_counts_for_packs', {}, 'rack.session' => { user_id: 1, last_grid_url: DEFAULT_LAST_GRID_URL }
     end
     expect_json_replace_dialog
   end

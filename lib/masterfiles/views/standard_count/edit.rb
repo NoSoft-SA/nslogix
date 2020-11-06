@@ -2,10 +2,10 @@
 
 module Masterfiles
   module Fruit
-    module StdFruitSizeCount
+    module StandardCount
       class Edit
         def self.call(id, form_values = nil, form_errors = nil) # rubocop:disable Metrics/AbcSize
-          ui_rule = UiRules::Compiler.new(:std_fruit_size_count, :edit, id: id, form_values: form_values)
+          ui_rule = UiRules::Compiler.new(:standard_count, :edit, id: id, form_values: form_values)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|
@@ -13,7 +13,7 @@ module Masterfiles
             page.form_values form_values
             page.form_errors form_errors
             page.form do |form|
-              form.action "/masterfiles/fruit/std_fruit_size_counts/#{id}"
+              form.action "/masterfiles/fruit/standard_counts/#{id}"
               form.remote!
               form.method :update
               form.add_field :commodity_id

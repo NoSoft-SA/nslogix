@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class StdFruitSizeCount < Dry::Struct
+  class StandardCount < Dry::Struct
     attribute :id, Types::Integer
     attribute :commodity_id, Types::Integer
     attribute :uom_id, Types::Integer

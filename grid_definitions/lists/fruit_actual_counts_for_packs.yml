@@ -18,11 +18,11 @@
   :popup: true
 :page_controls:
 - :control_type: :link
-  :url: "/list/std_fruit_size_counts"
+  :url: "/list/standard_counts"
   :text: Back
   :style: :back_button
 :conditions:
   :standard:
-    - :col: fruit_actual_counts_for_packs.std_fruit_size_count_id
+    - :col: fruit_actual_counts_for_packs.standard_count_id
       :op: =
-      :val: $:fruit_actual_counts_for_packs.std_fruit_size_count_id$
+      :val: $:fruit_actual_counts_for_packs.standard_count_id$

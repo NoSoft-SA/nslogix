@@ -22,7 +22,7 @@ module MasterfilesApp
     def test_create_fruit_actual_counts_for_pack
       attrs = fake_fruit_actual_counts_for_pack.to_h.reject { |k, _| k == :id }
       attrs = attrs.to_h
-      res = interactor.create_fruit_actual_counts_for_pack(attrs[:std_fruit_size_count_id], attrs)
+      res = interactor.create_fruit_actual_counts_for_pack(attrs[:standard_count_id], attrs)
       assert res.success, "#{res.message} : #{res.errors.inspect}"
       assert_instance_of(FruitActualCountsForPack, res.instance)
       assert res.instance.id.nonzero?
@@ -31,7 +31,7 @@ module MasterfilesApp
     def test_create_fruit_actual_counts_for_pack_fail
       attrs = fake_fruit_actual_counts_for_pack(basic_pack_id: nil).to_h.reject { |k, _| k == :id }
       attrs = attrs.to_h
-      res = interactor.create_fruit_actual_counts_for_pack(attrs[:std_fruit_size_count_id], attrs)
+      res = interactor.create_fruit_actual_counts_for_pack(attrs[:standard_count_id], attrs)
       refute res.success, 'should fail validation'
       assert_equal ['must be filled'], res.errors[:basic_pack_id]
     end
@@ -76,19 +76,19 @@ module MasterfilesApp
     private
 
     def fruit_actual_counts_for_pack_attrs
-      std_fruit_size_count_id = create_std_fruit_size_count
+      standard_count_id = create_standard_count
       basic_pack_id = create_basic_pack
       standard_pack_ids = create_standard_pack
       size_reference_ids = create_fruit_size_reference
 
       {
         id: 1,
-        std_fruit_size_count_id: std_fruit_size_count_id,
+        standard_count_id: standard_count_id,
         basic_pack_id: basic_pack_id,
         actual_count_for_pack: 1,
         standard_pack_ids: [standard_pack_ids],
         size_reference_ids: [size_reference_ids],
-        std_fruit_size_count: 'ABC',
+        standard_count: 'ABC',
         basic_pack_code: 'ABC',
         standard_packs: 'ABC',
         size_references: 'ABC',

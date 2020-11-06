@@ -85,10 +85,10 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     farms: { rules: { table_column_names: %w[farm_code owner_party_role_id pdn_region_id description], required_columns: %w[farm_owner_name farm_owner_surname production_region_code description primary_puc_code], lookup_columns: %w[pdn_region_id], lookup_party_role_columns: %w[owner_party_role_id] } },
     orchards: { rules: { table_column_names: %w[farm_id puc_id orchard_code cultivar_ids], required_columns: %w[farm_code puc_code orchard_code], lookup_columns: %w[farm_id puc_id], lookup_arrays: %w[farm_id puc_id] } },
     pucs: { rules: { table_column_names: %w[puc_code gap_code], required_columns: %w[puc_code] } },
-    std_fruit_size_counts: { rules: { table_column_names: %w[commodity_id size_count_value size_count_description uom_id marketing_size_range_mm marketing_weight_range size_count_interval_group minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm average_weight_gm], required_columns: %w[commodity_code size_count_value size_count_description uom], lookup_columns: %w[commodity_id uom_id] } },
+    standard_counts: { rules: { table_column_names: %w[commodity_id size_count_value size_count_description uom_id marketing_size_range_mm marketing_weight_range size_count_interval_group minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm average_weight_gm], required_columns: %w[commodity_code size_count_value size_count_description uom], lookup_columns: %w[commodity_id uom_id] } },
     standard_packs: { rules: { table_column_names: %w[standard_pack_code material_mass basic_pack_id], required_columns: %w[standard_pack_code material_mass], lookup_columns: %w[basic_pack_id] } },
     basic_packs: { rules: { table_column_names: %w[basic_pack_code], required_columns: %w[basic_pack_code description] } },
-    fruit_actual_counts_for_packs: { rules: { table_column_names: %w[std_fruit_size_count_id basic_pack_id actual_count_for_pack standard_pack_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_for_pack], lookup_columns: %w[std_fruit_size_count_id basic_pack_id], lookup_arrays: %w[standard_pack_ids size_reference_ids] } }
+    fruit_actual_counts_for_packs: { rules: { table_column_names: %w[standard_count_id basic_pack_id actual_count_for_pack standard_pack_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_for_pack], lookup_columns: %w[standard_count_id basic_pack_id], lookup_arrays: %w[standard_pack_ids size_reference_ids] } }
   }.freeze
 
   MF_COLUMN_LOOKUP_DEFINATIONS = {
@@ -105,7 +105,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     size_reference_ids: { subquery: 'SELECT array_agg(id) FROM fruit_size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM fruit_size_references WHERE id IN ?' },
     uom_id: { subquery: 'SELECT id FROM uoms WHERE uom_code = ?', values: 'SELECT uom_code FROM uoms WHERE id = ?' },
     farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
-    std_fruit_size_count_id: { subquery: 'SELECT id FROM std_fruit_size_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM std_fruit_size_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
+    standard_count_id: { subquery: 'SELECT id FROM standard_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM standard_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
     owner_party_role_id: { subquery: 'SELECT id FROM party_roles WHERE person_id = ? AND role_id = ?', values: 'SELECT person_id,role_id FROM party_roles WHERE id = ?' },
     pdn_region_id: { subquery: 'SELECT id FROM production_regions WHERE production_region_code = ?', values: 'SELECT production_region_code FROM production_regions WHERE id = ?' },
     zzz: {}
@@ -126,13 +126,13 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     size_reference_ids: { column_name: 'size_references' },
     uom_id: { column_name: 'uom' },
     pdn_region_id: { column_name: 'production_region_code' },
-    std_fruit_size_count_id: { column_name: %w[size_count_value commodity_code] }
+    standard_count_id: { column_name: %w[size_count_value commodity_code] }
   }.freeze
 
   NUMERIC_COLUMNS = %i[size_count_value minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm
                        average_weight_gm material_mass standard_size_count_value actual_count_for_pack].freeze
 
-  ARRAY_PARAM_COLUMNS = %i[std_fruit_size_count_id].freeze
+  ARRAY_PARAM_COLUMNS = %i[standard_count_id].freeze
 
   def validate_files
     file = Pathname.new(input_filename)

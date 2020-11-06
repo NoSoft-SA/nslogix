@@ -625,18 +625,18 @@ class Nslogix < Roda
       end
     end
 
-    # STD FRUIT SIZE COUNTS
+    # STANDARD COUNTS
     # --------------------------------------------------------------------------
-    r.on 'std_fruit_size_counts', Integer do |id|
+    r.on 'standard_counts', Integer do |id|
       interactor = MasterfilesApp::FruitSizeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
       # Check for notfound:
-      r.on !interactor.exists?(:std_fruit_size_counts, id) do
+      r.on !interactor.exists?(:standard_counts, id) do
         handle_not_found(r)
       end
 
       r.on 'edit' do   # EDIT
         check_auth!('fruit', 'edit')
-        show_partial { Masterfiles::Fruit::StdFruitSizeCount::Edit.call(id) }
+        show_partial { Masterfiles::Fruit::StandardCount::Edit.call(id) }
       end
       r.on 'fruit_actual_counts_for_packs' do
         r.on 'new' do    # NEW
@@ -649,7 +649,7 @@ class Nslogix < Roda
             flash[:notice] = res.message
             redirect_to_last_grid(r)
           else
-            re_show_form(r, res, url: "/masterfiles/fruit/std_fruit_size_counts/#{id}/fruit_actual_counts_for_packs/new") do
+            re_show_form(r, res, url: "/masterfiles/fruit/standard_counts/#{id}/fruit_actual_counts_for_packs/new") do
               Masterfiles::Fruit::FruitActualCountsForPack::New.call(id,
                                                                      form_values: params[:fruit_actual_counts_for_pack],
                                                                      form_errors: res.errors,
@@ -661,10 +661,10 @@ class Nslogix < Roda
       r.is do
         r.get do       # SHOW
           check_auth!('fruit', 'read')
-          show_partial { Masterfiles::Fruit::StdFruitSizeCount::Show.call(id) }
+          show_partial { Masterfiles::Fruit::StandardCount::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_std_fruit_size_count(id, params[:std_fruit_size_count])
+          res = interactor.update_standard_count(id, params[:standard_count])
           if res.success
             update_grid_row(id,
                             changes: { commodity_id: res.instance[:commodity_id],
@@ -682,33 +682,33 @@ class Nslogix < Roda
                                        average_weight_gm: res.instance[:average_weight_gm] },
                             notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::StdFruitSizeCount::Edit.call(id, params[:std_fruit_size_count], res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::StandardCount::Edit.call(id, params[:standard_count], res.errors) }
           end
         end
         r.delete do    # DELETE
           check_auth!('fruit', 'delete')
-          res = interactor.delete_std_fruit_size_count(id)
+          res = interactor.delete_standard_count(id)
           delete_grid_row(id, notice: res.message)
         end
       end
     end
 
-    r.on 'std_fruit_size_counts' do
+    r.on 'standard_counts' do
       interactor = MasterfilesApp::FruitSizeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
       r.on 'new' do    # NEW
         check_auth!('fruit', 'new')
-        show_partial_or_page(r) { Masterfiles::Fruit::StdFruitSizeCount::New.call(remote: fetch?(r)) }
+        show_partial_or_page(r) { Masterfiles::Fruit::StandardCount::New.call(remote: fetch?(r)) }
       end
       r.post do        # CREATE
-        res = interactor.create_std_fruit_size_count(params[:std_fruit_size_count])
+        res = interactor.create_standard_count(params[:standard_count])
         if res.success
           flash[:notice] = res.message
           redirect_to_last_grid(r)
         else
-          re_show_form(r, res, url: '/masterfiles/fruit/std_fruit_size_counts/new') do
-            Masterfiles::Fruit::StdFruitSizeCount::New.call(form_values: params[:std_fruit_size_count],
-                                                            form_errors: res.errors,
-                                                            remote: fetch?(r))
+          re_show_form(r, res, url: '/masterfiles/fruit/standard_counts/new') do
+            Masterfiles::Fruit::StandardCount::New.call(form_values: params[:standard_count],
+                                                        form_errors: res.errors,
+                                                        remote: fetch?(r))
           end
         end
       end
@@ -736,7 +736,7 @@ class Nslogix < Roda
           res = interactor.update_fruit_actual_counts_for_pack(id, params[:fruit_actual_counts_for_pack])
           if res.success
             row_keys = %i[
-              std_fruit_size_count
+              standard_count
               basic_pack_code
               actual_count_for_pack
               standard_packs
@@ -764,8 +764,8 @@ class Nslogix < Roda
         actual_count = repo.find_fruit_actual_counts_for_pack(id)
         handle_not_found(r) unless actual_count
         check_auth!('fruit', 'read')
-        parent_id = actual_count.std_fruit_size_count_id
-        r.redirect "/list/fruit_actual_counts_for_packs/with_params?key=standard&fruit_actual_counts_for_packs.std_fruit_size_count_id=#{parent_id}"
+        parent_id = actual_count.standard_count_id
+        r.redirect "/list/fruit_actual_counts_for_packs/with_params?key=standard&fruit_actual_counts_for_packs.standard_count_id=#{parent_id}"
       end
     end
 

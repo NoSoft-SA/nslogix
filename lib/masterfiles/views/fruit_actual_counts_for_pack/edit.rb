@@ -16,7 +16,7 @@ module Masterfiles
               form.action "/masterfiles/fruit/fruit_actual_counts_for_packs/#{id}"
               form.remote!
               form.method :update
-              form.add_field :std_fruit_size_count_id
+              form.add_field :standard_count_id
               form.add_field :basic_pack_id
               form.add_field :actual_count_for_pack
               form.add_field :standard_pack_ids

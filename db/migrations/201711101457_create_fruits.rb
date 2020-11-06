@@ -2,7 +2,7 @@ require 'sequel_postgresql_triggers'
 Sequel.migration do
   up do
     extension :pg_triggers
-    create_table(:std_fruit_size_counts, ignore_index_errors: true) do
+    create_table(:standard_counts, ignore_index_errors: true) do
       primary_key :id
       foreign_key :commodity_id, :commodities, null: false
       foreign_key :uom_id, :uoms, null: false
@@ -22,15 +22,15 @@ Sequel.migration do
       DateTime :updated_at, null: false
 
       unique [:commodity_id, :size_count_value]
-      index [:commodity_id], name: :fki_std_fruit_size_counts_commodities
+      index [:commodity_id], name: :fki_standard_counts_commodities
     end
-    pgt_created_at(:std_fruit_size_counts,
+    pgt_created_at(:standard_counts,
                    :created_at,
-                   function_name: :pgt_std_fruit_size_counts_set_created_at,
+                   function_name: :pgt_standard_counts_set_created_at,
                    trigger_name: :set_created_at)
-    pgt_updated_at(:std_fruit_size_counts,
+    pgt_updated_at(:standard_counts,
                    :updated_at,
-                   function_name: :pgt_std_fruit_size_counts_set_updated_at,
+                   function_name: :pgt_standard_counts_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:basic_packs, ignore_index_errors: true) do
@@ -80,7 +80,7 @@ Sequel.migration do
 
     create_table(:fruit_actual_counts_for_packs, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :std_fruit_size_count_id, :std_fruit_size_counts, null: false
+      foreign_key :standard_count_id, :standard_counts, null: false
       foreign_key :basic_pack_id, :basic_packs, null: false
       column :standard_pack_ids, 'integer[]'
       column :size_reference_ids, 'integer[]'
@@ -90,8 +90,8 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      unique [:std_fruit_size_count_id, :basic_pack_id], name: :fruit_actual_counts_for_packs_idx
-      index [:std_fruit_size_count_id], name: :fki_fruit_actual_counts_for_packs_std_fruit_size_counts
+      unique [:standard_count_id, :basic_pack_id], name: :fruit_actual_counts_for_packs_idx
+      index [:standard_count_id], name: :fki_fruit_actual_counts_for_packs_standard_counts
       index [:basic_pack_id], name: :fki_fruit_actual_counts_for_packs_basic_packs
       index [:standard_pack_id], name: :fki_fruit_actual_counts_for_packs_standard_packs
     end
@@ -149,10 +149,10 @@ Sequel.migration do
     drop_function(:pgt_basic_packs_set_updated_at)
     drop_table(:basic_packs)
 
-    drop_trigger(:std_fruit_size_counts, :set_created_at)
-    drop_function(:pgt_std_fruit_size_counts_set_created_at)
-    drop_trigger(:std_fruit_size_counts, :set_updated_at)
-    drop_function(:pgt_std_fruit_size_counts_set_updated_at)
-    drop_table(:std_fruit_size_counts)
+    drop_trigger(:standard_counts, :set_created_at)
+    drop_function(:pgt_standard_counts_set_created_at)
+    drop_trigger(:standard_counts, :set_updated_at)
+    drop_function(:pgt_standard_counts_set_updated_at)
+    drop_table(:standard_counts)
   end
 end

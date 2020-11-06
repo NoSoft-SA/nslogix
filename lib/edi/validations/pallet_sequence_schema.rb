@@ -19,7 +19,7 @@ module EdiApp
       required(:season_id).filled(:integer)
       required(:marketing_variety_id).filled(:integer)
       optional(:customer_variety_id).maybe(:integer)
-      optional(:std_fruit_size_count_id).maybe(:integer)
+      optional(:standard_count_id).maybe(:integer)
       required(:basic_pack_id).filled(:integer)
       required(:standard_pack_id).filled(:integer)
       required(:fruit_actual_counts_for_pack_id).maybe(:integer)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  StdFruitSizeCountSchema = Dry::Schema.Params do
+  StandardCountSchema = Dry::Schema.Params do
     optional(:id).filled(:integer)
     required(:commodity_id).filled(:integer)
     required(:uom_id).filled(:integer)

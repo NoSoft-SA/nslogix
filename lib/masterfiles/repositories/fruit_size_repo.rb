@@ -29,11 +29,11 @@ module MasterfilesApp
                           value: :id,
                           order_by: :id
 
-    build_for_select :std_fruit_size_counts,
+    build_for_select :standard_counts,
                      label: :size_count_value,
                      value: :id,
                      order_by: :size_count_value
-    build_inactive_select :std_fruit_size_counts,
+    build_inactive_select :standard_counts,
                           label: :size_count_value,
                           value: :id,
                           order_by: :size_count_value
@@ -59,7 +59,7 @@ module MasterfilesApp
     crud_calls_for :basic_packs, name: :basic_pack, wrapper: BasicPack
     crud_calls_for :standard_packs, name: :standard_pack, wrapper: StandardPack
     crud_calls_for :standard_product_weights, name: :standard_product_weight, wrapper: StandardProductWeight
-    crud_calls_for :std_fruit_size_counts, name: :std_fruit_size_count, wrapper: StdFruitSizeCount
+    crud_calls_for :standard_counts, name: :standard_count, wrapper: StandardCount
     crud_calls_for :fruit_actual_counts_for_packs, name: :fruit_actual_counts_for_pack, wrapper: FruitActualCountsForPack
     crud_calls_for :fruit_size_references, name: :fruit_size_reference, wrapper: FruitSizeReference
 
@@ -126,9 +126,9 @@ module MasterfilesApp
       ok_response
     end
 
-    def delete_std_fruit_size_count(id)
-      DB[:fruit_actual_counts_for_packs].where(std_fruit_size_count_id: id).delete
-      DB[:std_fruit_size_counts].where(id: id).delete
+    def delete_standard_count(id)
+      DB[:fruit_actual_counts_for_packs].where(standard_count_id: id).delete
+      DB[:standard_counts].where(id: id).delete
     end
 
     def delete_fruit_actual_counts_for_pack(id)
@@ -138,9 +138,9 @@ module MasterfilesApp
     def find_fruit_actual_counts_for_pack(id)
       hash = find_with_association(:fruit_actual_counts_for_packs,
                                    id,
-                                   parent_tables: [{ parent_table: :std_fruit_size_counts,
+                                   parent_tables: [{ parent_table: :standard_counts,
                                                      columns: [:size_count_description],
-                                                     flatten_columns: { size_count_description: :std_fruit_size_count } },
+                                                     flatten_columns: { size_count_description: :standard_count } },
                                                    { parent_table: :basic_packs,
                                                      columns: [:basic_pack_code],
                                                      flatten_columns: { basic_pack_code: :basic_pack_code } }],
