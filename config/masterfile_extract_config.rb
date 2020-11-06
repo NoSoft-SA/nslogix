@@ -29,7 +29,7 @@ module Crossbeams
       pucs
       roles
       season_groups
-      standard_pack_codes
+      standard_packs
       system_resource_types
       target_market_group_types
       target_markets
@@ -86,7 +86,7 @@ module Crossbeams
     # For arrays of ids
     MF_LKP_ARRAY_RULES = {
       cultivar_ids: { subquery: 'SELECT array_agg(id) FROM cultivars WHERE cultivar_name IN ?', values: 'SELECT cultivar_name FROM cultivars WHERE id IN ?' }, # && commodity? :cultivar_id
-      standard_pack_code_ids: { subquery: 'SELECT array_agg(id) FROM standard_pack_codes WHERE standard_pack_code IN ?', values: 'SELECT standard_pack_code FROM standard_pack_codes WHERE id IN ?' },
+      standard_pack_ids: { subquery: 'SELECT array_agg(id) FROM standard_packs WHERE standard_pack_code IN ?', values: 'SELECT standard_pack_code FROM standard_packs WHERE id IN ?' },
       size_reference_ids: { subquery: 'SELECT array_agg(id) FROM fruit_size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM fruit_size_references WHERE id IN ?' }
     }.freeze
 
@@ -139,7 +139,7 @@ module Crossbeams
       farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
       farm_section_id: { subquery: 'SELECT id FROM farm_sections WHERE farm_section_name = ? AND farm_id = (SELECT id FROM farms WHERE farm_code = ?)', values: 'SELECT s.farm_section_name, f.farm_code FROM farm_sections s JOIN farms f ON f.id = s.farm_id WHERE s.id = ?' },
       std_fruit_size_count_id: { subquery: 'SELECT id FROM std_fruit_size_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.commodity_code FROM std_fruit_size_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
-      # standard_pack_code_ids, size_reference_ids, cultivar_ids
+      # standard_pack_ids, size_reference_ids, cultivar_ids
       role_id: { subquery: 'SELECT id FROM roles WHERE name = ?', values: 'SELECT name FROM roles WHERE id = ?' },
       organization_id: { subquery: 'SELECT id FROM organizations WHERE short_description = ?', values: 'SELECT short_description FROM organizations WHERE id = ?' },
       person_id: { subquery: 'SELECT id FROM people WHERE surname = ? AND first_name = ?', values: 'SELECT surname, first_name FROM people WHERE id = ?' },

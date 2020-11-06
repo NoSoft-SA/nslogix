@@ -21,7 +21,7 @@ module UiRules
       fields[:basic_pack_id] = { renderer: :label, with_value: basic_pack_id_label, caption: 'Basic Pack Code' }
       fields[:actual_count_for_pack] = { renderer: :label }
       fields[:active] = { renderer: :label, as_boolean: true }
-      fields[:standard_pack_codes] = { renderer: :list, items: standard_pack_codes, caption: 'Standard Packs' }
+      fields[:standard_packs] = { renderer: :list, items: standard_packs, caption: 'Standard Packs' }
       fields[:size_references] = { renderer: :list, items: size_references }
     end
 
@@ -38,11 +38,11 @@ module UiRules
                          caption: 'Basic Pack Code',
                          required: true },
         actual_count_for_pack: { required: true },
-        standard_pack_code_ids: { renderer: :multi,
-                                  options: MasterfilesApp::FruitSizeRepo.new.for_select_standard_pack_codes,
-                                  selected: @form_object.standard_pack_code_ids,
-                                  caption: 'Standard Pack Codes',
-                                  required: true },
+        standard_pack_ids: { renderer: :multi,
+                             options: MasterfilesApp::FruitSizeRepo.new.for_select_standard_packs,
+                             selected: @form_object.standard_pack_ids,
+                             caption: 'Standard Pack Codes',
+                             required: true },
         size_reference_ids: { renderer: :multi,
                               options: MasterfilesApp::FruitSizeRepo.new.for_select_fruit_size_references,
                               selected: @form_object.size_reference_ids,
@@ -61,12 +61,12 @@ module UiRules
       @form_object = OpenStruct.new(std_fruit_size_count_id: nil,
                                     basic_pack_id: nil,
                                     actual_count_for_pack: nil,
-                                    standard_pack_code_ids: [],
+                                    standard_pack_ids: [],
                                     size_reference_ids: [])
     end
 
-    def standard_pack_codes
-      @repo.standard_pack_codes(@options[:id])
+    def standard_packs
+      @repo.standard_packs(@options[:id])
     end
 
     def size_references

@@ -78,7 +78,7 @@ Sequel.migration do
       foreign_key :grade_id, :grades, type: :integer, null: false
       foreign_key :marketing_variety_id, :marketing_varieties, type: :integer, null: false
       foreign_key :customer_variety_id, :customer_varieties, type: :integer
-      foreign_key :standard_pack_code_id, :standard_pack_codes, type: :integer, null: false
+      foreign_key :standard_pack_id, :standard_packs, type: :integer, null: false
       foreign_key :marketing_org_party_role_id, :party_roles, type: :integer, null: false
       foreign_key :packed_tm_group_id, :target_market_groups, type: :integer, null: false
       foreign_key :mark_id, :marks, type: :integer, null: false

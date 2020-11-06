@@ -432,25 +432,25 @@ class Nslogix < Roda
 
     # STANDARD PACK CODES
     # --------------------------------------------------------------------------
-    r.on 'standard_pack_codes', Integer do |id|
-      interactor = MasterfilesApp::StandardPackCodeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'standard_packs', Integer do |id|
+      interactor = MasterfilesApp::StandardPackInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
 
       # Check for notfound:
-      r.on !interactor.exists?(:standard_pack_codes, id) do
+      r.on !interactor.exists?(:standard_packs, id) do
         handle_not_found(r)
       end
 
       r.on 'edit' do   # EDIT
         check_auth!('fruit', 'edit')
-        show_partial { Masterfiles::Fruit::StandardPackCode::Edit.call(id) }
+        show_partial { Masterfiles::Fruit::StandardPack::Edit.call(id) }
       end
       r.is do
         r.get do       # SHOW
           check_auth!('fruit', 'read')
-          show_partial { Masterfiles::Fruit::StandardPackCode::Show.call(id) }
+          show_partial { Masterfiles::Fruit::StandardPack::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_standard_pack_code(id, params[:standard_pack_code])
+          res = interactor.update_standard_pack(id, params[:standard_pack])
           if res.success
             row_keys = %i[
               standard_pack_code
@@ -467,12 +467,12 @@ class Nslogix < Roda
             ]
             update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::StandardPackCode::Edit.call(id, params[:standard_pack_code], res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::StandardPack::Edit.call(id, params[:standard_pack], res.errors) }
           end
         end
         r.delete do    # DELETE
           check_auth!('fruit', 'delete')
-          res = interactor.delete_standard_pack_code(id)
+          res = interactor.delete_standard_pack(id)
           if res.success
             delete_grid_row(id, notice: res.message)
           else
@@ -482,8 +482,8 @@ class Nslogix < Roda
       end
     end
 
-    r.on 'standard_pack_codes' do
-      interactor = MasterfilesApp::StandardPackCodeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'standard_packs' do
+      interactor = MasterfilesApp::StandardPackInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
 
       r.on 'bin_changed' do
         actions = []
@@ -500,18 +500,18 @@ class Nslogix < Roda
 
       r.on 'new' do    # NEW
         check_auth!('fruit', 'new')
-        show_partial_or_page(r) { Masterfiles::Fruit::StandardPackCode::New.call(remote: fetch?(r)) }
+        show_partial_or_page(r) { Masterfiles::Fruit::StandardPack::New.call(remote: fetch?(r)) }
       end
       r.post do        # CREATE
-        res = interactor.create_standard_pack_code(params[:standard_pack_code])
+        res = interactor.create_standard_pack(params[:standard_pack])
         if res.success
           flash[:notice] = res.message
           redirect_to_last_grid(r)
         else
-          re_show_form(r, res, url: '/masterfiles/fruit/standard_pack_codes/new') do
-            Masterfiles::Fruit::StandardPackCode::New.call(form_values: params[:standard_pack_code],
-                                                           form_errors: res.errors,
-                                                           remote: fetch?(r))
+          re_show_form(r, res, url: '/masterfiles/fruit/standard_packs/new') do
+            Masterfiles::Fruit::StandardPack::New.call(form_values: params[:standard_pack],
+                                                       form_errors: res.errors,
+                                                       remote: fetch?(r))
           end
         end
       end

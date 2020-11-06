@@ -6,7 +6,7 @@ module MasterfilesApp
     required(:std_fruit_size_count_id).filled(:integer)
     required(:basic_pack_id).filled(:integer)
     required(:actual_count_for_pack).filled(:integer)
-    required(:standard_pack_code_ids).maybe(:array).each(:integer)
+    required(:standard_pack_ids).maybe(:array).each(:integer)
     required(:size_reference_ids).maybe(:array).each(:integer)
   end
 end

@@ -6,7 +6,7 @@ Sequel.migration do
       primary_key :id
 
       foreign_key :commodity_id, :commodities, type: :integer, null: false
-      foreign_key :standard_pack_id, :standard_pack_codes, type: :integer, null: false
+      foreign_key :standard_pack_id, :standard_packs, type: :integer, null: false
       BigDecimal :gross_weight, null: false
       BigDecimal :nett_weight, null: false
       BigDecimal :standard_carton_nett_weight, null: false

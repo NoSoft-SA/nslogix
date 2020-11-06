@@ -69,7 +69,7 @@ module EdiApp
       pallet = {}
       pallet[:govt_first_inspection_at] = originally_inspected_at
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
-      pallet[:standard_pack_code_id] = repo.get_masterfile_or_variant(:standard_pack_codes, standard_pack_code: sequence[:pack])
+      pallet[:standard_pack_id] = repo.get_masterfile_or_variant(:standard_packs, standard_pack_code: sequence[:pack])
 
       get_masterfile_or_variant(:basic_packs, basic_pack_code: sequence[:pack])
 
@@ -77,7 +77,7 @@ module EdiApp
 
       pallet[:fruit_size_reference_id] = repo.get_masterfile_or_variant(:fruit_size_references, fruit_size_reference: sequence[:size_count])
 
-      basic_pack_id = repo.find_basic_pack_id(standard_pack_code_id)
+      basic_pack_id = repo.find_basic_pack_id(standard_pack_id)
       rec[:lookup_data][:basic_pack_id] = basic_pack_id
       rec[:missing_mf][:basic_pack_id] = { mode: :direct, raise: false, keys: { size_count: sequence[:size_count] } } if basic_pack_id.nil?
 
@@ -165,7 +165,7 @@ module EdiApp
       rec[:missing_mf][:grade_id] = { mode: :direct, keys: { grade: sequence[:grade] } } if grade_id.nil?
 
       rec[:lookup_data][:basic_pack_id] = parent[:lookup_data][:basic_pack_id]
-      rec[:lookup_data][:standard_pack_code_id] = parent[:lookup_data][:standard_pack_code_id]
+      rec[:lookup_data][:standard_pack_id] = parent[:lookup_data][:standard_pack_id]
       rec[:lookup_data][:pallet_format_id] = parent[:lookup_data][:pallet_format_id]
       rec[:lookup_data][:cartons_per_pallet_id] = parent[:lookup_data][:cartons_per_pallet_id]
 

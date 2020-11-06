@@ -44,7 +44,7 @@ module EdiApp
         records.each do |_, pallet|
           attrs = pallet[:record]
           pallet[:lookup_data].each do |field, val|
-            next if %i[standard_pack_code_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id].include?(field)
+            next if %i[standard_pack_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id].include?(field)
 
             attrs[field] = val
           end
@@ -57,7 +57,7 @@ module EdiApp
             seq_attrs = rec[:record]
             seq_attrs[:pallet_id] = pallet_id
             pallet[:lookup_data].each do |field, val|
-              next unless %i[standard_pack_code_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id pallet_format_id].include?(field)
+              next unless %i[standard_pack_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id pallet_format_id].include?(field)
 
               seq_attrs[field] = val
             end
@@ -160,15 +160,15 @@ module EdiApp
       weighed_date = time_from_date_and_time(seq[:weighing_date], seq[:weighing_time])
       reinspect_at = orig_inspec_date != inspec_date && !inspec_date.nil? ? inspec_date : nil
 
-      standard_pack_code_id = po_repo.find_standard_pack_code_id(seq[:pack])
-      rec[:lookup_data][:standard_pack_code_id] = standard_pack_code_id
-      rec[:missing_mf][:standard_pack_code_id] = { mode: :direct, raise: false, keys: { pack: seq[:pack] } } if standard_pack_code_id.nil?
+      standard_pack_id = po_repo.find_standard_pack_id(seq[:pack])
+      rec[:lookup_data][:standard_pack_id] = standard_pack_id
+      rec[:missing_mf][:standard_pack_id] = { mode: :direct, raise: false, keys: { pack: seq[:pack] } } if standard_pack_id.nil?
 
       fruit_size_reference_id = po_repo.find_fruit_size_reference_id(seq[:size_count])
       rec[:lookup_data][:fruit_size_reference_id] = fruit_size_reference_id
       rec[:missing_mf][:fruit_size_reference_id] = { mode: :direct, raise: false, keys: { size_count: seq[:size_count] } } if fruit_size_reference_id.nil?
 
-      basic_pack_id = po_repo.find_basic_pack_id(standard_pack_code_id)
+      basic_pack_id = po_repo.find_basic_pack_id(standard_pack_id)
       rec[:lookup_data][:basic_pack_id] = basic_pack_id
       rec[:missing_mf][:basic_pack_id] = { mode: :direct, raise: false, keys: { size_count: seq[:size_count] } } if basic_pack_id.nil?
 
@@ -257,7 +257,7 @@ module EdiApp
       rec[:missing_mf][:grade_id] = { mode: :direct, keys: { grade: seq[:grade] } } if grade_id.nil?
 
       rec[:lookup_data][:basic_pack_id] = parent[:lookup_data][:basic_pack_id]
-      rec[:lookup_data][:standard_pack_code_id] = parent[:lookup_data][:standard_pack_code_id]
+      rec[:lookup_data][:standard_pack_id] = parent[:lookup_data][:standard_pack_id]
       rec[:lookup_data][:pallet_format_id] = parent[:lookup_data][:pallet_format_id]
       rec[:lookup_data][:cartons_per_pallet_id] = parent[:lookup_data][:cartons_per_pallet_id]
 

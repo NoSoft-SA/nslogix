@@ -16,7 +16,7 @@ module Masterfiles
               form.add_field :basic_pack_id
               form.add_field :actual_count_for_pack
               form.add_field :active
-              form.add_field :standard_pack_codes
+              form.add_field :standard_packs
               form.add_field :size_references
             end
           end

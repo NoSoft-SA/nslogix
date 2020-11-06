@@ -367,7 +367,7 @@ class AppConst # rubocop:disable Metrics/ClassLength
                        PUCs: { table_name: 'pucs', column_name: 'puc_code' },
                        Packed_TM_Groups: { table_name: 'target_market_groups', column_name: 'target_market_group_name' },
                        Ports: { table_name: 'ports', column_name: 'port_code' },
-                       Standard_Pack_Codes: { table_name: 'standard_pack_codes', column_name: 'standard_pack_code' },
+                       Standard_Packs: { table_name: 'standard_packs', column_name: 'standard_pack_code' },
                        Vessels: { table_name: 'vessels', column_name: 'vessel_code' } }.freeze
 
   # SOLAS_VERIFICATION_METHOD = ENV['SOLAS_VERIFICATION_METHOD']

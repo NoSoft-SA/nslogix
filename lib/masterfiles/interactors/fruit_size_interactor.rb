@@ -41,11 +41,11 @@ module MasterfilesApp
     end
 
     def process_array_params(attrs)
-      standard_pack_code_ids = attrs.delete(:standard_pack_code_ids)
+      standard_pack_ids = attrs.delete(:standard_pack_ids)
       size_reference_ids = attrs.delete(:size_reference_ids)
 
       default = {
-        standard_pack_code_ids: "{#{standard_pack_code_ids.join(',')}}",
+        standard_pack_ids: "{#{standard_pack_ids.join(',')}}",
         size_reference_ids: "{#{size_reference_ids.join(',')}}"
       }
       attrs.merge(default)

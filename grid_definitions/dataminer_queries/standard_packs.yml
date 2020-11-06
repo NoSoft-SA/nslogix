@@ -1,13 +1,13 @@
 ---
 :caption: Standard Pack Codes
-:sql: "SELECT\r\n    standard_pack_codes.id,\r\n    standard_pack_codes.standard_pack_code,\r\n
-  \   fn_masterfile_variants('standard_pack_codes', standard_pack_codes.id) AS variant_codes,\r\n
-  \   standard_pack_codes.description,\r\n    standard_pack_codes.standard_pack_label,\r\n
-  \   standard_pack_codes.material_mass,\r\n
-  \   basic_packs.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
-  \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\n
-  FROM standard_pack_codes\r\nLEFT JOIN basic_packs ON basic_packs.id = standard_pack_codes.basic_pack_id
-  ORDER BY\r\n    standard_pack_codes.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
+:sql: "SELECT\r\n    standard_packs.id,\r\n    standard_packs.standard_pack_code,\r\n
+  \   fn_masterfile_variants('standard_packs', standard_packs.id) AS variant_codes,\r\n
+  \   standard_packs.description,\r\n    standard_packs.standard_pack_label,\r\n
+  \   standard_packs.material_mass,\r\n
+  \   basic_packs.basic_pack_code,\r\n    standard_packs.use_size_ref_for_edi,\r\n
+  \   standard_packs.created_at,\r\n    standard_packs.updated_at,\r\n    standard_packs.active\r\n
+  FROM standard_packs\r\nLEFT JOIN basic_packs ON basic_packs.id = standard_packs.basic_pack_id
+  ORDER BY\r\n    standard_packs.standard_pack_code\r\n\r\n\r\n\r\n\r\n\r\n"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -16,7 +16,7 @@
     :name: id
     :sequence_no: 1
     :caption: Id
-    :namespaced_name: standard_pack_codes.id
+    :namespaced_name: standard_packs.id
     :data_type: :integer
     :width: 
     :format: 
@@ -32,7 +32,7 @@
     :name: standard_pack_code
     :sequence_no: 2
     :caption: Standard pack code
-    :namespaced_name: standard_pack_codes.standard_pack_code
+    :namespaced_name: standard_packs.standard_pack_code
     :data_type: :string
     :width: 150
     :format: 
@@ -64,7 +64,7 @@
     :name: description
     :sequence_no: 4
     :caption: Description
-    :namespaced_name: standard_pack_codes.description
+    :namespaced_name: standard_packs.description
     :data_type: :string
     :width: 200
     :format: 
@@ -80,7 +80,7 @@
     :name: standard_pack_label
     :sequence_no: 5
     :caption: Label
-    :namespaced_name: standard_pack_codes.standard_pack_label
+    :namespaced_name: standard_packs.standard_pack_label
     :data_type: :string
     :width: 150
     :format: 
@@ -96,7 +96,7 @@
     :name: material_mass
     :sequence_no: 6
     :caption: Material mass
-    :namespaced_name: standard_pack_codes.material_mass
+    :namespaced_name: standard_packs.material_mass
     :data_type: :number
     :width: 
     :format: :delimited_1000
@@ -128,7 +128,7 @@
     :name: use_size_ref_for_edi
     :sequence_no: 9
     :caption: Use size ref for edi
-    :namespaced_name: standard_pack_codes.use_size_ref_for_edi
+    :namespaced_name: standard_packs.use_size_ref_for_edi
     :data_type: :boolean
     :width: 100
     :format: 
@@ -144,7 +144,7 @@
     :name: created_at
     :sequence_no: 16
     :caption: Created at
-    :namespaced_name: standard_pack_codes.created_at
+    :namespaced_name: standard_packs.created_at
     :data_type: :datetime
     :width: 
     :format: :datetime_with_secs
@@ -160,7 +160,7 @@
     :name: updated_at
     :sequence_no: 17
     :caption: Updated at
-    :namespaced_name: standard_pack_codes.updated_at
+    :namespaced_name: standard_packs.updated_at
     :data_type: :datetime
     :width: 
     :format: :datetime_with_secs
@@ -176,7 +176,7 @@
     :name: active
     :sequence_no: 18
     :caption: Active
-    :namespaced_name: standard_pack_codes.active
+    :namespaced_name: standard_packs.active
     :data_type: :boolean
     :width: 
     :format: 

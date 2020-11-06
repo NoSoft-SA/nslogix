@@ -11,11 +11,11 @@ module MasterfilesApp
                           value: :id,
                           order_by: :basic_pack_code
 
-    build_for_select :standard_pack_codes,
+    build_for_select :standard_packs,
                      label: :standard_pack_code,
                      value: :id,
                      order_by: :standard_pack_code
-    build_inactive_select :standard_pack_codes,
+    build_inactive_select :standard_packs,
                           label: :standard_pack_code,
                           value: :id,
                           order_by: :standard_pack_code
@@ -57,7 +57,7 @@ module MasterfilesApp
                           order_by: :size_reference
 
     crud_calls_for :basic_packs, name: :basic_pack, wrapper: BasicPack
-    crud_calls_for :standard_pack_codes, name: :standard_pack_code, wrapper: StandardPackCode
+    crud_calls_for :standard_packs, name: :standard_pack, wrapper: StandardPack
     crud_calls_for :standard_product_weights, name: :standard_product_weight, wrapper: StandardProductWeight
     crud_calls_for :std_fruit_size_counts, name: :std_fruit_size_count, wrapper: StdFruitSizeCount
     crud_calls_for :fruit_actual_counts_for_packs, name: :fruit_actual_counts_for_pack, wrapper: FruitActualCountsForPack
@@ -69,20 +69,20 @@ module MasterfilesApp
                             parent_tables: [{ parent_table: :commodities,
                                               columns: %i[commodity_code],
                                               flatten_columns: { commodity_code: :commodity_code } },
-                                            { parent_table: :standard_pack_codes,
+                                            { parent_table: :standard_packs,
                                               columns: %i[standard_pack_code],
                                               foreign_key: :standard_pack_id,
                                               flatten_columns: { standard_pack_code: :standard_pack_code } }],
                             wrapper: StandardProductWeightFlat)
     end
 
-    def find_standard_pack_code_flat(id)
-      find_with_association(:standard_pack_codes,
+    def find_standard_pack_flat(id)
+      find_with_association(:standard_packs,
                             id,
                             parent_tables: [{ parent_table: :basic_packs,
                                               columns: %i[basic_pack_code],
                                               flatten_columns: { basic_pack_code: :basic_pack_code } }],
-                            wrapper: StandardPackCodeFlat)
+                            wrapper: StandardPackFlat)
     end
 
     def delete_basic_pack(id)
@@ -93,35 +93,35 @@ module MasterfilesApp
       { success: true }
     end
 
-    def create_standard_pack_code(attrs)
+    def create_standard_pack(attrs)
       if AppConst::BASE_PACK_EQUALS_STD_PACK
         base_pack_id = DB[:basic_packs].insert(basic_pack_code: attrs[:standard_pack_code])
-        DB[:standard_pack_codes].insert(attrs.to_h.merge(basic_pack_id: base_pack_id))
+        DB[:standard_packs].insert(attrs.to_h.merge(basic_pack_id: base_pack_id))
       else
-        DB[:standard_pack_codes].insert(attrs.to_h)
+        DB[:standard_packs].insert(attrs.to_h)
       end
     end
 
-    def update_standard_pack_code(id, attrs)
+    def update_standard_pack(id, attrs)
       if AppConst::BASE_PACK_EQUALS_STD_PACK && attrs.to_h.key?(:standard_pack_code)
-        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_id)
+        bp_id = DB[:standard_packs].where(id: id).get(:basic_pack_id)
         DB[:basic_packs].where(id: bp_id).update(basic_pack_code: attrs[:standard_pack_code])
       end
-      DB[:standard_pack_codes].where(id: id).update(attrs.to_h)
+      DB[:standard_packs].where(id: id).update(attrs.to_h)
     end
 
-    def delete_standard_pack_code(id) # rubocop:disable Metrics/AbcSize
+    def delete_standard_pack(id) # rubocop:disable Metrics/AbcSize
       dependents = standard_pack_code_dependents(id)
       return failed_response('This pack code is in use.') unless dependents.empty?
 
       bp_id = nil
       if AppConst::BASE_PACK_EQUALS_STD_PACK
-        bp_id = DB[:standard_pack_codes].where(id: id).get(:basic_pack_id)
-        cnt = DB[:standard_pack_codes].where(basic_pack_id: bp_id).count
+        bp_id = DB[:standard_packs].where(id: id).get(:basic_pack_id)
+        cnt = DB[:standard_packs].where(basic_pack_id: bp_id).count
         bp_id = nil if cnt > 1
       end
 
-      DB[:standard_pack_codes].where(id: id).delete
+      DB[:standard_packs].where(id: id).delete
       DB[:basic_packs].where(id: bp_id).delete if bp_id
       ok_response
     end
@@ -147,23 +147,23 @@ module MasterfilesApp
                                    sub_tables: [{ sub_table: :fruit_size_references,
                                                   id_keys_column: :size_reference_ids,
                                                   columns: %i[id size_reference] },
-                                                { sub_table: :standard_pack_codes,
-                                                  id_keys_column: :standard_pack_code_ids,
+                                                { sub_table: :standard_packs,
+                                                  id_keys_column: :standard_pack_ids,
                                                   columns: %i[id standard_pack_code] }],
                                    lookup_functions: [],
                                    wrapper: nil)
       return nil if hash.nil?
 
-      hash[:standard_packs] = hash[:standard_pack_codes].map { |r| r[:standard_pack_code] }.sort.join(',')
+      hash[:standard_packs] = hash[:standard_packs].map { |r| r[:standard_pack_code] }.sort.join(',')
       hash[:size_references] = hash[:fruit_size_references].map { |r| r[:size_reference] }.sort.join(',')
       FruitActualCountsForPack.new(hash)
     end
 
-    def standard_pack_codes(id)
+    def standard_packs(id)
       query = <<~SQL
-        SELECT standard_pack_codes.standard_pack_code
-        FROM standard_pack_codes
-        JOIN fruit_actual_counts_for_packs ON standard_pack_codes.id = ANY (fruit_actual_counts_for_packs.standard_pack_code_ids)
+        SELECT standard_packs.standard_pack_code
+        FROM standard_packs
+        JOIN fruit_actual_counts_for_packs ON standard_packs.id = ANY (fruit_actual_counts_for_packs.standard_pack_ids)
         WHERE fruit_actual_counts_for_packs.id = #{id}
       SQL
       DB[query].order(:standard_pack_code).select_map(:standard_pack_code)
@@ -183,7 +183,7 @@ module MasterfilesApp
       query = <<~SQL
         SELECT id
         FROM fruit_actual_counts_for_packs
-        WHERE #{id} = ANY (standard_pack_code_ids)
+        WHERE #{id} = ANY (standard_pack_ids)
       SQL
       DB[query].select_map(:id)
     end

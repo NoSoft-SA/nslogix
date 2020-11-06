@@ -15,10 +15,10 @@ module EdiApp
           substring(commodity_groups.commodity_group_code FROM '..') AS commodity_group,
           commodities.commodity_code AS commodity,
           marketing_varieties.marketing_variety_code AS variety,
-          standard_pack_codes.standard_pack_code AS pack,
+          standard_packs.standard_pack_code AS pack,
           grades.grade_code AS grade,
           grades.grade_code AS grade,
-          fn_edi_size_count(standard_pack_codes.use_size_ref_for_edi,
+          fn_edi_size_count(standard_packs.use_size_ref_for_edi,
                             commodities.use_size_ref_for_edi,
                             fruit_size_references.edi_out_code,
                             fruit_size_references.size_reference,
@@ -75,7 +75,7 @@ module EdiApp
         JOIN inventory_codes ON inventory_codes.id = pallet_sequences.inventory_code_id
         JOIN target_market_groups ON target_market_groups.id = pallet_sequences.packed_tm_group_id
         JOIN grades ON grades.id = pallet_sequences.grade_id
-        JOIN standard_pack_codes ON standard_pack_codes.id = pallet_sequences.standard_pack_code_id
+        JOIN standard_packs ON standard_packs.id = pallet_sequences.standard_pack_id
         LEFT JOIN fruit_size_references ON fruit_size_references.id = pallet_sequences.fruit_size_reference_id
         LEFT JOIN fruit_actual_counts_for_packs ON fruit_actual_counts_for_packs.id = pallet_sequences.fruit_actual_counts_for_pack_id
         JOIN pucs ON pucs.id = pallet_sequences.puc_id

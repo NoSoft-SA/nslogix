@@ -4,11 +4,11 @@ module MasterfilesApp
   module StandardProductWeightFactory
     def create_standard_product_weight(opts = {})
       commodity_id = create_commodity
-      standard_pack_code_id = create_standard_pack_code
+      standard_pack_id = create_standard_pack
 
       default = {
         commodity_id: commodity_id,
-        standard_pack_id: standard_pack_code_id,
+        standard_pack_id: standard_pack_id,
         gross_weight: Faker::Number.decimal,
         nett_weight: Faker::Number.decimal,
         active: true,

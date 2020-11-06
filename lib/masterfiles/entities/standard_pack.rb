@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class StandardPackCode < Dry::Struct
+  class StandardPack < Dry::Struct
     attribute :id, Types::Integer
     attribute :standard_pack_code, Types::String
     attribute :material_mass, Types::Decimal
@@ -12,7 +12,7 @@ module MasterfilesApp
     attribute? :active, Types::Bool
   end
 
-  class StandardPackCodeFlat < Dry::Struct
+  class StandardPackFlat < Dry::Struct
     attribute :id, Types::Integer
     attribute :standard_pack_code, Types::String
     attribute :material_mass, Types::Decimal
