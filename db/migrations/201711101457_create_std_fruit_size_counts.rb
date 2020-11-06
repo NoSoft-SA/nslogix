@@ -57,7 +57,7 @@ Sequel.migration do
 
     create_table(:standard_pack_codes, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :basic_pack_code_id, :basic_pack_codes
+      foreign_key :basic_pack_code_id, :basic_pack_codes, null: false
       String :standard_pack_code, null: false
       String :description
       String :std_pack_label_code

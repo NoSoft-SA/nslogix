@@ -5,7 +5,6 @@ Sequel.migration do
 
     create_table(:pallets, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :pallet_format_id, :pallet_formats
       foreign_key :edi_in_transaction_id, :edi_in_transactions, type: :integer
       String :pallet_number, null: false
       String :exit_ref
@@ -27,14 +26,9 @@ Sequel.migration do
       DateTime :intake_created_at
       DateTime :first_cold_storage_at
       TrueClass :cooled, default: true
-      String :build_status
       Decimal :gross_weight
       Decimal :nett_weight
-      DateTime :gross_weight_measured_at
-      TrueClass :palletized, default: false
-      TrueClass :partially_palletized, default: false
-      DateTime :palletized_at
-      DateTime :partially_palletized_at
+      DateTime :weight_measured_at
       String :on_site_location
       String :consignment_note_number
       String :original_consignment_note_number
@@ -84,17 +78,11 @@ Sequel.migration do
       foreign_key :grade_id, :grades, type: :integer, null: false
       foreign_key :marketing_variety_id, :marketing_varieties, type: :integer, null: false
       foreign_key :customer_variety_id, :customer_varieties, type: :integer
-      foreign_key :std_fruit_size_count_id, :std_fruit_size_counts, type: :integer
-      foreign_key :basic_pack_code_id, :basic_pack_codes, type: :integer, null: false
       foreign_key :standard_pack_code_id, :standard_pack_codes, type: :integer, null: false
-      foreign_key :fruit_actual_counts_for_pack_id, :fruit_actual_counts_for_packs, type: :integer
-      foreign_key :fruit_size_reference_id, :fruit_size_references, type: :integer
       foreign_key :marketing_org_party_role_id, :party_roles, type: :integer, null: false
       foreign_key :packed_tm_group_id, :target_market_groups, type: :integer, null: false
       foreign_key :mark_id, :marks, type: :integer, null: false
       foreign_key :inventory_code_id, :inventory_codes, type: :integer, null: false
-      foreign_key :pallet_format_id, :pallet_formats, type: :integer, null: false
-      foreign_key :cartons_per_pallet_id, :cartons_per_pallet, type: :integer, null: false
       Jsonb :extended_columns
       String :client_size_reference
       String :client_product_code
@@ -114,11 +102,6 @@ Sequel.migration do
       String :sell_by_code
       String :product_chars
       DateTime :repacked_at
-      Integer :repacked_from_pallet_id
-      TrueClass :removed_from_pallet, default: false
-      Integer :scrapped_from_pallet_id
-      Integer :removed_from_pallet_id
-      DateTime :removed_from_pallet_at
 
       index [:pallet_number, :pallet_sequence_number], name: :pallet_sequences_idx, unique: true
       index [:pallet_id, :pallet_number, :pallet_sequence_number], name: :pallet_sequences_unique_idx, unique: true
