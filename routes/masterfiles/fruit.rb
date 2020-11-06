@@ -457,7 +457,7 @@ class Nslogix < Roda
               material_mass
               plant_resource_button_indicator
               description
-              std_pack_label_code
+              standard_pack_label
               basic_pack_code
               use_size_ref_for_edi
               bin

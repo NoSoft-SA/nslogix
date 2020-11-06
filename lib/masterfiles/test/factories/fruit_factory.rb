@@ -58,7 +58,7 @@ module MasterfilesApp
       default = {
         standard_pack_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
-        std_pack_label_code: Faker::Lorem.word,
+        standard_pack_label: Faker::Lorem.word,
         active: true,
         material_mass: Faker::Number.decimal,
         basic_pack_id: basic_pack_id,

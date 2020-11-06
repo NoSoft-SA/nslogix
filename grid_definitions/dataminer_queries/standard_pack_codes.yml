@@ -2,7 +2,7 @@
 :caption: Standard Pack Codes
 :sql: "SELECT\r\n    standard_pack_codes.id,\r\n    standard_pack_codes.standard_pack_code,\r\n
   \   fn_masterfile_variants('standard_pack_codes', standard_pack_codes.id) AS variant_codes,\r\n
-  \   standard_pack_codes.description,\r\n    standard_pack_codes.std_pack_label_code,\r\n
+  \   standard_pack_codes.description,\r\n    standard_pack_codes.standard_pack_label,\r\n
   \   standard_pack_codes.material_mass,\r\n
   \   basic_packs.basic_pack_code,\r\n    standard_pack_codes.use_size_ref_for_edi,\r\n
   \   standard_pack_codes.created_at,\r\n    standard_pack_codes.updated_at,\r\n    standard_pack_codes.active\r\n
@@ -76,11 +76,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  std_pack_label_code:
-    :name: std_pack_label_code
+  standard_pack_label:
+    :name: standard_pack_label
     :sequence_no: 5
-    :caption: Label code
-    :namespaced_name: standard_pack_codes.std_pack_label_code
+    :caption: Label
+    :namespaced_name: standard_pack_codes.standard_pack_label
     :data_type: :string
     :width: 150
     :format: 

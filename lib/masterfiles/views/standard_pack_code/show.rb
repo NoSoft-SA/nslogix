@@ -15,7 +15,7 @@ module Masterfiles
               form.add_field :basic_pack_id
               form.add_field :standard_pack_code
               form.add_field :description
-              form.add_field :std_pack_label_code
+              form.add_field :standard_pack_label
               form.add_field :material_mass
               form.add_field :plant_resource_button_indicator
               form.add_field :use_size_ref_for_edi

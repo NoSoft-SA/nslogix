@@ -17,8 +17,8 @@ module UiRules
       basic_pack_id_label = @repo.find_basic_pack(@form_object.basic_pack_id)&.basic_pack_code
       fields[:standard_pack_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
-      fields[:std_pack_label_code] = { renderer: :label,
-                                       caption: 'Label code' }
+      fields[:standard_pack_label] = { renderer: :label,
+                                       caption: 'Label' }
       fields[:material_mass] = { renderer: :label }
       fields[:active] = { renderer: :label,
                           as_boolean: true }
@@ -33,7 +33,7 @@ module UiRules
       {
         standard_pack_code: { required: true },
         description: {},
-        std_pack_label_code: { caption: 'Label code' },
+        standard_pack_label: { caption: 'Label' },
         material_mass: { required: true,
                          renderer: :numeric },
         basic_pack_id: { renderer: :select,
@@ -54,7 +54,7 @@ module UiRules
     def make_new_form_object
       @form_object = OpenStruct.new(standard_pack_code: nil,
                                     description: nil,
-                                    std_pack_label_code: nil,
+                                    standard_pack_label: nil,
                                     material_mass: nil,
                                     basic_pack_id: nil,
                                     use_size_ref_for_edi: false)

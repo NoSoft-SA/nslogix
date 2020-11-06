@@ -75,7 +75,7 @@ module MasterfilesApp
         id: 1,
         standard_pack_code: Faker::Lorem.unique.word,
         description: 'ABC',
-        std_pack_label_code: 'ABC',
+        standard_pack_label: 'ABC',
         active: true,
         material_mass: 1.0,
         basic_pack_id: basic_pack_id,

@@ -60,7 +60,7 @@ Sequel.migration do
       foreign_key :basic_pack_id, :basic_packs, null: false
       String :standard_pack_code, null: false
       String :description
-      String :std_pack_label_code
+      String :standard_pack_label
       BigDecimal :material_mass, null: false
       TrueClass :use_size_ref_for_edi, default: false
       TrueClass :active, default: true
