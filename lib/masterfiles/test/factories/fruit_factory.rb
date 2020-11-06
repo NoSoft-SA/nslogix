@@ -90,7 +90,7 @@ module MasterfilesApp
       DB[:standard_counts].insert(default.merge(opts))
     end
 
-    def create_fruit_actual_counts_for_pack(opts = {})
+    def create_actual_count(opts = {})
       standard_count_id = create_standard_count
       basic_pack_id = create_basic_pack
       standard_pack_ids = create_standard_pack
@@ -99,12 +99,12 @@ module MasterfilesApp
       default = {
         standard_count_id: standard_count_id,
         basic_pack_id: basic_pack_id,
-        actual_count_for_pack: Faker::Number.number(digits: 4),
+        actual_count_value: Faker::Number.number(digits: 4),
         standard_pack_ids: "{#{standard_pack_ids}}",
         size_reference_ids: "{#{size_reference_ids}}",
         active: true
       }
-      DB[:fruit_actual_counts_for_packs].insert(default.merge(opts))
+      DB[:actual_counts].insert(default.merge(opts))
     end
 
     def create_fruit_size_reference(opts = {})

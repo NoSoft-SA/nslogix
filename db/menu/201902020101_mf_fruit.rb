@@ -11,7 +11,7 @@ Crossbeams::MenuMigrations::Migrator.migration('Nslogix') do
 
     add_program_function 'Standard Counts', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/standard_counts', seq: 6, group: 'Sizes'
     add_program_function 'Size References', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/fruit_size_references', seq: 7, group: 'Sizes'
-    add_program_function 'Size Conversions', functional_area: 'Masterfiles', program: 'Fruit', url: '/search/fruit_actual_counts_for_packs', seq: 8, group: 'Sizes'
+    add_program_function 'Actual Counts', functional_area: 'Masterfiles', program: 'Fruit', url: '/search/actual_counts', seq: 8, group: 'Sizes'
 
     add_program_function 'Grades', functional_area: 'Masterfiles', program: 'Fruit', url: '/list/grades', seq: 10
 

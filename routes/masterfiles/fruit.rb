@@ -638,22 +638,22 @@ class Nslogix < Roda
         check_auth!('fruit', 'edit')
         show_partial { Masterfiles::Fruit::StandardCount::Edit.call(id) }
       end
-      r.on 'fruit_actual_counts_for_packs' do
+      r.on 'actual_counts' do
         r.on 'new' do    # NEW
           check_auth!('fruit', 'new')
-          show_partial_or_page(r) { Masterfiles::Fruit::FruitActualCountsForPack::New.call(id, remote: fetch?(r)) }
+          show_partial_or_page(r) { Masterfiles::Fruit::ActualCounts::New.call(id, remote: fetch?(r)) }
         end
         r.post do        # CREATE
-          res = interactor.create_fruit_actual_counts_for_pack(id, params[:fruit_actual_counts_for_pack])
+          res = interactor.create_actual_count(id, params[:actual_count])
           if res.success
             flash[:notice] = res.message
             redirect_to_last_grid(r)
           else
-            re_show_form(r, res, url: "/masterfiles/fruit/standard_counts/#{id}/fruit_actual_counts_for_packs/new") do
-              Masterfiles::Fruit::FruitActualCountsForPack::New.call(id,
-                                                                     form_values: params[:fruit_actual_counts_for_pack],
-                                                                     form_errors: res.errors,
-                                                                     remote: fetch?(r))
+            re_show_form(r, res, url: "/masterfiles/fruit/standard_counts/#{id}/actual_counts/new") do
+              Masterfiles::Fruit::ActualCounts::New.call(id,
+                                                         form_values: params[:actual_count],
+                                                         form_errors: res.errors,
+                                                         remote: fetch?(r))
             end
           end
         end
@@ -714,58 +714,58 @@ class Nslogix < Roda
       end
     end
 
-    r.on 'fruit_actual_counts_for_packs', Integer do |id|
+    r.on 'actual_counts', Integer do |id|
       interactor = MasterfilesApp::FruitSizeInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
 
       # Check for notfound:
-      r.on !interactor.exists?(:fruit_actual_counts_for_packs, id) do
+      r.on !interactor.exists?(:actual_counts, id) do
         handle_not_found(r)
       end
 
       r.on 'edit' do   # EDIT
         check_auth!('fruit', 'edit')
-        show_partial { Masterfiles::Fruit::FruitActualCountsForPack::Edit.call(id) }
+        show_partial { Masterfiles::Fruit::ActualCounts::Edit.call(id) }
       end
 
       r.is do
         r.get do       # SHOW
           check_auth!('fruit', 'read')
-          show_partial { Masterfiles::Fruit::FruitActualCountsForPack::Show.call(id) }
+          show_partial { Masterfiles::Fruit::ActualCounts::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_fruit_actual_counts_for_pack(id, params[:fruit_actual_counts_for_pack])
+          res = interactor.update_actual_count(id, params[:actual_count])
           if res.success
             row_keys = %i[
               standard_count
               basic_pack_code
-              actual_count_for_pack
+              actual_count_value
               standard_packs
               size_references
               active
             ]
             update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::FruitActualCountsForPack::Edit.call(id, params[:fruit_actual_counts_for_pack], res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::ActualCounts::Edit.call(id, params[:actual_count], res.errors) }
           end
         end
         r.delete do    # DELETE
           check_auth!('fruit', 'delete')
-          res = interactor.delete_fruit_actual_counts_for_pack(id)
+          res = interactor.delete_actual_count(id)
           delete_grid_row(id, notice: res.message)
         end
       end
     end
 
     r.on 'back', Integer do |id|
-      r.on 'fruit_actual_counts_for_packs' do
+      r.on 'actual_counts' do
         # NOTE: Working on the principle that your views are allowed access to your repositories
         # Create interactor method to return parent. - return success/failure & not_found if fail...
         repo = MasterfilesApp::FruitSizeRepo.new
-        actual_count = repo.find_fruit_actual_counts_for_pack(id)
+        actual_count = repo.find_actual_count(id)
         handle_not_found(r) unless actual_count
         check_auth!('fruit', 'read')
         parent_id = actual_count.standard_count_id
-        r.redirect "/list/fruit_actual_counts_for_packs/with_params?key=standard&fruit_actual_counts_for_packs.standard_count_id=#{parent_id}"
+        r.redirect "/list/actual_counts/with_params?key=standard&actual_counts.standard_count_id=#{parent_id}"
       end
     end
 

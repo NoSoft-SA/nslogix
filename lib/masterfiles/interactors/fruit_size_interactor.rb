@@ -28,16 +28,16 @@ module MasterfilesApp
       success_response("Deleted standard count #{name}")
     end
 
-    def create_fruit_actual_counts_for_pack(parent_id, params)
+    def create_actual_count(parent_id, params)
       params[:standard_count_id] = parent_id
-      res = validate_fruit_actual_counts_for_pack_params(params)
+      res = validate_actual_count_params(params)
       return validation_failed_response(res) if res.failure?
 
-      id = repo.create_fruit_actual_counts_for_pack(process_array_params(res.to_h))
-      instance = fruit_actual_counts_for_pack(id)
+      id = repo.create_actual_count(process_array_params(res.to_h))
+      instance = actual_count(id)
       success_response("Created fruit actual counts for pack #{instance.id}", instance)
     rescue Sequel::UniqueConstraintViolation
-      validation_failed_response(OpenStruct.new(messages: { actual_count_for_pack: ['This fruit actual counts for pack already exists'] }))
+      validation_failed_response(OpenStruct.new(messages: { actual_count_value: ['This fruit actual counts for pack already exists'] }))
     end
 
     def process_array_params(attrs)
@@ -51,18 +51,18 @@ module MasterfilesApp
       attrs.merge(default)
     end
 
-    def update_fruit_actual_counts_for_pack(id, params)
-      res = validate_fruit_actual_counts_for_pack_params(params)
+    def update_actual_count(id, params)
+      res = validate_actual_count_params(params)
       return validation_failed_response(res) if res.failure?
 
-      repo.update_fruit_actual_counts_for_pack(id, process_array_params(res.to_h))
-      instance = fruit_actual_counts_for_pack(id)
+      repo.update_actual_count(id, process_array_params(res.to_h))
+      instance = actual_count(id)
       success_response("Updated fruit actual counts for pack #{instance.id}", instance)
     end
 
-    def delete_fruit_actual_counts_for_pack(id)
-      name = fruit_actual_counts_for_pack(id).id
-      repo.delete_fruit_actual_counts_for_pack(id)
+    def delete_actual_count(id)
+      name = actual_count(id).id
+      repo.delete_actual_count(id)
       success_response("Deleted fruit actual counts for pack #{name}")
     end
 
@@ -80,12 +80,12 @@ module MasterfilesApp
       StandardCountSchema.call(params)
     end
 
-    def fruit_actual_counts_for_pack(id)
-      repo.find_fruit_actual_counts_for_pack(id)
+    def actual_count(id)
+      repo.find_actual_count(id)
     end
 
-    def validate_fruit_actual_counts_for_pack_params(params)
-      FruitActualCountsForPackSchema.call(params)
+    def validate_actual_count_params(params)
+      ActualCountSchema.call(params)
     end
   end
 end

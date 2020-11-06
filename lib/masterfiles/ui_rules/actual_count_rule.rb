@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UiRules
-  class FruitActualCountsForPackRule < Base
+  class ActualCountsRule < Base
     def generate_rules
       @repo = MasterfilesApp::FruitSizeRepo.new
       make_form_object
@@ -11,7 +11,7 @@ module UiRules
 
       set_show_fields if @mode == :show
 
-      form_name 'fruit_actual_counts_for_pack'
+      form_name 'actual_count'
     end
 
     def set_show_fields # rubocop:disable Metrics/AbcSize
@@ -19,7 +19,7 @@ module UiRules
       basic_pack_id_label = @repo.find_hash(:basic_packs, @form_object.basic_pack_id)[:basic_pack_code]
       fields[:standard_count_id] = { renderer: :label, with_value: standard_count_id_label, caption: 'Standard Count' }
       fields[:basic_pack_id] = { renderer: :label, with_value: basic_pack_id_label, caption: 'Basic Pack Code' }
-      fields[:actual_count_for_pack] = { renderer: :label }
+      fields[:actual_count_value] = { renderer: :label }
       fields[:active] = { renderer: :label, as_boolean: true }
       fields[:standard_packs] = { renderer: :list, items: standard_packs, caption: 'Standard Packs' }
       fields[:size_references] = { renderer: :list, items: size_references }
@@ -37,7 +37,7 @@ module UiRules
                          disabled_options: @repo.for_select_inactive_basic_packs,
                          caption: 'Basic Pack Code',
                          required: true },
-        actual_count_for_pack: { required: true },
+        actual_count_value: { required: true },
         standard_pack_ids: { renderer: :multi,
                              options: MasterfilesApp::FruitSizeRepo.new.for_select_standard_packs,
                              selected: @form_object.standard_pack_ids,
@@ -54,13 +54,13 @@ module UiRules
     def make_form_object
       make_new_form_object && return if @mode == :new
 
-      @form_object = @repo.find_fruit_actual_counts_for_pack(@options[:id])
+      @form_object = @repo.find_actual_count(@options[:id])
     end
 
     def make_new_form_object
       @form_object = OpenStruct.new(standard_count_id: nil,
                                     basic_pack_id: nil,
-                                    actual_count_for_pack: nil,
+                                    actual_count_value: nil,
                                     standard_pack_ids: [],
                                     size_reference_ids: [])
     end

@@ -38,14 +38,14 @@ module MasterfilesApp
                           value: :id,
                           order_by: :size_count_value
 
-    build_for_select :fruit_actual_counts_for_packs,
-                     label: :actual_count_for_pack,
+    build_for_select :actual_counts,
+                     label: :actual_count_value,
                      value: :id,
-                     order_by: :actual_count_for_pack
-    build_inactive_select :fruit_actual_counts_for_packs,
-                          label: :actual_count_for_pack,
+                     order_by: :actual_count_value
+    build_inactive_select :actual_counts,
+                          label: :actual_count_value,
                           value: :id,
-                          order_by: :actual_count_for_pack
+                          order_by: :actual_count_value
 
     build_for_select :fruit_size_references,
                      label: :size_reference,
@@ -60,7 +60,7 @@ module MasterfilesApp
     crud_calls_for :standard_packs, name: :standard_pack, wrapper: StandardPack
     crud_calls_for :standard_product_weights, name: :standard_product_weight, wrapper: StandardProductWeight
     crud_calls_for :standard_counts, name: :standard_count, wrapper: StandardCount
-    crud_calls_for :fruit_actual_counts_for_packs, name: :fruit_actual_counts_for_pack, wrapper: FruitActualCountsForPack
+    crud_calls_for :actual_counts, name: :actual_count, wrapper: ActualCount
     crud_calls_for :fruit_size_references, name: :fruit_size_reference, wrapper: FruitSizeReference
 
     def find_standard_product_weight_flat(id)
@@ -86,7 +86,7 @@ module MasterfilesApp
     end
 
     def delete_basic_pack(id)
-      dependents = DB[:fruit_actual_counts_for_packs].where(basic_pack_id: id).select_map(:id)
+      dependents = DB[:actual_counts].where(basic_pack_id: id).select_map(:id)
       return { error: 'This pack code is in use.' } unless dependents.empty?
 
       DB[:basic_packs].where(id: id).delete
@@ -127,16 +127,16 @@ module MasterfilesApp
     end
 
     def delete_standard_count(id)
-      DB[:fruit_actual_counts_for_packs].where(standard_count_id: id).delete
+      DB[:actual_counts].where(standard_count_id: id).delete
       DB[:standard_counts].where(id: id).delete
     end
 
-    def delete_fruit_actual_counts_for_pack(id)
-      DB[:fruit_actual_counts_for_packs].where(id: id).delete
+    def delete_actual_count(id)
+      DB[:actual_counts].where(id: id).delete
     end
 
-    def find_fruit_actual_counts_for_pack(id)
-      hash = find_with_association(:fruit_actual_counts_for_packs,
+    def find_actual_count(id)
+      hash = find_with_association(:actual_counts,
                                    id,
                                    parent_tables: [{ parent_table: :standard_counts,
                                                      columns: [:size_count_description],
@@ -156,15 +156,15 @@ module MasterfilesApp
 
       hash[:standard_packs] = hash[:standard_packs].map { |r| r[:standard_pack_code] }.sort.join(',')
       hash[:size_references] = hash[:fruit_size_references].map { |r| r[:size_reference] }.sort.join(',')
-      FruitActualCountsForPack.new(hash)
+      ActualCount.new(hash)
     end
 
     def standard_packs(id)
       query = <<~SQL
         SELECT standard_packs.standard_pack_code
         FROM standard_packs
-        JOIN fruit_actual_counts_for_packs ON standard_packs.id = ANY (fruit_actual_counts_for_packs.standard_pack_ids)
-        WHERE fruit_actual_counts_for_packs.id = #{id}
+        JOIN actual_counts ON standard_packs.id = ANY (actual_counts.standard_pack_ids)
+        WHERE actual_counts.id = #{id}
       SQL
       DB[query].order(:standard_pack_code).select_map(:standard_pack_code)
     end
@@ -173,8 +173,8 @@ module MasterfilesApp
       query = <<~SQL
         SELECT fruit_size_references.size_reference
         FROM fruit_size_references
-        JOIN fruit_actual_counts_for_packs ON fruit_size_references.id = ANY (fruit_actual_counts_for_packs.size_reference_ids)
-        WHERE fruit_actual_counts_for_packs.id = #{id}
+        JOIN actual_counts ON fruit_size_references.id = ANY (actual_counts.size_reference_ids)
+        WHERE actual_counts.id = #{id}
       SQL
       DB[query].order(:size_reference).select_map(:size_reference)
     end
@@ -182,7 +182,7 @@ module MasterfilesApp
     def standard_pack_code_dependents(id)
       query = <<~SQL
         SELECT id
-        FROM fruit_actual_counts_for_packs
+        FROM actual_counts
         WHERE #{id} = ANY (standard_pack_ids)
       SQL
       DB[query].select_map(:id)

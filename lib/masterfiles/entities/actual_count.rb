@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class FruitActualCountsForPack < Dry::Struct
+  class ActualCount < Dry::Struct
     attribute :id, Types::Integer
     attribute :standard_count_id, Types::Integer
     attribute :basic_pack_id, Types::Integer
-    attribute :actual_count_for_pack, Types::Integer
+    attribute :actual_count_value, Types::Integer
     attribute :standard_pack_ids, Types::Array
     attribute :size_reference_ids, Types::Array
     attribute :standard_count, Types::String

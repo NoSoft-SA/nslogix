@@ -2,10 +2,10 @@
 
 module Masterfiles
   module Fruit
-    module FruitActualCountsForPack
+    module ActualCounts
       class Show
         def self.call(id)
-          ui_rule = UiRules::Compiler.new(:fruit_actual_counts_for_pack, :show, id: id)
+          ui_rule = UiRules::Compiler.new(:actual_count, :show, id: id)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|
@@ -14,7 +14,7 @@ module Masterfiles
               form.view_only!
               form.add_field :standard_count_id
               form.add_field :basic_pack_id
-              form.add_field :actual_count_for_pack
+              form.add_field :actual_count_value
               form.add_field :active
               form.add_field :standard_packs
               form.add_field :size_references

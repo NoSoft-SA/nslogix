@@ -244,13 +244,13 @@ class AppConst # rubocop:disable Metrics/ClassLength
   # This string provides a format for captions to display on buttons
   # of robots that print carton labels.
   # The string can contain any text and fruitspec tokens that are
-  # delimited by $: and $. e.g. 'Count: $:actual_count_for_pack$'
+  # delimited by $: and $. e.g. 'Count: $:actual_count_value$'
   #
   # The possible fruitspec tokens are:
-  # HBL: 'COUNT: $:actual_count_for_pack$'
+  # HBL: 'COUNT: $:actual_count_value$'
   # UM : 'SIZE: $:size_reference$'
   # SR : '$:size_ref_or_count$ $:product_chars$ $:target_market_group_name$'
-  # * actual_count_for_pack
+  # * actual_count_value
   # * basic_pack_code
   # * commodity_code
   # * grade_code
@@ -426,5 +426,5 @@ class AppConst # rubocop:disable Metrics/ClassLength
 
   # Refresh pallet data
   REFRESH_PALLET_DATA_TABLES = %w[carton_labels cartons pallet_sequences].freeze
-  REFRESH_PALLET_DATA_COLUMNS = %w[fruit_actual_counts_for_pack_id fruit_size_reference_id].freeze
+  REFRESH_PALLET_DATA_COLUMNS = %w[actual_count_id fruit_size_reference_id].freeze
 end

@@ -113,7 +113,7 @@ module EdiApp
                             commodities.use_size_ref_for_edi,
                             fruit_size_references.edi_out_code,
                             fruit_size_references.size_reference,
-                            fruit_actual_counts_for_packs.actual_count_for_pack) AS size_count,
+                            actual_counts.actual_count_value) AS size_count,
           marks.mark_code AS mark,
           inventory_codes.inventory_code AS inv_code,
           govt_inspection_sheets.inspection_point AS inspect_pnt,
@@ -186,7 +186,7 @@ module EdiApp
         JOIN grades ON grades.id = pallet_sequences.grade_id
         JOIN standard_packs ON standard_packs.id = pallet_sequences.standard_pack_id
         LEFT JOIN fruit_size_references ON fruit_size_references.id = pallet_sequences.fruit_size_reference_id
-        LEFT JOIN fruit_actual_counts_for_packs ON fruit_actual_counts_for_packs.id = pallet_sequences.fruit_actual_counts_for_pack_id
+        LEFT JOIN actual_counts ON actual_counts.id = pallet_sequences.actual_count_id
         JOIN pucs ON pucs.id = pallet_sequences.puc_id
         JOIN orchards ON orchards.id = pallet_sequences.orchard_id
         WHERE loads.id = ?

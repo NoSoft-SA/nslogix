@@ -75,7 +75,7 @@ module Crossbeams
       orchards
       party_addresses
       party_contact_methods
-      fruit_actual_counts_for_packs
+      actual_counts
       treatments
       ports
       vessel_types

@@ -88,7 +88,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     standard_counts: { rules: { table_column_names: %w[commodity_id size_count_value size_count_description uom_id marketing_size_range_mm marketing_weight_range size_count_interval_group minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm average_weight_gm], required_columns: %w[commodity_code size_count_value size_count_description uom], lookup_columns: %w[commodity_id uom_id] } },
     standard_packs: { rules: { table_column_names: %w[standard_pack_code material_mass basic_pack_id], required_columns: %w[standard_pack_code material_mass], lookup_columns: %w[basic_pack_id] } },
     basic_packs: { rules: { table_column_names: %w[basic_pack_code], required_columns: %w[basic_pack_code description] } },
-    fruit_actual_counts_for_packs: { rules: { table_column_names: %w[standard_count_id basic_pack_id actual_count_for_pack standard_pack_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_for_pack], lookup_columns: %w[standard_count_id basic_pack_id], lookup_arrays: %w[standard_pack_ids size_reference_ids] } }
+    actual_counts: { rules: { table_column_names: %w[standard_count_id basic_pack_id actual_count_value standard_pack_ids size_reference_ids], required_columns: %w[commodity_code size_count_value basic_pack_code actual_count_value], lookup_columns: %w[standard_count_id basic_pack_id], lookup_arrays: %w[standard_pack_ids size_reference_ids] } }
   }.freeze
 
   MF_COLUMN_LOOKUP_DEFINATIONS = {
@@ -130,7 +130,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
   }.freeze
 
   NUMERIC_COLUMNS = %i[size_count_value minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm
-                       average_weight_gm material_mass standard_size_count_value actual_count_for_pack].freeze
+                       average_weight_gm material_mass standard_size_count_value actual_count_value].freeze
 
   ARRAY_PARAM_COLUMNS = %i[standard_count_id].freeze
 

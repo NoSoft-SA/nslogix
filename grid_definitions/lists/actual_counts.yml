@@ -1,0 +1,28 @@
+---
+:dataminer_definition: actual_counts
+:actions:
+- :url: "/masterfiles/fruit/actual_counts/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/actual_counts/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/actual_counts/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/list/standard_counts"
+  :text: Back
+  :style: :back_button
+:conditions:
+  :standard:
+    - :col: actual_counts.standard_count_id
+      :op: =
+      :val: $:actual_counts.standard_count_id$

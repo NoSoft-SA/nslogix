@@ -78,30 +78,30 @@ Sequel.migration do
                    function_name: :pgt_standard_packs_set_updated_at,
                    trigger_name: :set_updated_at)
 
-    create_table(:fruit_actual_counts_for_packs, ignore_index_errors: true) do
+    create_table(:actual_counts, ignore_index_errors: true) do
       primary_key :id
       foreign_key :standard_count_id, :standard_counts, null: false
       foreign_key :basic_pack_id, :basic_packs, null: false
       column :standard_pack_ids, 'integer[]'
       column :size_reference_ids, 'integer[]'
 
-      Integer :actual_count_for_pack, null: false
+      Integer :actual_count_value, null: false
       TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      unique [:standard_count_id, :basic_pack_id], name: :fruit_actual_counts_for_packs_idx
-      index [:standard_count_id], name: :fki_fruit_actual_counts_for_packs_standard_counts
-      index [:basic_pack_id], name: :fki_fruit_actual_counts_for_packs_basic_packs
-      index [:standard_pack_id], name: :fki_fruit_actual_counts_for_packs_standard_packs
+      unique [:standard_count_id, :basic_pack_id], name: :actual_counts_idx
+      index [:standard_count_id], name: :fki_actual_counts_standard_counts
+      index [:basic_pack_id], name: :fki_actual_counts_basic_packs
+      index [:standard_pack_id], name: :fki_actual_counts_standard_packs
     end
-    pgt_created_at(:fruit_actual_counts_for_packs,
+    pgt_created_at(:actual_counts,
                    :created_at,
-                   function_name: :pgt_fruit_actual_counts_for_packs_set_created_at,
+                   function_name: :pgt_actual_counts_set_created_at,
                    trigger_name: :set_created_at)
-    pgt_updated_at(:fruit_actual_counts_for_packs,
+    pgt_updated_at(:actual_counts,
                    :updated_at,
-                   function_name: :pgt_fruit_actual_counts_for_packs_set_updated_at,
+                   function_name: :pgt_actual_counts_set_updated_at,
                    trigger_name: :set_updated_at)
 
     create_table(:fruit_size_references, ignore_index_errors: true) do
@@ -131,11 +131,11 @@ Sequel.migration do
     drop_function(:pgt_fruit_size_references_set_updated_at)
     drop_table(:fruit_size_references)
 
-    drop_trigger(:fruit_actual_counts_for_packs, :set_created_at)
-    drop_function(:pgt_fruit_actual_counts_for_packs_set_created_at)
-    drop_trigger(:fruit_actual_counts_for_packs, :set_updated_at)
-    drop_function(:pgt_fruit_actual_counts_for_packs_set_updated_at)
-    drop_table(:fruit_actual_counts_for_packs)
+    drop_trigger(:actual_counts, :set_created_at)
+    drop_function(:pgt_actual_counts_set_created_at)
+    drop_trigger(:actual_counts, :set_updated_at)
+    drop_function(:pgt_actual_counts_set_updated_at)
+    drop_table(:actual_counts)
 
     drop_trigger(:standard_packs, :set_created_at)
     drop_function(:pgt_standard_packs_set_created_at)
