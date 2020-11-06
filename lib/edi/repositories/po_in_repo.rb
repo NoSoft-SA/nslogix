@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module EdiApp
-  class PoInRepo < BaseRepo
+  class PoInRepo < EdiInRepo
     def create_pallet(attrs)
       id = DB[:pallets].insert(attrs)
       log_status(:pallets, id, 'DEPOT PALLET CREATED FROM PO', user_name: 'System')

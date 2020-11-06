@@ -102,10 +102,10 @@ module EdiApp
     #
     # @param table_name [Symbol] the db table name.
     # @param status [String] status of created record.
-    # @param args [Hash] the where-clause conditions.
+    # @param args [Hash, OpenStruct, Dry::Schema::Result] the where-clause conditions.
     # @return [integer] the id value for the matching record or nil.
     def create_with_status(table_name, status, args)
-      id = create(table_name, args)
+      id = create(table_name, args.to_h)
       log_status(table_name, id, status)
       id
     end
