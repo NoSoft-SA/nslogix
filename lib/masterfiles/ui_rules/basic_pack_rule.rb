@@ -11,7 +11,7 @@ module UiRules
 
       set_show_fields if @mode == :show
 
-      form_name 'basic_pack_code'
+      form_name 'basic_pack'
     end
 
     def set_show_fields

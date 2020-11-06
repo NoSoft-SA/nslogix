@@ -383,7 +383,7 @@ class Nslogix < Roda
           show_partial { Masterfiles::Fruit::BasicPack::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_basic_pack(id, params[:basic_pack_code])
+          res = interactor.update_basic_pack(id, params[:basic_pack])
           if res.success
             update_grid_row(id,
                             changes: { basic_pack_code: res.instance[:basic_pack_code],
@@ -393,7 +393,7 @@ class Nslogix < Roda
                                        height_mm: res.instance[:height_mm] },
                             notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::BasicPack::Edit.call(id, params[:basic_pack_code], res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::BasicPack::Edit.call(id, params[:basic_pack], res.errors) }
           end
         end
         r.delete do    # DELETE
@@ -416,13 +416,13 @@ class Nslogix < Roda
         show_partial_or_page(r) { Masterfiles::Fruit::BasicPack::New.call(remote: fetch?(r)) }
       end
       r.post do        # CREATE
-        res = interactor.create_basic_pack(params[:basic_pack_code])
+        res = interactor.create_basic_pack(params[:basic_pack])
         if res.success
           flash[:notice] = res.message
           redirect_to_last_grid(r)
         else
           re_show_form(r, res, url: '/masterfiles/fruit/basic_packs/new') do
-            Masterfiles::Fruit::BasicPack::New.call(form_values: params[:basic_pack_code],
+            Masterfiles::Fruit::BasicPack::New.call(form_values: params[:basic_pack],
                                                     form_errors: res.errors,
                                                     remote: fetch?(r))
           end
