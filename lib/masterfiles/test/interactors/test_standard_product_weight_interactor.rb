@@ -5,6 +5,8 @@ require File.join(File.expand_path('../../../../test', __dir__), 'test_helper')
 module MasterfilesApp
   class TestStandardProductWeightInteractor < MiniTestWithHooks
     include StandardProductWeightFactory
+    include FruitFactory
+    include CommodityFactory
 
     def test_repo
       repo = interactor.send(:repo)
