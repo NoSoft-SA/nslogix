@@ -25,7 +25,7 @@ module EdiApp
       header = edi_records.select { |rec| rec[:header].to_s == 'BH' }.to_s
       match_data_on(header)
 
-      process_pallets
+      process_records
 
       check_missing_masterfiles
 
@@ -35,25 +35,35 @@ module EdiApp
 
     private
 
-    def process_pallets # rubocop:disable Metrics/AbcSize
-      pallets = edi_records.select { |rec| rec[:record_type].to_s == 'PS' }.group_by { |rec| rec[:sscc] }
+    def process_records
+      records = edi_records.select { |rec| rec[:record_type].to_s == 'PS' }.group_by { |rec| rec[:sscc] }
 
-      pallets.each do |pallet_number, sequences|
-        repo.transaction do
-          res = PalletSchema.call(build_pallet(pallet_number, sequences.first))
-          return validation_failed_response(res) if res.failure?
+      records.each do |record|
+        attrs = build_attrs(record)
+        sequence = find_pallet_sequence(attrs)
 
-          repo.create_with_status(:pallets, 'CREATED FROM PS', res)
-
-          sequences.each do |sequence|
-            res = PalletSequenceSchema.call(build_sequence(pallet_number, sequence))
-            return validation_failed_response(res) if res.failure?
-
-            repo.create_with_status(:pallet_sequences, 'CREATED FROM PS', res)
-          end
-
-          log_transaction
+        if sequence.nil?
+          create_pallet_sequence(attrs)
+          next
         end
+        update_pallet_sequence(attrs) if sequence != attrs
+      end
+      success_response('Processed pallets')
+    end
+
+    def create_pallet_sequence(params) # rubocop:disable Metrics/AbcSize
+      repo.transaction do
+        res = PalletSchema.call(params)
+        return validation_failed_response(res) if res.failure?
+
+        repo.create_with_status(:pallets, 'CREATED FROM PS', res) if find_pallet(params).nil?
+
+        res = PalletSequenceSchema.call(params)
+        return validation_failed_response(res) if res.failure?
+
+        repo.create_with_status(:pallet_sequences, 'CREATED FROM PS', res)
+
+        log_transaction
       end
       success_response('Created pallet')
     rescue Crossbeams::InfoError => e
@@ -70,10 +80,6 @@ module EdiApp
       pallet[:govt_first_inspection_at] = originally_inspected_at
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
       pallet[:standard_pack_id] = repo.get_masterfile_or_variant(:standard_packs, standard_pack_code: sequence[:pack])
-
-      get_masterfile_or_variant(:basic_packs, basic_pack_code: sequence[:pack])
-
-      pallet[:basic_pack_id] = repo.get_masterfile_value(table_name, column, args)
 
       pallet[:fruit_size_reference_id] = repo.get_masterfile_or_variant(:fruit_size_references, fruit_size_reference: sequence[:size_count])
 
