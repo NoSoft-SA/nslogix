@@ -2,13 +2,13 @@
 
 module MasterfilesApp
   module TaskPermissionCheck
-    class FruitSizeReference < BaseService
+    class SizeReference < BaseService
       attr_reader :task, :entity
-      def initialize(task, fruit_size_reference_id = nil)
+      def initialize(task, size_reference_id = nil)
         @task = task
         @repo = FruitSizeRepo.new
-        @id = fruit_size_reference_id
-        @entity = @id ? @repo.find_fruit_size_reference(@id) : nil
+        @id = size_reference_id
+        @entity = @id ? @repo.find_size_reference(@id) : nil
       end
 
       CHECKS = {
@@ -33,13 +33,13 @@ module MasterfilesApp
       end
 
       def edit_check
-        # return failed_response 'FruitSizeReference has been completed' if completed?
+        # return failed_response 'SizeReference has been completed' if completed?
 
         all_ok
       end
 
       def delete_check
-        # return failed_response 'FruitSizeReference has been completed' if completed?
+        # return failed_response 'SizeReference has been completed' if completed?
 
         all_ok
       end

@@ -10,9 +10,8 @@ module MasterfilesApp
     attribute :size_reference_ids, Types::Array
     attribute :standard_count, Types::String
     attribute :basic_pack_code, Types::String
-    attribute :size_references, Types::String
     attribute? :active, Types::Bool
-    attribute :fruit_size_references, Types::Array.default([].freeze) do
+    attribute :size_references, Types::Array.default([].freeze) do
       attribute :id, Types::Integer
       attribute :size_reference, Types::String
     end

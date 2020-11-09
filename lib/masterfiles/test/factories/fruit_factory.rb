@@ -94,7 +94,7 @@ module MasterfilesApp
       standard_count_id = create_standard_count
       basic_pack_id = create_basic_pack
       standard_pack_ids = create_standard_pack
-      size_reference_ids = create_fruit_size_reference
+      size_reference_ids = create_size_reference
 
       default = {
         standard_count_id: standard_count_id,
@@ -107,7 +107,7 @@ module MasterfilesApp
       DB[:actual_counts].insert(default.merge(opts))
     end
 
-    def create_fruit_size_reference(opts = {})
+    def create_size_reference(opts = {})
       default = {
         size_reference: Faker::Lorem.unique.word,
         edi_out_code: Faker::Lorem.word,
@@ -115,7 +115,7 @@ module MasterfilesApp
         created_at: '2010-01-01 12:00',
         updated_at: '2010-01-01 12:00'
       }
-      DB[:fruit_size_references].insert(default.merge(opts))
+      DB[:size_references].insert(default.merge(opts))
     end
   end
 end

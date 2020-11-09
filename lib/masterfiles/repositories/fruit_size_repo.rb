@@ -47,11 +47,11 @@ module MasterfilesApp
                           value: :id,
                           order_by: :actual_count_value
 
-    build_for_select :fruit_size_references,
+    build_for_select :size_references,
                      label: :size_reference,
                      value: :id,
                      order_by: :size_reference
-    build_inactive_select :fruit_size_references,
+    build_inactive_select :size_references,
                           label: :size_reference,
                           value: :id,
                           order_by: :size_reference
@@ -61,7 +61,7 @@ module MasterfilesApp
     crud_calls_for :standard_product_weights, name: :standard_product_weight, wrapper: StandardProductWeight
     crud_calls_for :standard_counts, name: :standard_count, wrapper: StandardCount
     crud_calls_for :actual_counts, name: :actual_count, wrapper: ActualCount
-    crud_calls_for :fruit_size_references, name: :fruit_size_reference, wrapper: FruitSizeReference
+    crud_calls_for :size_references, name: :size_reference, wrapper: SizeReference
 
     def find_standard_product_weight_flat(id)
       find_with_association(:standard_product_weights,
@@ -144,7 +144,7 @@ module MasterfilesApp
                                                    { parent_table: :basic_packs,
                                                      columns: [:basic_pack_code],
                                                      flatten_columns: { basic_pack_code: :basic_pack_code } }],
-                                   sub_tables: [{ sub_table: :fruit_size_references,
+                                   sub_tables: [{ sub_table: :size_references,
                                                   id_keys_column: :size_reference_ids,
                                                   columns: %i[id size_reference] },
                                                 { sub_table: :standard_packs,
@@ -155,7 +155,7 @@ module MasterfilesApp
       return nil if hash.nil?
 
       hash[:standard_packs] = hash[:standard_packs].map { |r| r[:standard_pack_code] }.sort.join(',')
-      hash[:size_references] = hash[:fruit_size_references].map { |r| r[:size_reference] }.sort.join(',')
+      hash[:size_references] = hash[:size_references].map { |r| r[:size_reference] }.sort.join(',')
       ActualCount.new(hash)
     end
 
@@ -171,9 +171,9 @@ module MasterfilesApp
 
     def size_references(id)
       query = <<~SQL
-        SELECT fruit_size_references.size_reference
-        FROM fruit_size_references
-        JOIN actual_counts ON fruit_size_references.id = ANY (actual_counts.size_reference_ids)
+        SELECT size_references.size_reference
+        FROM size_references
+        JOIN actual_counts ON size_references.id = ANY (actual_counts.size_reference_ids)
         WHERE actual_counts.id = #{id}
       SQL
       DB[query].order(:size_reference).select_map(:size_reference)

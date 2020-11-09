@@ -1,0 +1,29 @@
+---
+:dataminer_definition: size_references
+:actions:
+- :url: "/masterfiles/fruit/size_references/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/fruit/size_references/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/fruit/size_references/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=size_references&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
+:page_controls:
+  - :control_type: :link
+    :url: "/masterfiles/fruit/size_references/new"
+    :text: New Size Reference
+    :style: :button
+    :behaviour: :popup

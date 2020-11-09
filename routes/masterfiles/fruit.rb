@@ -769,40 +769,40 @@ class Nslogix < Roda
       end
     end
 
-    # FRUIT SIZE REFERENCES
+    # SIZE REFERENCES
     # --------------------------------------------------------------------------
-    r.on 'fruit_size_references', Integer do |id|
-      interactor = MasterfilesApp::FruitSizeReferenceInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'size_references', Integer do |id|
+      interactor = MasterfilesApp::SizeReferenceInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
 
       # Check for notfound:
-      r.on !interactor.exists?(:fruit_size_references, id) do
+      r.on !interactor.exists?(:size_references, id) do
         handle_not_found(r)
       end
 
       r.on 'edit' do   # EDIT
         check_auth!('fruit', 'edit')
         interactor.assert_permission!(:edit, id)
-        show_partial { Masterfiles::Fruit::FruitSizeReference::Edit.call(id) }
+        show_partial { Masterfiles::Fruit::SizeReference::Edit.call(id) }
       end
 
       r.is do
         r.get do       # SHOW
           check_auth!('fruit', 'read')
-          show_partial { Masterfiles::Fruit::FruitSizeReference::Show.call(id) }
+          show_partial { Masterfiles::Fruit::SizeReference::Show.call(id) }
         end
         r.patch do     # UPDATE
-          res = interactor.update_fruit_size_reference(id, params[:fruit_size_reference])
+          res = interactor.update_size_reference(id, params[:size_reference])
           if res.success
             update_grid_row(id, changes: { size_reference: res.instance[:size_reference], edi_out_code: res.instance[:edi_out_code] },
                                 notice: res.message)
           else
-            re_show_form(r, res) { Masterfiles::Fruit::FruitSizeReference::Edit.call(id, form_values: params[:fruit_size_reference], form_errors: res.errors) }
+            re_show_form(r, res) { Masterfiles::Fruit::SizeReference::Edit.call(id, form_values: params[:size_reference], form_errors: res.errors) }
           end
         end
         r.delete do    # DELETE
           check_auth!('fruit', 'delete')
           interactor.assert_permission!(:delete, id)
-          res = interactor.delete_fruit_size_reference(id)
+          res = interactor.delete_size_reference(id)
           if res.success
             delete_grid_row(id, notice: res.message)
           else
@@ -812,14 +812,14 @@ class Nslogix < Roda
       end
     end
 
-    r.on 'fruit_size_references' do
-      interactor = MasterfilesApp::FruitSizeReferenceInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+    r.on 'size_references' do
+      interactor = MasterfilesApp::SizeReferenceInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
       r.on 'new' do    # NEW
         check_auth!('fruit', 'new')
-        show_partial_or_page(r) { Masterfiles::Fruit::FruitSizeReference::New.call(remote: fetch?(r)) }
+        show_partial_or_page(r) { Masterfiles::Fruit::SizeReference::New.call(remote: fetch?(r)) }
       end
       r.post do        # CREATE
-        res = interactor.create_fruit_size_reference(params[:fruit_size_reference])
+        res = interactor.create_size_reference(params[:size_reference])
         if res.success
           row_keys = %i[
             id
@@ -830,8 +830,8 @@ class Nslogix < Roda
           add_grid_row(attrs: select_attributes(res.instance, row_keys),
                        notice: res.message)
         else
-          re_show_form(r, res, url: '/masterfiles/fruit/fruit_size_references/new') do
-            Masterfiles::Fruit::FruitSizeReference::New.call(form_values: params[:fruit_size_reference],
+          re_show_form(r, res, url: '/masterfiles/fruit/size_references/new') do
+            Masterfiles::Fruit::SizeReference::New.call(form_values: params[:size_reference],
                                                              form_errors: res.errors,
                                                              remote: fetch?(r))
           end

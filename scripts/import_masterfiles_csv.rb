@@ -102,7 +102,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     basic_pack_id: { subquery: 'SELECT id FROM basic_packs WHERE basic_pack_code = ?', values: 'SELECT basic_pack_code FROM basic_packs WHERE id = ?' },
     standard_pack_id: { subquery: 'SELECT id FROM standard_packs WHERE standard_pack_code = ?', values: 'SELECT standard_pack_code FROM standard_packs WHERE id = ?' },
     standard_pack_ids: { subquery: 'SELECT array_agg(id) FROM standard_packs WHERE standard_pack_code IN ?', values: 'SELECT standard_pack_code FROM standard_packs WHERE id IN ?' },
-    size_reference_ids: { subquery: 'SELECT array_agg(id) FROM fruit_size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM fruit_size_references WHERE id IN ?' },
+    size_reference_ids: { subquery: 'SELECT array_agg(id) FROM size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM size_references WHERE id IN ?' },
     uom_id: { subquery: 'SELECT id FROM uoms WHERE uom_code = ?', values: 'SELECT uom_code FROM uoms WHERE id = ?' },
     farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
     standard_count_id: { subquery: 'SELECT id FROM standard_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM standard_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },

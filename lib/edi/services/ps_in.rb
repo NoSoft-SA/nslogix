@@ -81,7 +81,7 @@ module EdiApp
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
       pallet[:standard_pack_id] = repo.get_masterfile_or_variant(:standard_packs, standard_pack_code: sequence[:pack])
 
-      pallet[:fruit_size_reference_id] = repo.get_masterfile_or_variant(:fruit_size_references, fruit_size_reference: sequence[:size_count])
+      pallet[:size_reference_id] = repo.get_masterfile_or_variant(:size_references, size_reference: sequence[:size_count])
 
       basic_pack_id = repo.find_basic_pack_id(standard_pack_id)
       rec[:lookup_data][:basic_pack_id] = basic_pack_id

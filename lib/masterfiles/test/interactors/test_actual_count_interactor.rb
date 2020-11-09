@@ -79,7 +79,7 @@ module MasterfilesApp
       standard_count_id = create_standard_count
       basic_pack_id = create_basic_pack
       standard_pack_ids = create_standard_pack
-      size_reference_ids = create_fruit_size_reference
+      size_reference_ids = create_size_reference
 
       {
         id: 1,

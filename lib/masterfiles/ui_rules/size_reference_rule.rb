@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module UiRules
-  class FruitSizeReferenceRule < Base
+  class SizeReferenceRule < Base
     def generate_rules
       @repo = MasterfilesApp::FruitSizeRepo.new
       make_form_object
@@ -11,7 +11,7 @@ module UiRules
 
       set_show_fields if @mode == :show
 
-      form_name 'fruit_size_reference'
+      form_name 'size_reference'
     end
 
     def set_show_fields
@@ -30,7 +30,7 @@ module UiRules
     def make_form_object
       make_new_form_object && return if @mode == :new
 
-      @form_object = @repo.find_fruit_size_reference(@options[:id])
+      @form_object = @repo.find_size_reference(@options[:id])
     end
 
     def make_new_form_object

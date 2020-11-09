@@ -104,7 +104,7 @@ Sequel.migration do
                    function_name: :pgt_actual_counts_set_updated_at,
                    trigger_name: :set_updated_at)
 
-    create_table(:fruit_size_references, ignore_index_errors: true) do
+    create_table(:size_references, ignore_index_errors: true) do
       primary_key :id
       String :size_reference, null: false
       String :edi_out_code
@@ -112,24 +112,24 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      unique [:size_reference], name: :fruit_size_references_idx
+      unique [:size_reference], name: :size_references_idx
     end
-    pgt_created_at(:fruit_size_references,
+    pgt_created_at(:size_references,
                    :created_at,
-                   function_name: :pgt_fruit_size_references_set_created_at,
+                   function_name: :pgt_size_references_set_created_at,
                    trigger_name: :set_created_at)
-    pgt_updated_at(:fruit_size_references,
+    pgt_updated_at(:size_references,
                    :updated_at,
-                   function_name: :pgt_fruit_size_references_set_updated_at,
+                   function_name: :pgt_size_references_set_updated_at,
                    trigger_name: :set_updated_at)
   end
 
   down do
-    drop_trigger(:fruit_size_references, :set_created_at)
-    drop_function(:pgt_fruit_size_references_set_created_at)
-    drop_trigger(:fruit_size_references, :set_updated_at)
-    drop_function(:pgt_fruit_size_references_set_updated_at)
-    drop_table(:fruit_size_references)
+    drop_trigger(:size_references, :set_created_at)
+    drop_function(:pgt_size_references_set_created_at)
+    drop_trigger(:size_references, :set_updated_at)
+    drop_function(:pgt_size_references_set_updated_at)
+    drop_table(:size_references)
 
     drop_trigger(:actual_counts, :set_created_at)
     drop_function(:pgt_actual_counts_set_created_at)

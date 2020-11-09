@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MasterfilesApp
-  class FruitSizeReference < Dry::Struct
+  class SizeReference < Dry::Struct
     attribute :id, Types::Integer
     attribute :size_reference, Types::String
     attribute :edi_out_code, Types::String

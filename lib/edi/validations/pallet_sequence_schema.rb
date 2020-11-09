@@ -23,7 +23,7 @@ module EdiApp
       required(:basic_pack_id).filled(:integer)
       required(:standard_pack_id).filled(:integer)
       required(:actual_count_id).maybe(:integer)
-      required(:fruit_size_reference_id).maybe(:integer)
+      required(:size_reference_id).maybe(:integer)
       required(:marketing_org_party_role_id).filled(:integer)
       required(:packed_tm_group_id).filled(:integer)
       required(:mark_id).filled(:integer)
@@ -58,8 +58,8 @@ module EdiApp
       optional(:created_by).maybe(Types::StrippedString)
     end
 
-    rule(:fruit_size_reference_id, :actual_count_id) do
-      base.failure 'must provide either fruit_size_reference or fruit_actual_count' unless values[:fruit_size_reference_id] || values[:actual_count_id]
+    rule(:size_reference_id, :actual_count_id) do
+      base.failure 'must provide either size_reference or fruit_actual_count' unless values[:size_reference_id] || values[:actual_count_id]
     end
   end
 end

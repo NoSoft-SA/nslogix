@@ -111,8 +111,8 @@ module EdiApp
           grades.grade_code AS grade,
           fn_edi_size_count(standard_packs.use_size_ref_for_edi,
                             commodities.use_size_ref_for_edi,
-                            fruit_size_references.edi_out_code,
-                            fruit_size_references.size_reference,
+                            size_references.edi_out_code,
+                            size_references.size_reference,
                             actual_counts.actual_count_value) AS size_count,
           marks.mark_code AS mark,
           inventory_codes.inventory_code AS inv_code,
@@ -185,7 +185,7 @@ module EdiApp
         JOIN target_market_groups ON target_market_groups.id = pallet_sequences.packed_tm_group_id
         JOIN grades ON grades.id = pallet_sequences.grade_id
         JOIN standard_packs ON standard_packs.id = pallet_sequences.standard_pack_id
-        LEFT JOIN fruit_size_references ON fruit_size_references.id = pallet_sequences.fruit_size_reference_id
+        LEFT JOIN size_references ON size_references.id = pallet_sequences.size_reference_id
         LEFT JOIN actual_counts ON actual_counts.id = pallet_sequences.actual_count_id
         JOIN pucs ON pucs.id = pallet_sequences.puc_id
         JOIN orchards ON orchards.id = pallet_sequences.orchard_id

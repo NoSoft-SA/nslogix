@@ -9,7 +9,7 @@ module Crossbeams
       contact_method_types
       cultivar_groups
       destination_regions
-      fruit_size_references
+      size_references
       grades
       inventory_codes
       location_assignments
@@ -87,7 +87,7 @@ module Crossbeams
     MF_LKP_ARRAY_RULES = {
       cultivar_ids: { subquery: 'SELECT array_agg(id) FROM cultivars WHERE cultivar_name IN ?', values: 'SELECT cultivar_name FROM cultivars WHERE id IN ?' }, # && commodity? :cultivar_id
       standard_pack_ids: { subquery: 'SELECT array_agg(id) FROM standard_packs WHERE standard_pack_code IN ?', values: 'SELECT standard_pack_code FROM standard_packs WHERE id IN ?' },
-      size_reference_ids: { subquery: 'SELECT array_agg(id) FROM fruit_size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM fruit_size_references WHERE id IN ?' }
+      size_reference_ids: { subquery: 'SELECT array_agg(id) FROM size_references WHERE size_reference IN ?', values: 'SELECT size_reference FROM size_references WHERE id IN ?' }
     }.freeze
 
     # The subquery is the subquery to be injected in the INSERT statement.

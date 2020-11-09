@@ -13,7 +13,7 @@
       ORDER BY spc.standard_pack_code) AS fruit_spc) AS standard_packs,
       (SELECT array_agg(fruit_sr.size_reference)
       FROM (SELECT sr.size_reference
-      FROM fruit_size_references sr
+      FROM size_references sr
       JOIN actual_counts fac ON sr.id = ANY (fac.size_reference_ids)
       WHERE fac.id = actual_counts.id
       ORDER BY sr.size_reference) AS fruit_sr) AS size_references

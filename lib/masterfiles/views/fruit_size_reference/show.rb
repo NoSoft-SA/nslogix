@@ -2,10 +2,10 @@
 
 module Masterfiles
   module Fruit
-    module FruitSizeReference
+    module SizeReference
       class Show
         def self.call(id)
-          ui_rule = UiRules::Compiler.new(:fruit_size_reference, :show, id: id)
+          ui_rule = UiRules::Compiler.new(:size_reference, :show, id: id)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|

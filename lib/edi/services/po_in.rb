@@ -44,7 +44,7 @@ module EdiApp
         records.each do |_, pallet|
           attrs = pallet[:record]
           pallet[:lookup_data].each do |field, val|
-            next if %i[standard_pack_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id].include?(field)
+            next if %i[standard_pack_id basic_pack_id cartons_per_pallet_id size_reference_id].include?(field)
 
             attrs[field] = val
           end
@@ -57,7 +57,7 @@ module EdiApp
             seq_attrs = rec[:record]
             seq_attrs[:pallet_id] = pallet_id
             pallet[:lookup_data].each do |field, val|
-              next unless %i[standard_pack_id basic_pack_id cartons_per_pallet_id fruit_size_reference_id pallet_format_id].include?(field)
+              next unless %i[standard_pack_id basic_pack_id cartons_per_pallet_id size_reference_id pallet_format_id].include?(field)
 
               seq_attrs[field] = val
             end
@@ -164,9 +164,9 @@ module EdiApp
       rec[:lookup_data][:standard_pack_id] = standard_pack_id
       rec[:missing_mf][:standard_pack_id] = { mode: :direct, raise: false, keys: { pack: seq[:pack] } } if standard_pack_id.nil?
 
-      fruit_size_reference_id = po_repo.find_fruit_size_reference_id(seq[:size_count])
-      rec[:lookup_data][:fruit_size_reference_id] = fruit_size_reference_id
-      rec[:missing_mf][:fruit_size_reference_id] = { mode: :direct, raise: false, keys: { size_count: seq[:size_count] } } if fruit_size_reference_id.nil?
+      size_reference_id = po_repo.find_size_reference_id(seq[:size_count])
+      rec[:lookup_data][:size_reference_id] = size_reference_id
+      rec[:missing_mf][:size_reference_id] = { mode: :direct, raise: false, keys: { size_count: seq[:size_count] } } if size_reference_id.nil?
 
       basic_pack_id = po_repo.find_basic_pack_id(standard_pack_id)
       rec[:lookup_data][:basic_pack_id] = basic_pack_id

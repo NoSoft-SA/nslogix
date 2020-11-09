@@ -2,10 +2,10 @@
 
 module Masterfiles
   module Fruit
-    module FruitSizeReference
+    module SizeReference
       class Edit
         def self.call(id, form_values = nil, form_errors = nil)
-          ui_rule = UiRules::Compiler.new(:fruit_size_reference, :edit, id: id, form_values: form_values)
+          ui_rule = UiRules::Compiler.new(:size_reference, :edit, id: id, form_values: form_values)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|
@@ -13,7 +13,7 @@ module Masterfiles
             page.form_values form_values
             page.form_errors form_errors
             page.form do |form|
-              form.action "/masterfiles/fruit/fruit_size_references/#{id}"
+              form.action "/masterfiles/fruit/size_references/#{id}"
               form.remote!
               form.method :update
               form.add_field :size_reference

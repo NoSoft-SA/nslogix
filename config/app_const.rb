@@ -358,7 +358,7 @@ class AppConst # rubocop:disable Metrics/ClassLength
 
   MF_VARIANT_RULES = { Cities: { table_name: 'destination_cities', column_name: 'city_name' },
                        Depots: { table_name: 'depots', column_name: 'depot_code' },
-                       Fruit_Size_References: { table_name: 'fruit_size_references', column_name: 'size_reference' },
+                       Size_References: { table_name: 'size_references', column_name: 'size_reference' },
                        Grades: { table_name: 'grades', column_name: 'grade_code' },
                        Inventory_Codes: { table_name: 'inventory_codes', column_name: 'inventory_code' },
                        Marketing_Varieties: { table_name: 'marketing_varieties', column_name: 'marketing_variety_code' },
@@ -426,5 +426,5 @@ class AppConst # rubocop:disable Metrics/ClassLength
 
   # Refresh pallet data
   REFRESH_PALLET_DATA_TABLES = %w[carton_labels cartons pallet_sequences].freeze
-  REFRESH_PALLET_DATA_COLUMNS = %w[actual_count_id fruit_size_reference_id].freeze
+  REFRESH_PALLET_DATA_COLUMNS = %w[actual_count_id size_reference_id].freeze
 end

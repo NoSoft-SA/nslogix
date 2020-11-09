@@ -83,11 +83,11 @@ module EdiApp
         .get(:id)
     end
 
-    def find_fruit_size_reference_id(code)
-      id = DB[:fruit_size_references].where(size_reference: code).or(edi_out_code: code).get(:id)
+    def find_size_reference_id(code)
+      id = DB[:size_references].where(size_reference: code).or(edi_out_code: code).get(:id)
       return id unless id.nil?
 
-      find_variant_id(:fruit_size_references, code)
+      find_variant_id(:size_references, code)
     end
 
     def find_mark_id(code)

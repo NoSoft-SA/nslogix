@@ -44,7 +44,7 @@ module UiRules
                              caption: 'Standard Pack Codes',
                              required: true },
         size_reference_ids: { renderer: :multi,
-                              options: MasterfilesApp::FruitSizeRepo.new.for_select_fruit_size_references,
+                              options: MasterfilesApp::FruitSizeRepo.new.for_select_size_references,
                               selected: @form_object.size_reference_ids,
                               caption: 'Size References',
                               required: true }
