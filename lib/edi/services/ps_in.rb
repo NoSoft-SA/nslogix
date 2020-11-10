@@ -78,10 +78,33 @@ module EdiApp
       transaction_at = repo.time_from_date_val(sequence[:tran_date])
 
       pallet = {}
+      pallet[:depot_pallet] = true
+      pallet[:edi_in_consignment_note_number] = sequence[:cons_no]
+      pallet[:edi_in_transaction_id] = edi_in_transaction.id
+      pallet[:pallet_number] = pallet_number
+      pallet[:in_stock] = true
+      pallet[:inspected] = !originally_inspected_at.nil? || !inspected_at.nil?
+      pallet[:weight_measured_at] = weight_measured_at
+      pallet[:stock_created_at] = intake_created_at || inspected_at || Time.now
+      pallet[:phc] = sequence[:packh_code]
+      pallet[:intake_created_at] = intake_created_at
+      pallet[:gross_weight] = sequence[:pallet_gross_mass].nil? || sequence[:pallet_gross_mass].to_f.zero? ? nil : sequence[:pallet_gross_mass]
+      pallet[:gross_weight_measured_at] = weighed_date
+      pallet[:palletized] = true
+      pallet[:palletized_at] = intake_created_at
+      pallet[:created_at] = intake_created_at
+      pallet[:reinspected] = !reinspect_at.nil?
+      pallet[:govt_inspection_passed] = !originally_inspected_at.nil? || !inspected_at.nil?
+      pallet[:cooled] = false
+      pallet[:temp_tail] = sequence[:temp_device_id]
+      pallet[:edi_in_inspection_point] = sequence[:inspect_pnt]
+      pallet[:carton_quantity] = sequence[:ctn_qty].to_i
+      pallet[:pick_ref] = sequence[:pick_ref]
+      pallet[:sell_by_code] = sequence[:sellbycode]
+      pallet[:product_chars] = sequence[:prod_char]
       pallet[:govt_first_inspection_at] = originally_inspected_at
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
       pallet[:standard_pack_id] = repo.get_variant_id(:standard_packs, standard_pack_code: sequence[:pack])
-
       pallet[:size_reference_id] = repo.get_variant_id(:size_references, size_reference: sequence[:size_count])
       pallet[:puc_id] = repo.get_variant_id(:pucs, puc_code: sequence[:farm])
       pallet[:farm_id] = repo.get_value(:farms_pucs, :farm_id, puc_id: pallet[:puc_id])
@@ -90,41 +113,12 @@ module EdiApp
       pallet[:cultivar_group_id] = repo.get_variant_id(:cultivar_groups, cultivar_group_code: sequence[:cultivar_group])
       pallet[:marketing_variety_id] = repo.get_variant_id(:marketing_varieties, marketing_variety_code: sequence[:variety])
       pallet[:season_id] = MasterfilesApp::CalendarRepo.new.get_season_id(pallet[:cultivar_id], inspected_at || transaction_at)
-
       pallet[:marketing_org_party_role_id] = MasterfilesApp::PartyRepo.new.find_party_role_from_org_code(sequence[:orgzn], AppConst::ROLE_MARKETER)
-
-
       pallet[:packed_tm_group_id] = repo.get_variant_id(:target_market_groups, target_market_group_name: sequence[:targ_mkt])
       pallet[:mark_id] = repo.get_variant_id(:marks, mark_code: sequence[:mark])
       pallet[:grade_id] = repo.get_variant_id(:grades, grade_code: sequence[:grade])
       pallet[:inventory_code_id] = repo.get_variant_id(:inventory_codes, inventory_code: sequence[:inv_code])
-
-      {
-        depot_pallet: true,
-        edi_in_consignment_note_number: sequence[:cons_no],
-        edi_in_transaction_id: edi_in_transaction.id,
-        pallet_number: pallet_number,
-        in_stock: true,
-        inspected: !originally_inspected_at.nil? || !inspected_at.nil?,
-        weight_measured_at: weight_measured_at,
-        stock_created_at: intake_created_at || inspected_at || Time.now,
-        phc: sequence[:packh_code],
-        intake_created_at: intake_created_at,
-        gross_weight: sequence[:pallet_gross_mass].nil? || sequence[:pallet_gross_mass].to_f.zero? ? nil : sequence[:pallet_gross_mass],
-        gross_weight_measured_at: weighed_date,
-        palletized: true,
-        palletized_at: intake_created_at,
-        created_at: intake_created_at,
-        reinspected: !reinspect_at.nil?,
-        govt_inspection_passed: !originally_inspected_at.nil? || !inspected_at.nil?,
-        cooled: false,
-        temp_tail: sequence[:temp_device_id],
-        edi_in_inspection_point: sequence[:inspect_pnt],
-        carton_quantity: sequence[:ctn_qty].to_i,
-        pick_ref: sequence[:pick_ref],
-        sell_by_code: sequence[:sellbycode],
-        product_chars: sequence[:prod_char]   # ???
-      }
+      pallet
     end
 
     def check_missing_masterfiles
