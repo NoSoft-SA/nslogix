@@ -91,27 +91,14 @@ module EdiApp
       pallet[:marketing_variety_id] = repo.get_variant_id(:marketing_varieties, marketing_variety_code: sequence[:variety])
       pallet[:season_id] = MasterfilesApp::CalendarRepo.new.get_season_id(pallet[:cultivar_id], inspected_at || transaction_at)
 
-      marketing_org_party_role_id = MasterfilesApp::PartyRepo.new.find_party_role_from_org_code(sequence[:orgzn], AppConst::ROLE_MARKETER)
-      marketing_org_party_role_id = repo.find_variant_id(:marketing_party_roles, sequence[:orgzn]) if marketing_org_party_role_id.nil?
-      rec[:lookup_data][:marketing_org_party_role_id] = marketing_org_party_role_id
-      rec[:missing_mf][:marketing_org_party_role_id] = { mode: :direct, keys: { orgzn: sequence[:orgzn], role: AppConst::ROLE_MARKETER } } if marketing_org_party_role_id.nil?
-      packed_tm_group_id = repo.find_packed_tm_group_id(sequence[:targ_mkt])
-      rec[:lookup_data][:packed_tm_group_id] = packed_tm_group_id
-      rec[:missing_mf][:packed_tm_group_id] = { mode: :direct, raise: false, keys: { targ_mkt: sequence[:targ_mkt] } } if packed_tm_group_id.nil?
-      mark_id = repo.find_mark_id(sequence[:mark])
-      rec[:lookup_data][:mark_id] = mark_id
-      rec[:missing_mf][:mark_id] = { mode: :direct, raise: false, keys: { mark: sequence[:mark] } } if mark_id.nil?
-      inventory_code_id = repo.find_inventory_code_id(sequence[:inv_code])
-      rec[:lookup_data][:inventory_code_id] = inventory_code_id
-      rec[:missing_mf][:inventory_code_id] = { mode: :direct, raise: false, keys: { inv_code: sequence[:inv_code] } } if inventory_code_id.nil?
-      grade_id = repo.find_grade_id(sequence[:grade])
-      rec[:lookup_data][:grade_id] = grade_id
-      rec[:missing_mf][:grade_id] = { mode: :direct, keys: { grade: sequence[:grade] } } if grade_id.nil?
+      pallet[:marketing_org_party_role_id] = MasterfilesApp::PartyRepo.new.find_party_role_from_org_code(sequence[:orgzn], AppConst::ROLE_MARKETER)
 
-      rec[:lookup_data][:basic_pack_id] = parent[:lookup_data][:basic_pack_id]
-      rec[:lookup_data][:standard_pack_id] = parent[:lookup_data][:standard_pack_id]
-      rec[:lookup_data][:pallet_format_id] = parent[:lookup_data][:pallet_format_id]
-      rec[:lookup_data][:cartons_per_pallet_id] = parent[:lookup_data][:cartons_per_pallet_id]
+
+      pallet[:packed_tm_group_id] = repo.get_variant_id(:target_market_groups, target_market_group_name: sequence[:targ_mkt])
+      pallet[:mark_id] = repo.get_variant_id(:marks, mark_code: sequence[:mark])
+      pallet[:grade_id] = repo.get_variant_id(:grades, grade_code: sequence[:grade])
+      pallet[:inventory_code_id] = repo.get_variant_id(:inventory_codes, inventory_code: sequence[:inv_code])
+
       {
         depot_pallet: true,
         edi_in_consignment_note_number: sequence[:cons_no],
