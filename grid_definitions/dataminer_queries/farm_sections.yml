@@ -1,10 +1,9 @@
 ---
 :caption: Farm Sections
-:sql: SELECT "farm_sections"."id", "farm_sections"."farm_manager_party_role_id", "farm_sections"."farm_section_name",
-  fn_party_role_name("farm_sections"."farm_manager_party_role_id")AS farm_manager_party_role, string_agg(orchard_code::text, ', '::text) AS orchards
-  , "farm_sections"."description"
-  FROM "farm_sections" JOIN orchards on orchards.farm_section_id=farm_sections.id
-  GROUP BY "farm_sections"."id", "farm_sections"."farm_manager_party_role_id", "farm_sections"."farm_section_name", "farm_sections"."description"
+:sql: "SELECT\r\n    farm_sections.id,\r\n    farm_sections.farm_section_name,\r\n
+  \   farm_sections.description,\r\n    farm_sections.farm_manager_party_role_id,\r\n
+  \   fn_party_role_name(farm_sections.farm_manager_party_role_id) AS farm_manager_party_role\r\n\r\nFROM
+  farm_sections\r\nGROUP BY farm_sections.id"
 :limit: 
 :offset: 
 :external_settings: {}
@@ -25,25 +24,9 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  farm_manager_party_role_id:
-    :name: farm_manager_party_role_id
-    :sequence_no: 2
-    :caption: Farm manager party role
-    :namespaced_name: farm_sections.farm_manager_party_role_id
-    :data_type: :integer
-    :width: 
-    :format: 
-    :hide: true
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
   farm_section_name:
     :name: farm_section_name
-    :sequence_no: 3
+    :sequence_no: 2
     :caption: Farm section name
     :namespaced_name: farm_sections.farm_section_name
     :data_type: :string
@@ -59,7 +42,7 @@
     :group_max: false
   description:
     :name: description
-    :sequence_no: 8
+    :sequence_no: 3
     :caption: Description
     :namespaced_name: farm_sections.description
     :data_type: :string
@@ -68,6 +51,22 @@
     :hide: false
     :pinned: 
     :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_manager_party_role_id:
+    :name: farm_manager_party_role_id
+    :sequence_no: 4
+    :caption: Farm manager party role
+    :namespaced_name: farm_sections.farm_manager_party_role_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
     :group_by_seq: 
     :group_sum: false
     :group_avg: false
@@ -97,12 +96,13 @@
   :default_value: 
   :ordered_list: false
   :ui_priority: 1
-  :list_def: SELECT fn_party_role_name(id), id FROM party_roles WHERE role_id = (SELECT id FROM roles WHERE name = 'FARM_MANAGER')
+  :list_def: SELECT fn_party_role_name(id), id FROM party_roles WHERE role_id = (SELECT
+    id FROM roles WHERE name = 'FARM_MANAGER')
 - :column: farm_sections.farm_id
   :caption: Farm
   :data_type: :integer
   :control_type: :list
-  :default_value:
+  :default_value: 
   :ordered_list: true
   :ui_priority: 1
   :list_def: SELECT farm_code, id FROM farms ORDER BY farm_code

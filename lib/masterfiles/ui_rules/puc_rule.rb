@@ -15,16 +15,21 @@ module UiRules
     end
 
     def set_show_fields
-      fields[:puc_code] = { renderer: :label }
-      fields[:gap_code] = { renderer: :label }
-      fields[:active] = { renderer: :label, as_boolean: true }
-      fields[:farms] = { renderer: :list, items: puc_farm_codes }
+      fields[:puc_code] = { renderer: :label,
+                            caption: 'PUC Code' }
+      fields[:gap_code] = { renderer: :label,
+                            caption: 'GAP Code' }
+      fields[:active] = { renderer: :label,
+                          as_boolean: true }
+      fields[:farms] = { renderer: :list,
+                         items: puc_farm_codes }
     end
 
     def common_fields
       {
-        puc_code: { required: true },
-        gap_code: {},
+        puc_code: { required: true,
+                    caption: 'PUC Code' },
+        gap_code: { caption: 'GAP Code' },
         active: { renderer: :checkbox }
       }
     end

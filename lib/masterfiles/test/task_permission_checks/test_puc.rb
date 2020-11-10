@@ -18,19 +18,19 @@ module MasterfilesApp
 
     def test_create
       res = MasterfilesApp::TaskPermissionCheck::Puc.call(:create)
-      assert res.success, 'Should always be able to create a puc'
+      assert res.success, 'Should always be able to create a PUC'
     end
 
     def test_edit
       MasterfilesApp::FarmRepo.any_instance.stubs(:find_puc).returns(entity)
       res = MasterfilesApp::TaskPermissionCheck::Puc.call(:edit, 1)
-      assert res.success, 'Should be able to edit a puc'
+      assert res.success, 'Should be able to edit a PUC'
     end
 
     def test_delete
       MasterfilesApp::FarmRepo.any_instance.stubs(:find_puc).returns(entity)
       res = MasterfilesApp::TaskPermissionCheck::Puc.call(:delete, 1)
-      assert res.success, 'Should be able to delete a puc'
+      assert res.success, 'Should be able to delete a PUC'
     end
   end
 end

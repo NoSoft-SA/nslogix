@@ -82,14 +82,14 @@ module MasterfilesApp
       {
         id: 1,
         owner_party_role_id: party_role_id,
-        pdn_region_id: production_region_id,
+        production_region_id: production_region_id,
         farm_group_id: farm_group_id,
         farm_code: Faker::Lorem.unique.word,
         description: 'ABC',
         puc_id: puc_id,
         farm_group_code: 'ABC',
         owner_party_role: 'ABC',
-        pdn_region_production_region_code: 'ABC',
+        production_region_code: 'ABC',
         active: true
       }
     end

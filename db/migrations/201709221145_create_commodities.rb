@@ -5,7 +5,7 @@ Sequel.migration do
     create_table(:commodity_groups, ignore_index_errors: true) do
       primary_key :id
       String :commodity_group_code, null: false
-      String :description, size: 255, null: false
+      String :description, size: 255
       TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

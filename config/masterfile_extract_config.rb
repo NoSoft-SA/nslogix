@@ -143,7 +143,7 @@ module Crossbeams
       role_id: { subquery: 'SELECT id FROM roles WHERE name = ?', values: 'SELECT name FROM roles WHERE id = ?' },
       organization_id: { subquery: 'SELECT id FROM organizations WHERE short_description = ?', values: 'SELECT short_description FROM organizations WHERE id = ?' },
       person_id: { subquery: 'SELECT id FROM people WHERE surname = ? AND first_name = ?', values: 'SELECT surname, first_name FROM people WHERE id = ?' },
-      pdn_region_id: { subquery: 'SELECT id FROM production_regions WHERE production_region_code = ?', values: 'SELECT production_region_code FROM production_regions WHERE id = ?' },
+      production_region_id: { subquery: 'SELECT id FROM production_regions WHERE production_region_code = ?', values: 'SELECT production_region_code FROM production_regions WHERE id = ?' },
       voyage_type_id: { subquery: 'SELECT id FROM voyage_types WHERE voyage_type_code = ?', values: 'SELECT voyage_type_code FROM voyage_types WHERE id = ?' },
       vessel_type_id: { subquery: 'SELECT id FROM vessel_types WHERE vessel_type_code = ?', values: 'SELECT vessel_type_code FROM vessel_types WHERE id = ?' },
       city_id: { subquery: 'SELECT id FROM destination_cities WHERE city_name = ?', values: 'SELECT city_name FROM destination_cities WHERE id = ?' },

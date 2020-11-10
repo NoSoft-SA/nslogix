@@ -1,0 +1,24 @@
+---
+:dataminer_definition: production_regions
+:actions:
+- :url: "/masterfiles/farms/production_regions/$:id$"
+  :text: view
+  :icon: view-show
+  :title: View
+  :popup: true
+- :url: "/masterfiles/farms/production_regions/$:id$/edit"
+  :text: edit
+  :icon: edit
+  :title: Edit
+  :popup: true
+- :url: "/masterfiles/farms/production_regions/$:id$"
+  :text: delete
+  :icon: delete
+  :is_delete: true
+  :popup: true
+:page_controls:
+- :control_type: :link
+  :url: "/masterfiles/farms/production_regions/new"
+  :text: New Production Region
+  :style: :button
+  :behaviour: :popup

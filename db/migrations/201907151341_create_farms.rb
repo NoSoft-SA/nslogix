@@ -28,7 +28,7 @@ Sequel.migration do
     create_table(:farms, ignore_index_errors: true) do
       primary_key :id
       foreign_key :owner_party_role_id, :party_roles, type: :integer, null: false
-      foreign_key :pdn_region_id, :production_regions, type: :integer, null: false
+      foreign_key :production_region_id, :production_regions, type: :integer, null: false
       foreign_key :farm_group_id, :farm_groups, type: :integer
       # foreign_key :puc_id, :pucs, type: :integer, null: false
       String :farm_code, size: 255, null: false
@@ -122,9 +122,7 @@ Sequel.migration do
 
     create_table(:orchards, ignore_index_errors: true) do
       primary_key :id
-      foreign_key :farm_id, :farms, type: :integer, null: false
       foreign_key :puc_id, :pucs, type: :integer, null: false
-      foreign_key :farm_section_id, :farm_sections
       String :orchard_code, size: 255, null: false
       String :description
       column :cultivar_ids, 'int[]'
@@ -132,7 +130,7 @@ Sequel.migration do
       DateTime :created_at, null: false
       DateTime :updated_at, null: false
 
-      index [:farm_id, :orchard_code], name: :farm_orchard_unique_code, unique: true
+      index [:orchard_code], name: :orchard_unique_code, unique: true
     end
     pgt_created_at(:orchards,
                    :created_at,

@@ -71,8 +71,7 @@ module MasterfilesApp
       failed_response(e.message)
     end
 
-    def update_farm_section(id, params) # rubocop:disable Metrics/AbcSize
-      params[:farm_id] = repo.get(:orchards, params[:orchard_ids][0], :farm_id)
+    def update_farm_section(id, params)
       res = validate_farm_section_params(params)
       return validation_failed_response(res) if res.failure?
 
@@ -111,12 +110,12 @@ module MasterfilesApp
     end
 
     def associate_farms_pucs(id, farms_pucs_ids)
-      return validation_failed_response(OpenStruct.new(messages: { farms_pucs_ids: ['You did not choose a puc'] })) if farms_pucs_ids.empty?
+      return validation_failed_response(OpenStruct.new(messages: { farms_pucs_ids: ['You did not choose a PUC'] })) if farms_pucs_ids.empty?
 
       repo.transaction do
         repo.associate_farms_pucs(id, farms_pucs_ids)
       end
-      success_response('Farm => Puc associated successfully')
+      success_response('Farm => PUC associated successfully')
     end
 
     private

@@ -8,7 +8,7 @@ module Masterfiles
           ui_rule = UiRules::Compiler.new(:orchard, :new, farm_id: farm_id, form_values: form_values)
           rules   = ui_rule.compile
 
-          layout = Crossbeams::Layout::Page.build(rules) do |page| # rubocop:disable Metrics/BlockLength
+          layout = Crossbeams::Layout::Page.build(rules) do |page|
             page.form_object ui_rule.form_object
             page.form_values form_values
             page.form_errors form_errors
@@ -19,13 +19,9 @@ module Masterfiles
               form.form_id 'orchard_form'
               form.row do |row|
                 row.column do |col|
-                  col.add_field :farm
-                  col.add_field :farm_id
                   col.add_field :orchard_code
-                end
-                row.column do |col|
-                  col.add_field :puc_id
                   col.add_field :description
+                  col.add_field :puc_id
                 end
               end
               form.row do |row|

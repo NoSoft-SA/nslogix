@@ -39,7 +39,7 @@ module MasterfilesApp
 
       default = {
         owner_party_role_id: owner_party_role_id,
-        pdn_region_id: production_region_id,
+        production_region_id: production_region_id,
         farm_group_id: farm_group_id,
         farm_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
@@ -60,12 +60,10 @@ module MasterfilesApp
     end
 
     def create_orchard(opts = {})
-      farm_id = create_farm
       puc_id = create_puc
       cultivar_id = create_cultivar
 
       default = {
-        farm_id: farm_id,
         orchard_code: Faker::Lorem.unique.word,
         description: Faker::Lorem.word,
         cultivar_ids: "{#{cultivar_id}}",

@@ -23,7 +23,7 @@ Sequel.migration do
     create_table(:cultivars, ignore_index_errors: true) do
       primary_key :id
       foreign_key :commodity_id, :commodities, null: false
-      foreign_key :cultivar_group_id, :cultivar_groups
+      foreign_key :cultivar_group_id, :cultivar_groups, null: false
       String :cultivar_code
       String :cultivar_name, null: false
       String :description

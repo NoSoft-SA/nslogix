@@ -82,7 +82,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     marketing_varieties: { rules: { table_column_names: %w[marketing_variety_code description], required_columns: %w[marketing_variety_code description] } },
     cultivars: { rules: { table_column_names: %w[commodity_id cultivar_group_id cultivar_name description], required_columns: %w[commodity_code cultivar_group_code cultivar_name description], lookup_columns: %w[commodity_id cultivar_group_id] } },
     marketing_varieties_for_cultivars: { rules: { table_column_names: %w[cultivar_id marketing_variety_id], required_columns: %w[cultivar_name marketing_variety_code], lookup_columns: %w[cultivar_id marketing_variety_id] } },
-    farms: { rules: { table_column_names: %w[farm_code owner_party_role_id pdn_region_id description], required_columns: %w[farm_owner_name farm_owner_surname production_region_code description primary_puc_code], lookup_columns: %w[pdn_region_id], lookup_party_role_columns: %w[owner_party_role_id] } },
+    farms: { rules: { table_column_names: %w[farm_code owner_party_role_id production_region_id description], required_columns: %w[farm_owner_name farm_owner_surname production_region_code description primary_puc_code], lookup_columns: %w[production_region_id], lookup_party_role_columns: %w[owner_party_role_id] } },
     orchards: { rules: { table_column_names: %w[farm_id puc_id orchard_code cultivar_ids], required_columns: %w[farm_code puc_code orchard_code], lookup_columns: %w[farm_id puc_id], lookup_arrays: %w[farm_id puc_id] } },
     pucs: { rules: { table_column_names: %w[puc_code gap_code], required_columns: %w[puc_code] } },
     standard_counts: { rules: { table_column_names: %w[commodity_id size_count_value size_count_description uom_id marketing_size_range_mm marketing_weight_range size_count_interval_group minimum_size_mm maximum_size_mm average_size_mm minimum_weight_gm maximum_weight_gm average_weight_gm], required_columns: %w[commodity_code size_count_value size_count_description uom], lookup_columns: %w[commodity_id uom_id] } },
@@ -107,7 +107,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     farm_group_id: { subquery: 'SELECT id FROM farm_groups WHERE farm_group_code = ?', values: 'SELECT farm_group_code FROM farm_groups WHERE id = ?' },
     standard_count_id: { subquery: 'SELECT id FROM standard_counts WHERE size_count_value = ? AND commodity_id = (SELECT id FROM commodities WHERE code = ?)', values: 'SELECT s.size_count_value, c.code FROM standard_counts s JOIN commodities c ON c.id = s.commodity_id WHERE s.id = ?' },
     owner_party_role_id: { subquery: 'SELECT id FROM party_roles WHERE person_id = ? AND role_id = ?', values: 'SELECT person_id,role_id FROM party_roles WHERE id = ?' },
-    pdn_region_id: { subquery: 'SELECT id FROM production_regions WHERE production_region_code = ?', values: 'SELECT production_region_code FROM production_regions WHERE id = ?' },
+    production_region_id: { subquery: 'SELECT id FROM production_regions WHERE production_region_code = ?', values: 'SELECT production_region_code FROM production_regions WHERE id = ?' },
     zzz: {}
   }.freeze
 
@@ -125,7 +125,7 @@ class ImportMasterfilesCsv < BaseScript # rubocop:disable Metrics/ClassLength
     standard_pack_ids: { column_name: 'standard_packs', alt_column: 'basic_pack_id' },
     size_reference_ids: { column_name: 'size_references' },
     uom_id: { column_name: 'uom' },
-    pdn_region_id: { column_name: 'production_region_code' },
+    production_region_id: { column_name: 'production_region_code' },
     standard_count_id: { column_name: %w[size_count_value commodity_code] }
   }.freeze
 

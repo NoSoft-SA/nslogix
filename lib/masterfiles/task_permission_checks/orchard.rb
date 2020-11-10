@@ -15,9 +15,6 @@ module MasterfilesApp
         create: :create_check,
         edit: :edit_check,
         delete: :delete_check
-        # complete: :complete_check,
-        # approve: :approve_check,
-        # reopen: :reopen_check
       }.freeze
 
       def call
@@ -36,14 +33,10 @@ module MasterfilesApp
       end
 
       def edit_check
-        # return failed_response 'Orchard has been completed' if completed?
-
         all_ok
       end
 
       def delete_check
-        # return failed_response 'Orchard has been completed' if completed?
-
         all_ok
       end
     end

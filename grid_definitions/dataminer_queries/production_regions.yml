@@ -1,10 +1,8 @@
 ---
-:caption: PUC's
-:sql: "SELECT pucs.id,\r\n       pucs.puc_code,\r\n       fn_masterfile_variants('pucs',
-  pucs.id) AS variant_codes,\r\n       pucs.gap_code,\r\n       array_agg(farms.farm_code
-  order by farms.farm_code) AS farm_codes,\r\n       pucs.active,\r\n       pucs.created_at,\r\n
-  \      pucs.updated_at\r\nFROM pucs\r\nLEFT JOIN farms_pucs on pucs.id = farms_pucs.puc_id\r\nLEFT
-  JOIN farms on farms_pucs.farm_id = farms.id\r\nGROUP BY pucs.id"
+:caption: Production Regions
+:sql: "SELECT \"production_regions\".\"id\", \"production_regions\".\"production_region_code\",
+  \"production_regions\".\"description\", \"production_regions\".\"active\", \"production_regions\".\"created_at\",
+  \"production_regions\".\"updated_at\"\r\nFROM \"production_regions\""
 :limit: 
 :offset: 
 :external_settings: {}
@@ -13,7 +11,7 @@
     :name: id
     :sequence_no: 1
     :caption: Id
-    :namespaced_name: pucs.id
+    :namespaced_name: production_regions.id
     :data_type: :integer
     :width: 
     :format: 
@@ -25,11 +23,11 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  puc_code:
-    :name: puc_code
+  production_region_code:
+    :name: production_region_code
     :sequence_no: 2
-    :caption: PUC code
-    :namespaced_name: pucs.puc_code
+    :caption: Production region code
+    :namespaced_name: production_regions.production_region_code
     :data_type: :string
     :width: 
     :format: 
@@ -41,49 +39,17 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-  variant_codes:
-    :name: variant_codes
+  description:
+    :name: description
     :sequence_no: 3
-    :caption: Variant codes
-    :namespaced_name: 
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  gap_code:
-    :name: gap_code
-    :sequence_no: 4
-    :caption: GAP code
-    :namespaced_name: pucs.gap_code
+    :caption: Description
+    :namespaced_name: production_regions.description
     :data_type: :string
     :width: 
     :format: 
     :hide: false
     :pinned: 
     :groupable: true
-    :group_by_seq: 
-    :group_sum: false
-    :group_avg: false
-    :group_min: false
-    :group_max: false
-  farm_codes:
-    :name: farm_codes
-    :sequence_no: 5
-    :caption: Farm codes
-    :namespaced_name: 
-    :data_type: :string
-    :width: 
-    :format: 
-    :hide: false
-    :pinned: 
-    :groupable: false
     :group_by_seq: 
     :group_sum: false
     :group_avg: false
@@ -91,9 +57,9 @@
     :group_max: false
   active:
     :name: active
-    :sequence_no: 6
+    :sequence_no: 4
     :caption: Active
-    :namespaced_name: pucs.active
+    :namespaced_name: production_regions.active
     :data_type: :boolean
     :width: 
     :format: 
@@ -107,9 +73,9 @@
     :group_max: false
   created_at:
     :name: created_at
-    :sequence_no: 7
+    :sequence_no: 5
     :caption: Created at
-    :namespaced_name: pucs.created_at
+    :namespaced_name: production_regions.created_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -123,9 +89,9 @@
     :group_max: false
   updated_at:
     :name: updated_at
-    :sequence_no: 8
+    :sequence_no: 6
     :caption: Updated at
-    :namespaced_name: pucs.updated_at
+    :namespaced_name: production_regions.updated_at
     :data_type: :datetime
     :width: 
     :format: 
@@ -137,4 +103,12 @@
     :group_avg: false
     :group_min: false
     :group_max: false
-:query_parameter_definitions: []
+:query_parameter_definitions:
+- :column: production_regions.production_region_code
+  :caption: Production region code
+  :data_type: :string
+  :control_type: :text
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: 

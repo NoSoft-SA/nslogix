@@ -238,14 +238,13 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
           if res.success
             row_keys = %i[
               owner_party_role_id
-              pdn_region_id
-              farm_group_id
+              production_region_id
               farm_code
               description
               puc_id
               farm_group_code
               owner_party_role
-              pdn_region_production_region_code
+              production_region_code
               active
             ]
             update_grid_row(id, changes: select_attributes(res.instance, row_keys), notice: res.message)
@@ -265,6 +264,7 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
         end
       end
     end
+
     r.on 'farms' do
       interactor = MasterfilesApp::FarmInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
       r.on 'new' do    # NEW
@@ -277,13 +277,12 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
           row_keys = %i[
             id
             owner_party_role_id
-            pdn_region_id
-            farm_group_id
+            production_region_id
             farm_code
             description
             farm_group_code
             owner_party_role
-            pdn_region_production_region_code
+            production_region_code
             active
           ]
           add_grid_row(attrs: select_attributes(res.instance, row_keys),
@@ -297,9 +296,12 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
         end
       end
     end
+
     # ORCHARDS
+    # --------------------------------------------------------------------------
     r.on 'orchards', Integer do |id|
       interactor = MasterfilesApp::OrchardInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+
       # Check for notfound:
       r.on !interactor.exists?(:orchards, id) do
         handle_not_found(r)
@@ -325,7 +327,6 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
           res = interactor.update_orchard(id, params[:orchard])
           if res.success
             row_keys = %i[
-              farm_id
               puc_id
               orchard_code
               description
@@ -347,6 +348,35 @@ class Nslogix < Roda # rubocop:disable Metrics/ClassLength
             delete_grid_row(id, notice: res.message)
           else
             show_json_error(res.message, status: 200)
+          end
+        end
+      end
+    end
+
+    r.on 'orchards' do
+      interactor = MasterfilesApp::OrchardInteractor.new(current_user, {}, { route_url: request.path, request_ip: request.ip }, {})
+      r.on 'new' do    # NEW
+        check_auth!('farms', 'new')
+        show_partial_or_page(r) { Masterfiles::Farms::Orchard::New.call(remote: fetch?(r)) }
+      end
+      r.post do        # CREATE
+        res = interactor.create_orchard(params[:orchard])
+        if res.success
+          row_keys = %i[
+            id
+            puc_id
+            orchard_code
+            description
+            cultivar_ids
+            active
+          ]
+          add_grid_row(attrs: select_attributes(res.instance, row_keys),
+                       notice: res.message)
+        else
+          re_show_form(r, res, url: '/masterfiles/farms/orchards/new') do
+            Masterfiles::Farms::Orchard::New.call(form_values: params[:orchard],
+                                                  form_errors: res.errors,
+                                                  remote: fetch?(r))
           end
         end
       end

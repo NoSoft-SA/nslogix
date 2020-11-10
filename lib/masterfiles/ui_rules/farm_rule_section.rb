@@ -23,7 +23,6 @@ module UiRules
       fields[:farm_manager_party_role_id] = { renderer: :label, with_value: farm_manager_party_role_id_label, caption: 'Farm Manager' }
       fields[:farm_section_name] = { renderer: :label }
       fields[:description] = { renderer: :label }
-      fields[:orchard_ids] = { renderer: :list, caption: 'Orchards', items: @repo.for_select_orchards(where: { id: @form_object.orchard_ids }) }
     end
 
     def common_fields
@@ -33,8 +32,7 @@ module UiRules
                                       disabled_options: MasterfilesApp::PartyRepo.new.for_select_inactive_party_roles(AppConst::ROLE_FARM_MANAGER),
                                       prompt: 'Select Farm Manager',
                                       caption: 'Farm Manager', required: true },
-        description: {},
-        orchard_ids: { renderer: :multi, options: @repo.for_select_orchards(where: { farm_id: @options[:farm_id], farm_section_id: nil }) + @repo.for_select_orchards(where: { id: @form_object.orchard_ids }), caption: 'Orchards', selected: @form_object.orchard_ids, required: true  }
+        description: {}
       }
     end
 

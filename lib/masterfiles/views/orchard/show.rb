@@ -4,7 +4,7 @@ module Masterfiles
   module Farms
     module Orchard
       class Show
-        def self.call(id) # rubocop:disable Metrics/AbcSize
+        def self.call(id)
           ui_rule = UiRules::Compiler.new(:orchard, :show, id: id)
           rules   = ui_rule.compile
 
@@ -16,8 +16,6 @@ module Masterfiles
               form.add_field :farm_id
               form.add_field :puc_id
               form.add_field :orchard_code
-              form.add_field :farm_section_name
-              form.add_field :farm_manager_party_role_id
               form.add_field :description
               form.add_field :active
               form.add_field :cultivar_ids

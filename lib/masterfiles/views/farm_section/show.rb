@@ -16,7 +16,6 @@ module Masterfiles
               form.add_field :farm_section_name
               form.add_field :farm_manager_party_role_id
               form.add_field :description
-              form.add_field :orchard_ids
             end
           end
 

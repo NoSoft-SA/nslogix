@@ -17,7 +17,7 @@ module Masterfiles
               form.action '/masterfiles/farms/farms'
               form.remote! if remote
               form.add_field :owner_party_role_id
-              form.add_field :pdn_region_id
+              form.add_field :production_region_id
               form.add_field :farm_group_id
               form.add_field :puc_id
               form.add_field :farm_code

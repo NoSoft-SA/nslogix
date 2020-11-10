@@ -13,7 +13,7 @@ module Masterfiles
             page.form_values form_values
             page.form_errors form_errors
             page.form do |form|
-              form.caption 'Edit Puc'
+              form.caption 'Edit PUC'
               form.action "/masterfiles/farms/pucs/#{id}"
               form.remote!
               form.method :update

@@ -216,7 +216,6 @@ class Nslogix < Roda
             id
             variant
             masterfile_table
-            masterfile_column
             masterfile_code
             variant_code
             masterfile_id

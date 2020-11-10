@@ -18,26 +18,29 @@ module UiRules
 
     def set_show_fields # rubocop:disable Metrics/AbcSize
       owner_party_role_id_label = MasterfilesApp::PartyRepo.new.find_party_role(@form_object.owner_party_role_id)&.party_name
-      pdn_region_id_label = @repo.find_hash(:production_regions, @form_object.pdn_region_id)[:production_region_code]
+      production_region_id_label = @repo.find_hash(:production_regions, @form_object.production_region_id)[:production_region_code]
       farm_group_id_label = @repo.find_farm_group(@form_object.farm_group_id)&.farm_group_code
       puc_id_label = @repo.find_puc(@form_object.puc_id)&.puc_code
       fields[:owner_party_role_id] = { renderer: :label,
                                        with_value: owner_party_role_id_label,
                                        caption: 'Farm Owner' }
-      fields[:pdn_region_id] = { renderer: :label,
-                                 with_value: pdn_region_id_label,
-                                 caption: 'Pdn Region' }
+      fields[:production_region_id] = { renderer: :label,
+                                        with_value: production_region_id_label,
+                                        caption: 'Production Region' }
       fields[:farm_group_id] = { renderer: :label,
                                  with_value: farm_group_id_label,
                                  caption: 'Farm Group' }
       fields[:puc_id] = { renderer: :label,
                           with_value: puc_id_label,
-                          caption: 'Primary Puc' }
+                          caption: 'Primary PUC' }
       fields[:farm_code] = { renderer: :label }
       fields[:description] = { renderer: :label }
-      fields[:active] = { renderer: :label, as_boolean: true }
-      fields[:pucs] = { renderer: :list, items: farm_puc_codes }
-      fields[:orchards] = { renderer: :list, items: farm_orchard_codes }
+      fields[:active] = { renderer: :label,
+                          as_boolean: true }
+      fields[:pucs] = { renderer: :list,
+                        items: farm_puc_codes }
+      fields[:orchards] = { renderer: :list,
+                            items: farm_orchard_codes }
     end
 
     def common_fields
@@ -47,10 +50,10 @@ module UiRules
                                options: MasterfilesApp::PartyRepo.new.for_select_party_roles(AppConst::ROLE_FARM_OWNER),
                                required: true,
                                caption: 'Farm Owner' },
-        pdn_region_id: { renderer: :select,
-                         options: @repo.for_select_production_regions,
-                         disabled_options: @repo.for_select_inactive_production_regions,
-                         required: true },
+        production_region_id: { renderer: :select,
+                                options: @repo.for_select_production_regions,
+                                disabled_options: @repo.for_select_inactive_production_regions,
+                                required: true },
         farm_group_id: { renderer: :select,
                          options: @repo.for_select_farm_groups,
                          disabled_options: @repo.for_select_inactive_farm_groups,
@@ -61,7 +64,7 @@ module UiRules
         puc_id: { renderer: :select,
                   options: farms_pucs,
                   disabled_options: @repo.for_select_inactive_pucs,
-                  caption: 'Primary Puc',
+                  caption: 'Primary PUC',
                   required: true }
       }
     end
@@ -77,7 +80,7 @@ module UiRules
 
     def make_new_form_object
       @form_object = OpenStruct.new(owner_party_role_id: nil,
-                                    pdn_region_id: nil,
+                                    production_region_id: nil,
                                     farm_group_id: nil,
                                     farm_code: nil,
                                     description: nil,

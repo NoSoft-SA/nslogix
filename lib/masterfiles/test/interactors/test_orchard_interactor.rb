@@ -75,22 +75,18 @@ module MasterfilesApp
     private
 
     def orchard_attrs
-      farm_id = create_farm
       puc_id = create_puc
       cultivar_id = create_cultivar
-      farm_section_id = create_farm_section
 
       {
         id: 1,
-        farm_id: farm_id,
-        puc_id: puc_id,
-        farm_manager_party_role_id: farm_section_id,
-        farm_section_name: 'ABC',
         orchard_code: Faker::Lorem.unique.word,
         description: 'ABC',
-        cultivar_ids: [cultivar_id],
+        puc_id: puc_id,
         puc_code: 'ABC',
+        cultivar_ids: [cultivar_id],
         cultivar_names: 'ABC',
+        cultivar_codes: 'ABC',
         active: true
       }
     end

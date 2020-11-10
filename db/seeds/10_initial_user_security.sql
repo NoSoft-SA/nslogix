@@ -1,12 +1,3 @@
-INSERT INTO functional_areas (functional_area_name) VALUES('Security') ON CONFLICT DO NOTHING;
-INSERT INTO functional_areas (functional_area_name) VALUES('Dataminer') ON CONFLICT DO NOTHING;
-INSERT INTO functional_areas (functional_area_name) VALUES('Development') ON CONFLICT DO NOTHING;
-
-INSERT INTO programs (program_name, functional_area_id) VALUES('Menu', (SELECT id FROM functional_areas WHERE functional_area_name = 'Security')) ON CONFLICT DO NOTHING;
-INSERT INTO programs (program_name, functional_area_id) VALUES('Reports', (SELECT id FROM functional_areas WHERE functional_area_name = 'Dataminer')) ON CONFLICT DO NOTHING;
-INSERT INTO programs (program_name, functional_area_id) VALUES('Generators', (SELECT id FROM functional_areas WHERE functional_area_name = 'Development')) ON CONFLICT DO NOTHING;
-INSERT INTO programs (program_name, functional_area_id) VALUES('Masterfiles', (SELECT id FROM functional_areas WHERE functional_area_name = 'Development')) ON CONFLICT DO NOTHING;
-
 INSERT INTO programs_users (user_id, program_id, security_group_id)
 VALUES ((SELECT id FROM users ORDER BY id LIMIT 1),
   (SELECT id FROM programs WHERE program_name = 'Menu' AND functional_area_id = (SELECT id FROM functional_areas WHERE functional_area_name = 'Security')),

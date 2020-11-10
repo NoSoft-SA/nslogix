@@ -10,7 +10,7 @@ module MasterfilesApp
       base_attrs = {
         id: 1,
         owner_party_role_id: 1,
-        pdn_region_id: 1,
+        production_region_id: 1,
         farm_group_id: 1,
         farm_code: 'ABC',
         description: 'ABC',
@@ -19,7 +19,7 @@ module MasterfilesApp
         farms_pucs_ids: [1, 2],
         farm_group_code: 'ABC',
         owner_party_role: 'ABC',
-        pdn_region_production_region_code: 'ABC'
+        production_region_code: 'ABC'
       }
       MasterfilesApp::Farm.new(base_attrs.merge(attrs))
     end
