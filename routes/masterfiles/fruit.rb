@@ -832,8 +832,8 @@ class Nslogix < Roda
         else
           re_show_form(r, res, url: '/masterfiles/fruit/size_references/new') do
             Masterfiles::Fruit::SizeReference::New.call(form_values: params[:size_reference],
-                                                             form_errors: res.errors,
-                                                             remote: fetch?(r))
+                                                        form_errors: res.errors,
+                                                        remote: fetch?(r))
           end
         end
       end
