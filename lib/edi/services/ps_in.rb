@@ -37,7 +37,7 @@ module EdiApp
 
     def process_records
       records = edi_records.select { |rec| rec[:record_type].to_s == 'PS' }.group_by { |rec| rec[:sscc] }
-
+      log records
       records.each do |record|
         attrs = build_attrs(record)
         sequence = find_pallet_sequence(attrs)
@@ -70,90 +70,28 @@ module EdiApp
       failed_response(e.message)
     end
 
-    def build_pallet(pallet_number, sequence) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    def build_attrs(sequence) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       originally_inspected_at = repo.time_from_date_val(sequence[:orig_inspec_date])
       inspected_at = repo.time_from_date_val(sequence[:inspec_date])
-      # intake_created_at = repo.time_from_date_val(sequence[:intake_date])
-      # weight_measured_at = repo.time_from_date_and_time(sequence[:weighing_date], sequence[:weighing_time])
+      intake_created_at = repo.time_from_date_val(sequence[:intake_date])
+      weight_measured_at = repo.time_from_date_and_time(sequence[:weighing_date], sequence[:weighing_time])
+      transaction_at = repo.time_from_date_val(sequence[:tran_date])
 
       pallet = {}
       pallet[:govt_first_inspection_at] = originally_inspected_at
       pallet[:govt_reinspection_at] = inspected_at if originally_inspected_at != inspected_at
-      pallet[:standard_pack_id] = repo.get_masterfile_or_variant(:standard_packs, standard_pack_code: sequence[:pack])
+      pallet[:standard_pack_id] = repo.get_variant_id(:standard_packs, standard_pack_code: sequence[:pack])
 
-      pallet[:size_reference_id] = repo.get_masterfile_or_variant(:size_references, size_reference: sequence[:size_count])
+      pallet[:size_reference_id] = repo.get_variant_id(:size_references, size_reference: sequence[:size_count])
+      pallet[:puc_id] = repo.get_variant_id(:pucs, puc_code: sequence[:farm])
+      pallet[:farm_id] = repo.get_value(:farms_pucs, :farm_id, puc_id: pallet[:puc_id])
+      pallet[:orchard_id] = repo.get_variant_id(:orchards, orchard_code: sequence[:orchard], puc_id: pallet[:puc_id])
+      pallet[:cultivar_id] = repo.get_variant_id(:cultivars, cultivar_code: sequence[:cultivar])
+      pallet[:cultivar_group_id] = repo.get_variant_id(:cultivar_groups, cultivar_group_code: sequence[:cultivar_group])
+      pallet[:marketing_variety_id] = repo.get_variant_id(:marketing_varieties, marketing_variety_code: sequence[:variety])
+      pallet[:season_id] = MasterfilesApp::CalendarRepo.new.get_season_id(pallet[:cultivar_id], inspected_at || transaction_at)
 
-      basic_pack_id = repo.find_basic_pack_id(standard_pack_id)
-      rec[:lookup_data][:basic_pack_id] = basic_pack_id
-      rec[:missing_mf][:basic_pack_id] = { mode: :direct, raise: false, keys: { size_count: sequence[:size_count] } } if basic_pack_id.nil?
-
-      pallet_format_id, cartons_per_pallet_id = repo.find_pallet_format_and_cpp_id(sequence[:pallet_btype], tot_cartons, basic_pack_id)
-      rec[:lookup_data][:pallet_format_id] = pallet_format_id
-      rec[:missing_mf][:pallet_format_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_id: basic_pack_id } } if pallet_format_id.nil?
-      rec[:lookup_data][:cartons_per_pallet_id] = cartons_per_pallet_id
-      rec[:missing_mf][:cartons_per_pallet_id] = { mode: :direct, raise: true, keys: { pallet_btype: sequence[:pallet_btype], cartons: tot_cartons, basic_pack_id: basic_pack_id } } if cartons_per_pallet_id.nil?
-
-      # pallet_format_id: 0, # lookup
-      {
-        depot_pallet: true,
-        edi_in_consignment_note_number: sequence[:cons_no],
-        edi_in_transaction_id: edi_in_transaction.id,
-        pallet_number: pallet_number,
-        in_stock: true,
-        inspected: !orig_inspec_date.nil? || !inspec_date.nil?,
-
-        stock_created_at: intake_date || inspec_date || Time.now,
-        phc: sequence[:packh_code],
-        intake_created_at: intake_date,
-        gross_weight: sequence[:pallet_gross_mass].nil? || sequence[:pallet_gross_mass].to_f.zero? ? nil : sequence[:pallet_gross_mass],
-        gross_weight_measured_at: weighed_date,
-        palletized: true,
-        palletized_at: intake_date,
-        created_at: intake_date,
-        reinspected: !reinspect_at.nil?,
-        govt_inspection_passed: !orig_inspec_date.nil? || !inspec_date.nil?,
-        cooled: false,
-        temp_tail: sequence[:temp_device_id],
-        edi_in_inspection_point: sequence[:inspect_pnt]
-      }
-    end
-
-    def build_sequence(pallet_number, sequence) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-      rec = {
-        lookup_data: {},  # data looked up from masterfiles.
-        missing_mf: {},   # details about failed lookups
-        missing_data: {}, # non-lookup data that should be in the file but is not.
-        record: {}        # data that maps directly from the file
-      }
-
-      parent = records[pallet_number]
-
-      inspec_date = repo.time_from_date_val(sequence[:inspec_date])
-      tran_date = repo.time_from_date_val(sequence[:tran_date])
-
-      puc_id = repo.find_puc_id(sequence[:farm])
-      rec[:lookup_data][:puc_id] = puc_id
-      rec[:missing_mf][:puc_id] = { mode: :direct, raise: true, keys: { farm: sequence[:farm] } } if puc_id.nil?
-
-      farm_id = repo.find_farm_id(puc_id)
-      rec[:lookup_data][:farm_id] = farm_id
-      rec[:missing_mf][:farm_id] = { mode: :indirect, raise: true, keys: { puc_id: puc_id } } if farm_id.nil?
-      orchard_id = repo.find_orchard_id(farm_id, sequence[:orchard])
-      rec[:lookup_data][:orchard_id] = orchard_id
-      rec[:missing_mf][:orchard_id] = { mode: :direct, raise: false, keys: { farm_id: farm_id, orchard: sequence[:orchard] } } if orchard_id.nil?
-      marketing_variety_id = repo.find_marketing_variety_id(sequence[:variety])
-      rec[:lookup_data][:marketing_variety_id] = marketing_variety_id
-      rec[:missing_mf][:marketing_variety_id] = { mode: :direct, raise: true, keys: { variety: sequence[:variety] } } if marketing_variety_id.nil?
-      cultivar_id = repo.find_cultivar_id_from_mkv(marketing_variety_id)
-      rec[:lookup_data][:cultivar_id] = cultivar_id
-      rec[:missing_mf][:cultivar_id] = { mode: :indirect, keys: { marketing_variety_id: marketing_variety_id } } if cultivar_id.nil?
-      cultivar_group_id = repo.find_cultivar_group_id(cultivar_id)
-      rec[:lookup_data][:cultivar_group_id] = cultivar_group_id
-      rec[:missing_mf][:cultivar_group_id] = { mode: :indirect, keys: { cultivar_id: cultivar_id } } if cultivar_group_id.nil?
-      season_id = repo.find_season_id(inspec_date || tran_date, cultivar_id)
-      rec[:lookup_data][:season_id] = season_id
-      rec[:missing_mf][:season_id] = { mode: :direct, raise: true, keys: { date: inspec_date || tran_date, cultivar_id: cultivar_id } } if season_id.nil?
-      marketing_org_party_role_id = MasterfilesApp::PartyRepo.new.find_party_role_from_org_code_for_role(sequence[:orgzn], AppConst::ROLE_MARKETER)
+      marketing_org_party_role_id = MasterfilesApp::PartyRepo.new.find_party_role_from_org_code(sequence[:orgzn], AppConst::ROLE_MARKETER)
       marketing_org_party_role_id = repo.find_variant_id(:marketing_party_roles, sequence[:orgzn]) if marketing_org_party_role_id.nil?
       rec[:lookup_data][:marketing_org_party_role_id] = marketing_org_party_role_id
       rec[:missing_mf][:marketing_org_party_role_id] = { mode: :direct, keys: { orgzn: sequence[:orgzn], role: AppConst::ROLE_MARKETER } } if marketing_org_party_role_id.nil?
@@ -174,16 +112,32 @@ module EdiApp
       rec[:lookup_data][:standard_pack_id] = parent[:lookup_data][:standard_pack_id]
       rec[:lookup_data][:pallet_format_id] = parent[:lookup_data][:pallet_format_id]
       rec[:lookup_data][:cartons_per_pallet_id] = parent[:lookup_data][:cartons_per_pallet_id]
-
-      rec[:record] = {
+      {
         depot_pallet: true,
+        edi_in_consignment_note_number: sequence[:cons_no],
+        edi_in_transaction_id: edi_in_transaction.id,
         pallet_number: pallet_number,
+        in_stock: true,
+        inspected: !originally_inspected_at.nil? || !inspected_at.nil?,
+        weight_measured_at: weight_measured_at,
+        stock_created_at: intake_created_at || inspected_at || Time.now,
+        phc: sequence[:packh_code],
+        intake_created_at: intake_created_at,
+        gross_weight: sequence[:pallet_gross_mass].nil? || sequence[:pallet_gross_mass].to_f.zero? ? nil : sequence[:pallet_gross_mass],
+        gross_weight_measured_at: weighed_date,
+        palletized: true,
+        palletized_at: intake_created_at,
+        created_at: intake_created_at,
+        reinspected: !reinspect_at.nil?,
+        govt_inspection_passed: !originally_inspected_at.nil? || !inspected_at.nil?,
+        cooled: false,
+        temp_tail: sequence[:temp_device_id],
+        edi_in_inspection_point: sequence[:inspect_pnt],
         carton_quantity: sequence[:ctn_qty].to_i,
         pick_ref: sequence[:pick_ref],
         sell_by_code: sequence[:sellbycode],
         product_chars: sequence[:prod_char]   # ???
       }
-      records[pallet_number][:sub_records] << rec
     end
 
     def check_missing_masterfiles

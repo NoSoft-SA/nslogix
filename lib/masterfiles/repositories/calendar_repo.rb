@@ -37,6 +37,11 @@ module MasterfilesApp
       Season.new(hash)
     end
 
+    # Gets the season id from a record matching on the args
+    #
+    # @param cultivar_id [integer] the season cultivar id.
+    # @param date [Time] the season date conditions.
+    # @return [integer] the id value for the matching record or nil.
     def get_season_id(cultivar_id, date)
       raise ArgumentError, 'get_season_id: cultivar_id and date required' unless cultivar_id && date
 
