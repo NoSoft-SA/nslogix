@@ -14,8 +14,8 @@ module EdiApp
       Time.new(date[0, 4], date[4, 2], date[6, 3], *time.split(':'))
     end
 
-    def get_masterfile_or_variant(table_name, args)
-      id = repo.get_id(table_name, args) || repo.get_variant_id(table_name, args.values.first)
+    def get_masterfile_variant(table_name, args)
+      id = repo.get_variant_id(table_name, args)
       return id unless id.nil?
 
       missing_masterfiles << "#{table_name}: #{args} for #{pallet_number}"

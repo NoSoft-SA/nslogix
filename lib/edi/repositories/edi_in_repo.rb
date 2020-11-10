@@ -69,13 +69,13 @@ module EdiApp
       DB[:edi_in_transactions].where(id: ids).update(newer_edi_received: true, reprocessed: true)
     end
 
-    # Gets the variant id from a record matching on the variant code
+    # Gets the id or variant id from a record matching on the args
     #
     # @param table_name [Symbol] the db table name.
-    # @param variant_code [String] the where-clause condition.
+    # @param args [Hash] the where-clause conditions.
     # @return [integer] the id value for the matching record or nil.
-    def get_variant_id(table_name, variant_code)
-      DB[:masterfile_variants].where(masterfile_table: table_name.to_s, variant_code: variant_code).get(:masterfile_id)
+    def get_variant_id(table_name, args)
+      MasterfilesApp::MasterfileVariantRepo.new.get_variant_id(table_name, args)
     end
 
     # Gets the id from a record matching on the args where the strings are case insensitive

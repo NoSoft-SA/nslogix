@@ -190,7 +190,7 @@ module EdiApp
       raise Crossbeams::InfoError, "There is no role #{role_name}" if role_id.nil?
 
       org_id = repo.get_case_insensitive_match(:organizations, medium_description: party_role_name)
-      org_id ||= repo.get_variant_id(:organizations, party_role_name)
+      org_id ||= repo.get_variant_id(:organizations, medium_description: party_role_name)
       id = repo.get_id(:party_roles, role_id: role_id, organization_id: org_id)
       return id unless id.nil?
 
