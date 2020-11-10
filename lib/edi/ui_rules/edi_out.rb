@@ -52,7 +52,10 @@ module UiRules
     end
 
     def make_form_object
-      make_new_form_object && return if @mode == :new
+      if @mode == :new
+        make_new_form_object
+        return
+      end
 
       @form_object = OpenStruct.new(@repo.find_edi_out_rule_flat(@options[:id]).to_h)
       @form_object[:destination_type] =  @form_object.depot_id.nil_or_empty? ? AppConst::PARTY_ROLE_DESTINATION_TYPE : AppConst::DEPOT_DESTINATION_TYPE

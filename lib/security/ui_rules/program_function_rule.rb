@@ -25,7 +25,10 @@ module UiRules
     end
 
     def make_form_object
-      make_new_form_object && return if @mode == :new
+      if @mode == :new
+        make_new_form_object
+        return
+      end
 
       @form_object = @repo.find_program_function(@options[:id])
     end

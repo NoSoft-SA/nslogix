@@ -28,8 +28,14 @@ module UiRules
     end
 
     def make_form_object
-      make_new_form_object && return if @mode == :new
-      make_permission_form_object && return if @mode == :permissions
+      if @mode == :new
+        make_new_form_object
+        return
+      end
+      if @mode == :permissions
+        make_permission_form_object
+        return
+      end
 
       @form_object = @repo.find_security_group(@options[:id])
     end

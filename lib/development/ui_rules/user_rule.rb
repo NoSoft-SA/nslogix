@@ -75,7 +75,10 @@ module UiRules
     end
 
     def make_form_object # rubocop:disable Metrics/AbcSize
-      make_new_form_object && return if @mode == :new
+      if @mode == :new
+        make_new_form_object
+        return
+      end
 
       @form_object = if @mode == :details
                        OpenStruct.new(@repo.find_user(@options[:id]).to_h.merge(password: nil,
