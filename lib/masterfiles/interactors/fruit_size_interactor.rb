@@ -33,29 +33,18 @@ module MasterfilesApp
       res = validate_actual_count_params(params)
       return validation_failed_response(res) if res.failure?
 
-      id = repo.create_actual_count(process_array_params(res.to_h))
+      id = repo.create_actual_count(res)
       instance = actual_count(id)
       success_response("Created fruit actual counts for pack #{instance.id}", instance)
     rescue Sequel::UniqueConstraintViolation
       validation_failed_response(OpenStruct.new(messages: { actual_count_value: ['This fruit actual counts for pack already exists'] }))
     end
 
-    def process_array_params(attrs)
-      standard_pack_ids = attrs.delete(:standard_pack_ids)
-      size_reference_ids = attrs.delete(:size_reference_ids)
-
-      default = {
-        standard_pack_ids: "{#{standard_pack_ids.join(',')}}",
-        size_reference_ids: "{#{size_reference_ids.join(',')}}"
-      }
-      attrs.merge(default)
-    end
-
     def update_actual_count(id, params)
       res = validate_actual_count_params(params)
       return validation_failed_response(res) if res.failure?
 
-      repo.update_actual_count(id, process_array_params(res.to_h))
+      repo.update_actual_count(id, res)
       instance = actual_count(id)
       success_response("Updated fruit actual counts for pack #{instance.id}", instance)
     end
