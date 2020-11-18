@@ -3,7 +3,8 @@
 :sql: "SELECT\r\n    orchards.id,\r\n    orchards.puc_id,\r\n    pucs.puc_code,\r\n
   \   orchards.orchard_code,\r\n    orchards.description,\r\n    orchards.cultivar_ids,\r\n
   \   array_agg(cultivars.cultivar_name) AS cultivar_names,\r\n    array_agg(cultivars.cultivar_code)
-  AS cultivar_codes,\r\n\r\n    orchards.active,\r\n    orchards.created_at,\r\n    orchards.updated_at\r\n\r\nFROM
+  AS cultivar_codes,\r\n    fn_masterfile_variants('orchards', orchards.id) AS variant_codes,\r\n
+  \   orchards.active,\r\n    orchards.created_at,\r\n    orchards.updated_at\r\n\r\nFROM
   orchards\r\nJOIN pucs ON pucs.id = orchards.puc_id\r\nLEFT JOIN cultivars ON cultivars.id
   = ANY (orchards.cultivar_ids)\r\nGROUP BY\r\n    orchards.id,\r\n    pucs.puc_code"
 :limit: 
@@ -138,9 +139,25 @@
     :group_avg: false
     :group_min: false
     :group_max: false
+  variant_codes:
+    :name: variant_codes
+    :sequence_no: 9
+    :caption: Variant codes
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
   active:
     :name: active
-    :sequence_no: 9
+    :sequence_no: 10
     :caption: Active
     :namespaced_name: orchards.active
     :data_type: :boolean
@@ -156,7 +173,7 @@
     :group_max: false
   created_at:
     :name: created_at
-    :sequence_no: 10
+    :sequence_no: 11
     :caption: Created at
     :namespaced_name: orchards.created_at
     :data_type: :datetime
@@ -172,7 +189,7 @@
     :group_max: false
   updated_at:
     :name: updated_at
-    :sequence_no: 11
+    :sequence_no: 12
     :caption: Updated at
     :namespaced_name: orchards.updated_at
     :data_type: :datetime

@@ -17,6 +17,11 @@
   :is_delete: true
   :prompt: 'By deleting this cultivar group you will also be removing its cultivars and marketing varieties. Are you sure you want to delete this cultivar group?'
   :popup: true
+- :url: "/masterfiles/general/masterfile_variants/list_masterfile_variants?masterfile_table=cultivar_groups&masterfile_id=$:id$"
+  :text: variants
+  :icon: list
+  :title: Variants
+  :popup: false
 :page_controls:
 - :control_type: :link
   :url: "/masterfiles/fruit/cultivar_groups/new"

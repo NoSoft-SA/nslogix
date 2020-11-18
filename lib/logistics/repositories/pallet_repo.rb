@@ -11,14 +11,14 @@ module LogisticsApp
     crud_calls_for :pallet_sequences, name: :pallet_sequence, wrapper: PalletSequence
 
     def find_pallet(args)
-      id = args.is_a?(Integer) ? args : get_id(:pallets, args.to_h.slice(:id, :pallet_number).reject(&:nil?))
+      id = args.is_a?(Integer) ? args : get_id(:pallets, args[:pallet_number])
       find_with_association(:pallets,
                             id,
                             wrapper: Pallet)
     end
 
     def find_pallet_sequence(args)
-      identifiers = %i[id pallet_number pallet_sequence_number pallet_id]
+      identifiers = %i[pallet_number pallet_sequence_number pallet_id]
       id = args.is_a?(Integer) ? args : get_id(:pallet_sequences, args.to_h.slice(identifiers).reject(&:nil?))
       find_with_association(:pallet_sequences,
                             id,

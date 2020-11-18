@@ -43,7 +43,7 @@ module MasterfilesApp
     # @param date [Time] the season date conditions.
     # @return [integer] the id value for the matching record or nil.
     def get_season_id(cultivar_id, date)
-      raise ArgumentError, 'get_season_id: cultivar_id and date required' unless cultivar_id && date
+      return nil unless cultivar_id && date
 
       commodity_id = get(:cultivars, cultivar_id, :commodity_id)
       DB[:seasons].where(commodity_id: commodity_id).where(Sequel.lit('? between start_date and end_date', date)).get(:id)

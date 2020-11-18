@@ -357,12 +357,15 @@ class AppConst # rubocop:disable Metrics/ClassLength
   }.freeze
 
   MF_VARIANT_RULES = { Cities: { table_name: 'destination_cities', column_name: 'city_name' },
+                       Cultivars: { table_name: 'cultivars', column_name: 'cultivar_code' },
+                       Cultivar_Groups: { table_name: 'cultivar_groups', column_name: 'cultivar_group_code' },
                        Depots: { table_name: 'depots', column_name: 'depot_code' },
                        Size_References: { table_name: 'size_references', column_name: 'size_reference' },
                        Grades: { table_name: 'grades', column_name: 'grade_code' },
                        Inventory_Codes: { table_name: 'inventory_codes', column_name: 'inventory_code' },
                        Marketing_Varieties: { table_name: 'marketing_varieties', column_name: 'marketing_variety_code' },
                        Marks: { table_name: 'marks', column_name: 'mark_code' },
+                       Orchards: { table_name: 'orchards', column_name: 'orchard_code' },
                        Organizations: { table_name: 'organizations', column_name: 'medium_description' },
                        PUCs: { table_name: 'pucs', column_name: 'puc_code' },
                        Packed_TM_Groups: { table_name: 'target_market_groups', column_name: 'target_market_group_name' },
