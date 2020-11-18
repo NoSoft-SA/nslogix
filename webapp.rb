@@ -49,7 +49,6 @@ class Nslogix < Roda
   plugin :status_handler
   plugin :cookies, path: '/', same_site: :lax
   plugin :rodauth, csrf: :rack_csrf do
-    # login_return_to_requested_location...
     db DB
     enable :login, :logout # , :change_password
     logout_route 'a_dummy_route' # Override 'logout' route so that we have control over it.
@@ -62,12 +61,6 @@ class Nslogix < Roda
     account_password_hash_column :password_hash
     template_opts(layout_opts: { path: File.join(ENV['ROOT'], 'views/layout_auth.erb') })
     login_return_to_requested_location? true
-    # after_login do
-    #   # On successful login, see if the user had given a specific path that required the login and redirect to it.
-    #   path = request.cookies['pre_login_path']
-    #   response.delete_cookie('pre_login_path')
-    #   redirect(path) if path && scope.can_login_to_path?(path, account[:id])
-    # end
   end
   unless ENV['RACK_ENV'] == 'development' && ENV['NO_ERR_HANDLE']
     plugin :error_mail, to: AppConst::ERROR_MAIL_RECIPIENTS,
@@ -269,12 +262,10 @@ class Nslogix < Roda
       versions = LibraryVersions.new(:layout,
                                      :dataminer,
                                      :label_designer,
-                                     # :rackmid,
                                      :datagrid,
                                      :ag_grid,
                                      :choices,
                                      :sortable,
-                                     # :konva,
                                      :multi,
                                      :sweetalert)
       @layout = Crossbeams::Layout::Page.build do |page, _|

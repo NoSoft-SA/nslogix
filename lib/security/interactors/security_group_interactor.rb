@@ -66,7 +66,8 @@ module SecurityApp
           log_transaction
         end
         security_group_ex = repo.find_with_permissions(id)
-        success_response("Updated permissions on security group #{security_group_ex.security_group_name}", security_group_ex)
+        success_response("Updated permissions on security group #{security_group_ex.security_group_name}",
+                         security_group_ex)
       else
         validation_failed_response(OpenStruct.new(messages: { security_permissions: ['You did not choose a permission'] }))
       end

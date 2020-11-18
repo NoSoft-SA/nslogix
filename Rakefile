@@ -369,52 +369,52 @@ namespace :db do
     File.open(File.join('db/migrations', fn), 'w') do |file|
       file.puts <<~RUBY
         require 'sequel_postgresql_triggers'
-         Sequel.migration do
-           up do
-             extension :pg_triggers
-             create_table(:#{nm}, ignore_index_errors: true) do
-               primary_key :id
-               # foreign_key :some_id, :some_table_name, null: false
-               # String :code, null: false
-               # String :remarks, text: true
-               # BigDecimal :quantity_type, size: [12,2]
-               # BigDecimal :price_type, size: [17,5]
-               # TrueClass :other_bool, default: false
-               # TrueClass :active, default: true
-               # DateTime :other
-               DateTime :created_at, null: false
-               DateTime :updated_at, null: false
+        Sequel.migration do
+          up do
+            extension :pg_triggers
+            create_table(:#{nm}, ignore_index_errors: true) do
+              primary_key :id
+              # foreign_key :some_id, :some_table_name, null: false
+              # String :code, null: false
+              # String :remarks, text: true
+              # BigDecimal :quantity_type, size: [12,2]
+              # BigDecimal :price_type, size: [17,5]
+              # TrueClass :other_bool, default: false
+              # TrueClass :active, default: true
+              # DateTime :other
+              DateTime :created_at, null: false
+              DateTime :updated_at, null: false
 
-               # index [:code], name: :#{nm}_unique_code, unique: true
-               # index [:some_id], name: :fki_#{nm}_some_table_name
-             end
+              # index [:code], name: :#{nm}_unique_code, unique: true
+              # index [:some_id], name: :fki_#{nm}_some_table_name
+            end
 
-             pgt_created_at(:#{nm},
-                            :created_at,
-                            function_name: :pgt_#{nm}_set_created_at,
-                            trigger_name: :set_created_at)
+            pgt_created_at(:#{nm},
+                           :created_at,
+                           function_name: :pgt_#{nm}_set_created_at,
+                           trigger_name: :set_created_at)
 
-             pgt_updated_at(:#{nm},
-                            :updated_at,
-                            function_name: :pgt_#{nm}_set_updated_at,
-                            trigger_name: :set_updated_at)
+            pgt_updated_at(:#{nm},
+                           :updated_at,
+                           function_name: :pgt_#{nm}_set_updated_at,
+                           trigger_name: :set_updated_at)
 
-             # Log changes to this table. Exclude changes to the updated_at column.
-             run "SELECT audit.audit_table('#{nm}', true, true, '{updated_at}'::text[]);"
-           end
+            # Log changes to this table. Exclude changes to the updated_at column.
+            run "SELECT audit.audit_table('#{nm}', true, true, '{updated_at}'::text[]);"
+          end
 
-           down do
-             # Drop logging for this table.
-             drop_trigger(:#{nm}, :audit_trigger_row)
-             drop_trigger(:#{nm}, :audit_trigger_stm)
+          down do
+            # Drop logging for this table.
+            drop_trigger(:#{nm}, :audit_trigger_row)
+            drop_trigger(:#{nm}, :audit_trigger_stm)
 
-             drop_trigger(:#{nm}, :set_created_at)
-             drop_function(:pgt_#{nm}_set_created_at)
-             drop_trigger(:#{nm}, :set_updated_at)
-             drop_function(:pgt_#{nm}_set_updated_at)
-             drop_table(:#{nm})
-           end
-         end
+            drop_trigger(:#{nm}, :set_created_at)
+            drop_function(:pgt_#{nm}_set_created_at)
+            drop_trigger(:#{nm}, :set_updated_at)
+            drop_function(:pgt_#{nm}_set_updated_at)
+            drop_table(:#{nm})
+          end
+        end
       RUBY
     end
     puts "Created migration #{fn}"
