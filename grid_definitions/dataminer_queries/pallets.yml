@@ -1,0 +1,693 @@
+---
+:caption: Pallets
+:sql: SELECT "pallets"."id", "pallets"."edi_in_transaction_id", "pallets"."pallet_number",
+  "pallets"."exit_ref", "pallets"."scrapped_at", "pallets"."shipped_at", "pallets"."shipped",
+  "pallets"."stock_created_at", "pallets"."in_stock", "pallets"."inspected", "pallets"."govt_first_inspection_at",
+  "pallets"."govt_reinspection_at", "pallets"."govt_inspection_passed", "pallets"."internal_inspection_passed",
+  "pallets"."internal_inspection_at", "pallets"."internal_reinspection_at", "pallets"."phc",
+  "pallets"."intake_created_at", "pallets"."first_cold_storage_at", "pallets"."cooled",
+  "pallets"."gross_weight", "pallets"."nett_weight", "pallets"."weight_measured_at",
+  "pallets"."on_site_location", "pallets"."consignment_note_number", "pallets"."original_consignment_note_number",
+  "pallets"."inspection_point", "pallets"."original_inspection_point", "pallets"."carton_quantity",
+  "pallets"."allocated", "pallets"."allocated_at", "pallets"."reinspected", "pallets"."scrapped",
+  "pallets"."repacked", "pallets"."repacked_at", "pallets"."temp_tail", "pallets"."active",
+  "pallets"."created_at", "pallets"."updated_at", "edi_in_transactions"."file_name",
+  fn_current_status('pallets', "pallets"."id") AS status FROM "pallets" LEFT JOIN
+  "edi_in_transactions" ON "edi_in_transactions"."id" = "pallets"."edi_in_transaction_id"
+:limit: 
+:offset: 
+:external_settings: {}
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: pallets.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  edi_in_transaction_id:
+    :name: edi_in_transaction_id
+    :sequence_no: 2
+    :caption: Edi in transaction
+    :namespaced_name: pallets.edi_in_transaction_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_number:
+    :name: pallet_number
+    :sequence_no: 3
+    :caption: Pallet number
+    :namespaced_name: pallets.pallet_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  exit_ref:
+    :name: exit_ref
+    :sequence_no: 4
+    :caption: Exit ref
+    :namespaced_name: pallets.exit_ref
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  scrapped_at:
+    :name: scrapped_at
+    :sequence_no: 5
+    :caption: Scrapped at
+    :namespaced_name: pallets.scrapped_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  shipped_at:
+    :name: shipped_at
+    :sequence_no: 6
+    :caption: Shipped at
+    :namespaced_name: pallets.shipped_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  shipped:
+    :name: shipped
+    :sequence_no: 7
+    :caption: Shipped
+    :namespaced_name: pallets.shipped
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  stock_created_at:
+    :name: stock_created_at
+    :sequence_no: 8
+    :caption: Stock created at
+    :namespaced_name: pallets.stock_created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  in_stock:
+    :name: in_stock
+    :sequence_no: 9
+    :caption: In stock
+    :namespaced_name: pallets.in_stock
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  inspected:
+    :name: inspected
+    :sequence_no: 10
+    :caption: Inspected
+    :namespaced_name: pallets.inspected
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  govt_first_inspection_at:
+    :name: govt_first_inspection_at
+    :sequence_no: 11
+    :caption: Govt first inspection at
+    :namespaced_name: pallets.govt_first_inspection_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  govt_reinspection_at:
+    :name: govt_reinspection_at
+    :sequence_no: 12
+    :caption: Govt reinspection at
+    :namespaced_name: pallets.govt_reinspection_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  govt_inspection_passed:
+    :name: govt_inspection_passed
+    :sequence_no: 13
+    :caption: Govt inspection passed
+    :namespaced_name: pallets.govt_inspection_passed
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  internal_inspection_passed:
+    :name: internal_inspection_passed
+    :sequence_no: 14
+    :caption: Internal inspection passed
+    :namespaced_name: pallets.internal_inspection_passed
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  internal_inspection_at:
+    :name: internal_inspection_at
+    :sequence_no: 15
+    :caption: Internal inspection at
+    :namespaced_name: pallets.internal_inspection_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  internal_reinspection_at:
+    :name: internal_reinspection_at
+    :sequence_no: 16
+    :caption: Internal reinspection at
+    :namespaced_name: pallets.internal_reinspection_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  phc:
+    :name: phc
+    :sequence_no: 17
+    :caption: Phc
+    :namespaced_name: pallets.phc
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  intake_created_at:
+    :name: intake_created_at
+    :sequence_no: 18
+    :caption: Intake created at
+    :namespaced_name: pallets.intake_created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  first_cold_storage_at:
+    :name: first_cold_storage_at
+    :sequence_no: 19
+    :caption: First cold storage at
+    :namespaced_name: pallets.first_cold_storage_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cooled:
+    :name: cooled
+    :sequence_no: 20
+    :caption: Cooled
+    :namespaced_name: pallets.cooled
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  gross_weight:
+    :name: gross_weight
+    :sequence_no: 21
+    :caption: Gross weight
+    :namespaced_name: pallets.gross_weight
+    :data_type: :number
+    :width: 
+    :format: :delimited_1000
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  nett_weight:
+    :name: nett_weight
+    :sequence_no: 22
+    :caption: Nett weight
+    :namespaced_name: pallets.nett_weight
+    :data_type: :number
+    :width: 
+    :format: :delimited_1000
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  weight_measured_at:
+    :name: weight_measured_at
+    :sequence_no: 23
+    :caption: Weight measured at
+    :namespaced_name: pallets.weight_measured_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  on_site_location:
+    :name: on_site_location
+    :sequence_no: 24
+    :caption: On site location
+    :namespaced_name: pallets.on_site_location
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  consignment_note_number:
+    :name: consignment_note_number
+    :sequence_no: 25
+    :caption: Consignment note number
+    :namespaced_name: pallets.consignment_note_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  original_consignment_note_number:
+    :name: original_consignment_note_number
+    :sequence_no: 26
+    :caption: Original consignment note number
+    :namespaced_name: pallets.original_consignment_note_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  inspection_point:
+    :name: inspection_point
+    :sequence_no: 27
+    :caption: Inspection point
+    :namespaced_name: pallets.inspection_point
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  original_inspection_point:
+    :name: original_inspection_point
+    :sequence_no: 28
+    :caption: Original inspection point
+    :namespaced_name: pallets.original_inspection_point
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  carton_quantity:
+    :name: carton_quantity
+    :sequence_no: 29
+    :caption: Carton quantity
+    :namespaced_name: pallets.carton_quantity
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  allocated:
+    :name: allocated
+    :sequence_no: 30
+    :caption: Allocated
+    :namespaced_name: pallets.allocated
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  allocated_at:
+    :name: allocated_at
+    :sequence_no: 31
+    :caption: Allocated at
+    :namespaced_name: pallets.allocated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  reinspected:
+    :name: reinspected
+    :sequence_no: 32
+    :caption: Reinspected
+    :namespaced_name: pallets.reinspected
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  scrapped:
+    :name: scrapped
+    :sequence_no: 33
+    :caption: Scrapped
+    :namespaced_name: pallets.scrapped
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  repacked:
+    :name: repacked
+    :sequence_no: 34
+    :caption: Repacked
+    :namespaced_name: pallets.repacked
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  repacked_at:
+    :name: repacked_at
+    :sequence_no: 35
+    :caption: Repacked at
+    :namespaced_name: pallets.repacked_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  temp_tail:
+    :name: temp_tail
+    :sequence_no: 36
+    :caption: Temp tail
+    :namespaced_name: pallets.temp_tail
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 37
+    :caption: Active
+    :namespaced_name: pallets.active
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  created_at:
+    :name: created_at
+    :sequence_no: 38
+    :caption: Created at
+    :namespaced_name: pallets.created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  updated_at:
+    :name: updated_at
+    :sequence_no: 39
+    :caption: Updated at
+    :namespaced_name: pallets.updated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  file_name:
+    :name: file_name
+    :sequence_no: 40
+    :caption: File name
+    :namespaced_name: edi_in_transactions.file_name
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  status:
+    :name: status
+    :sequence_no: 41
+    :caption: Status
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: pallets.edi_in_transaction_id
+  :caption: Edi in transaction
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT file_name, id FROM edi_in_transactions ORDER BY file_name
+- :column: pallets.pallet_number
+  :caption: Pallet number
+  :data_type: :string
+  :control_type: :text
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: 

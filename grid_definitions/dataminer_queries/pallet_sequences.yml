@@ -1,0 +1,1051 @@
+---
+:caption: Pallet Sequences
+:sql: SELECT "pallet_sequences"."id", "pallet_sequences"."pallet_id", "pallet_sequences"."pallet_number",
+  "pallet_sequences"."pallet_sequence_number", "pallet_sequences"."farm_id", "pallet_sequences"."puc_id",
+  "pallet_sequences"."orchard_id", "pallet_sequences"."cultivar_group_id", "pallet_sequences"."cultivar_id",
+  "pallet_sequences"."season_id", "pallet_sequences"."grade_id", "pallet_sequences"."marketing_variety_id",
+  "pallet_sequences"."customer_variety_id", "pallet_sequences"."standard_pack_id",
+  "pallet_sequences"."marketing_org_party_role_id", "pallet_sequences"."packed_tm_group_id",
+  "pallet_sequences"."mark_id", "pallet_sequences"."inventory_code_id", "pallet_sequences"."extended_columns",
+  "pallet_sequences"."client_size_reference", "pallet_sequences"."client_product_code",
+  "pallet_sequences"."treatment_ids", "pallet_sequences"."marketing_order_number",
+  "pallet_sequences"."carton_quantity", "pallet_sequences"."exit_ref", "pallet_sequences"."scrapped_at",
+  "pallet_sequences"."nett_weight", "pallet_sequences"."active", "pallet_sequences"."created_at",
+  "pallet_sequences"."updated_at", "pallet_sequences"."production_run", "pallet_sequences"."production_line",
+  "pallet_sequences"."packhouse", "pallet_sequences"."pick_ref", "pallet_sequences"."sell_by_code",
+  "pallet_sequences"."product_chars", "pallet_sequences"."repacked_at", "pallet_sequences"."failed_otmc_results",
+  "pallet_sequences"."phyto_data", "cultivar_groups"."cultivar_group_code", "cultivars"."cultivar_code",
+  "customer_varieties"."id" AS customer_varieties_id, "farms"."farm_code", "grades"."grade_code",
+  "inventory_codes"."inventory_code", "marks"."mark_code", fn_party_role_name("pallet_sequences"."marketing_org_party_role_id")
+  AS marketing_org_party_role, "marketing_varieties"."marketing_variety_code" AS marketing_variety_marketing_variety_code,
+  "orchards"."orchard_code", "target_market_groups"."target_market_group_name" AS
+  packed_tm_group_target_market_group_name, "pallets"."pallet_number" AS pallets_pallet_number,
+  "pucs"."puc_code", "seasons"."season_code", "standard_packs"."standard_pack_code",
+  fn_current_status('pallet_sequences', "pallet_sequences"."id") AS status FROM "pallet_sequences"
+  JOIN "cultivar_groups" ON "cultivar_groups"."id" = "pallet_sequences"."cultivar_group_id"
+  LEFT JOIN "cultivars" ON "cultivars"."id" = "pallet_sequences"."cultivar_id" LEFT
+  JOIN "customer_varieties" ON "customer_varieties"."id" = "pallet_sequences"."customer_variety_id"
+  JOIN "farms" ON "farms"."id" = "pallet_sequences"."farm_id" JOIN "grades" ON "grades"."id"
+  = "pallet_sequences"."grade_id" JOIN "inventory_codes" ON "inventory_codes"."id"
+  = "pallet_sequences"."inventory_code_id" JOIN "marks" ON "marks"."id" = "pallet_sequences"."mark_id"
+  JOIN "marketing_varieties" ON "marketing_varieties"."id" = "pallet_sequences"."marketing_variety_id"
+  JOIN "orchards" ON "orchards"."id" = "pallet_sequences"."orchard_id" JOIN "target_market_groups"
+  ON "target_market_groups"."id" = "pallet_sequences"."packed_tm_group_id" LEFT JOIN
+  "pallets" ON "pallets"."id" = "pallet_sequences"."pallet_id" JOIN "pucs" ON "pucs"."id"
+  = "pallet_sequences"."puc_id" JOIN "seasons" ON "seasons"."id" = "pallet_sequences"."season_id"
+  JOIN "standard_packs" ON "standard_packs"."id" = "pallet_sequences"."standard_pack_id"
+:limit: 
+:offset: 
+:external_settings: {}
+:columns:
+  id:
+    :name: id
+    :sequence_no: 1
+    :caption: Id
+    :namespaced_name: pallet_sequences.id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_id:
+    :name: pallet_id
+    :sequence_no: 2
+    :caption: Pallet
+    :namespaced_name: pallet_sequences.pallet_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_number:
+    :name: pallet_number
+    :sequence_no: 3
+    :caption: Pallet number
+    :namespaced_name: pallet_sequences.pallet_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallet_sequence_number:
+    :name: pallet_sequence_number
+    :sequence_no: 4
+    :caption: Pallet sequence number
+    :namespaced_name: pallet_sequences.pallet_sequence_number
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_id:
+    :name: farm_id
+    :sequence_no: 5
+    :caption: Farm
+    :namespaced_name: pallet_sequences.farm_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  puc_id:
+    :name: puc_id
+    :sequence_no: 6
+    :caption: PUC
+    :namespaced_name: pallet_sequences.puc_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  orchard_id:
+    :name: orchard_id
+    :sequence_no: 7
+    :caption: Orchard
+    :namespaced_name: pallet_sequences.orchard_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_group_id:
+    :name: cultivar_group_id
+    :sequence_no: 8
+    :caption: Cultivar group
+    :namespaced_name: pallet_sequences.cultivar_group_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_id:
+    :name: cultivar_id
+    :sequence_no: 9
+    :caption: Cultivar
+    :namespaced_name: pallet_sequences.cultivar_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  season_id:
+    :name: season_id
+    :sequence_no: 10
+    :caption: Season
+    :namespaced_name: pallet_sequences.season_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  grade_id:
+    :name: grade_id
+    :sequence_no: 11
+    :caption: Grade
+    :namespaced_name: pallet_sequences.grade_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_variety_id:
+    :name: marketing_variety_id
+    :sequence_no: 12
+    :caption: Marketing variety
+    :namespaced_name: pallet_sequences.marketing_variety_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  customer_variety_id:
+    :name: customer_variety_id
+    :sequence_no: 13
+    :caption: Customer variety
+    :namespaced_name: pallet_sequences.customer_variety_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  standard_pack_id:
+    :name: standard_pack_id
+    :sequence_no: 14
+    :caption: Standard pack
+    :namespaced_name: pallet_sequences.standard_pack_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_org_party_role_id:
+    :name: marketing_org_party_role_id
+    :sequence_no: 15
+    :caption: Marketing org party role
+    :namespaced_name: pallet_sequences.marketing_org_party_role_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  packed_tm_group_id:
+    :name: packed_tm_group_id
+    :sequence_no: 16
+    :caption: Packed tm group
+    :namespaced_name: pallet_sequences.packed_tm_group_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  mark_id:
+    :name: mark_id
+    :sequence_no: 17
+    :caption: Mark
+    :namespaced_name: pallet_sequences.mark_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  inventory_code_id:
+    :name: inventory_code_id
+    :sequence_no: 18
+    :caption: Inventory code
+    :namespaced_name: pallet_sequences.inventory_code_id
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  extended_columns:
+    :name: extended_columns
+    :sequence_no: 19
+    :caption: Extended columns
+    :namespaced_name: pallet_sequences.extended_columns
+    :data_type: :jsonb
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  client_size_reference:
+    :name: client_size_reference
+    :sequence_no: 20
+    :caption: Client size reference
+    :namespaced_name: pallet_sequences.client_size_reference
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  client_product_code:
+    :name: client_product_code
+    :sequence_no: 21
+    :caption: Client product code
+    :namespaced_name: pallet_sequences.client_product_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  treatment_ids:
+    :name: treatment_ids
+    :sequence_no: 22
+    :caption: Treatment ids
+    :namespaced_name: pallet_sequences.treatment_ids
+    :data_type: :integer_array
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_order_number:
+    :name: marketing_order_number
+    :sequence_no: 23
+    :caption: Marketing order number
+    :namespaced_name: pallet_sequences.marketing_order_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  carton_quantity:
+    :name: carton_quantity
+    :sequence_no: 24
+    :caption: Carton quantity
+    :namespaced_name: pallet_sequences.carton_quantity
+    :data_type: :integer
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  exit_ref:
+    :name: exit_ref
+    :sequence_no: 25
+    :caption: Exit ref
+    :namespaced_name: pallet_sequences.exit_ref
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  scrapped_at:
+    :name: scrapped_at
+    :sequence_no: 26
+    :caption: Scrapped at
+    :namespaced_name: pallet_sequences.scrapped_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  nett_weight:
+    :name: nett_weight
+    :sequence_no: 27
+    :caption: Nett weight
+    :namespaced_name: pallet_sequences.nett_weight
+    :data_type: :number
+    :width: 
+    :format: :delimited_1000
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  active:
+    :name: active
+    :sequence_no: 28
+    :caption: Active
+    :namespaced_name: pallet_sequences.active
+    :data_type: :boolean
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  created_at:
+    :name: created_at
+    :sequence_no: 29
+    :caption: Created at
+    :namespaced_name: pallet_sequences.created_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  updated_at:
+    :name: updated_at
+    :sequence_no: 30
+    :caption: Updated at
+    :namespaced_name: pallet_sequences.updated_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  production_run:
+    :name: production_run
+    :sequence_no: 31
+    :caption: Production run
+    :namespaced_name: pallet_sequences.production_run
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  production_line:
+    :name: production_line
+    :sequence_no: 32
+    :caption: Production line
+    :namespaced_name: pallet_sequences.production_line
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  packhouse:
+    :name: packhouse
+    :sequence_no: 33
+    :caption: Packhouse
+    :namespaced_name: pallet_sequences.packhouse
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pick_ref:
+    :name: pick_ref
+    :sequence_no: 34
+    :caption: Pick ref
+    :namespaced_name: pallet_sequences.pick_ref
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  sell_by_code:
+    :name: sell_by_code
+    :sequence_no: 35
+    :caption: Sell by code
+    :namespaced_name: pallet_sequences.sell_by_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  product_chars:
+    :name: product_chars
+    :sequence_no: 36
+    :caption: Product chars
+    :namespaced_name: pallet_sequences.product_chars
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  repacked_at:
+    :name: repacked_at
+    :sequence_no: 37
+    :caption: Repacked at
+    :namespaced_name: pallet_sequences.repacked_at
+    :data_type: :datetime
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  failed_otmc_results:
+    :name: failed_otmc_results
+    :sequence_no: 38
+    :caption: Failed otmc results
+    :namespaced_name: pallet_sequences.failed_otmc_results
+    :data_type: :integer_array
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  phyto_data:
+    :name: phyto_data
+    :sequence_no: 39
+    :caption: Phyto data
+    :namespaced_name: pallet_sequences.phyto_data
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_group_code:
+    :name: cultivar_group_code
+    :sequence_no: 40
+    :caption: Cultivar group code
+    :namespaced_name: cultivar_groups.cultivar_group_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  cultivar_code:
+    :name: cultivar_code
+    :sequence_no: 41
+    :caption: Cultivar code
+    :namespaced_name: cultivars.cultivar_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  customer_varieties_id:
+    :name: customer_varieties_id
+    :sequence_no: 42
+    :caption: Customer varieties
+    :namespaced_name: customer_varieties.id
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: true
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  farm_code:
+    :name: farm_code
+    :sequence_no: 43
+    :caption: Farm code
+    :namespaced_name: farms.farm_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  grade_code:
+    :name: grade_code
+    :sequence_no: 44
+    :caption: Grade code
+    :namespaced_name: grades.grade_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  inventory_code:
+    :name: inventory_code
+    :sequence_no: 45
+    :caption: Inventory code
+    :namespaced_name: inventory_codes.inventory_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  mark_code:
+    :name: mark_code
+    :sequence_no: 46
+    :caption: Mark code
+    :namespaced_name: marks.mark_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_org_party_role:
+    :name: marketing_org_party_role
+    :sequence_no: 47
+    :caption: Marketing org party role
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  marketing_variety_marketing_variety_code:
+    :name: marketing_variety_marketing_variety_code
+    :sequence_no: 48
+    :caption: Marketing variety marketing variety code
+    :namespaced_name: marketing_varieties.marketing_variety_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  orchard_code:
+    :name: orchard_code
+    :sequence_no: 49
+    :caption: Orchard code
+    :namespaced_name: orchards.orchard_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  packed_tm_group_target_market_group_name:
+    :name: packed_tm_group_target_market_group_name
+    :sequence_no: 50
+    :caption: Packed tm group target market group name
+    :namespaced_name: target_market_groups.target_market_group_name
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  pallets_pallet_number:
+    :name: pallets_pallet_number
+    :sequence_no: 51
+    :caption: Pallets pallet number
+    :namespaced_name: pallets.pallet_number
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  puc_code:
+    :name: puc_code
+    :sequence_no: 52
+    :caption: PUC code
+    :namespaced_name: pucs.puc_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  season_code:
+    :name: season_code
+    :sequence_no: 53
+    :caption: Season code
+    :namespaced_name: seasons.season_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  standard_pack_code:
+    :name: standard_pack_code
+    :sequence_no: 54
+    :caption: Standard pack code
+    :namespaced_name: standard_packs.standard_pack_code
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: true
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+  status:
+    :name: status
+    :sequence_no: 55
+    :caption: Status
+    :namespaced_name: 
+    :data_type: :string
+    :width: 
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
+:query_parameter_definitions:
+- :column: pallet_sequences.pallet_id
+  :caption: Pallet
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT pallet_number, id FROM pallets ORDER BY pallet_number
+- :column: pallet_sequences.farm_id
+  :caption: Farm
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT farm_code, id FROM farms ORDER BY farm_code
+- :column: pallet_sequences.puc_id
+  :caption: PUC
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT puc_code, id FROM pucs ORDER BY puc_code
+- :column: pallet_sequences.orchard_id
+  :caption: Orchard
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT orchard_code, id FROM orchards ORDER BY orchard_code
+- :column: pallet_sequences.cultivar_group_id
+  :caption: Cultivar group
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT cultivar_group_code, id FROM cultivar_groups ORDER BY cultivar_group_code
+- :column: pallet_sequences.cultivar_id
+  :caption: Cultivar
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT cultivar_code, id FROM cultivars ORDER BY cultivar_code
+- :column: pallet_sequences.season_id
+  :caption: Season
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT season_code, id FROM seasons ORDER BY season_code
+- :column: pallet_sequences.grade_id
+  :caption: Grade
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT grade_code, id FROM grades ORDER BY grade_code
+- :column: pallet_sequences.marketing_variety_id
+  :caption: Marketing variety
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT marketing_variety_code, id FROM marketing_varieties ORDER BY marketing_variety_code
+- :column: pallet_sequences.customer_variety_id
+  :caption: Customer variety
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT id, id FROM customer_varieties ORDER BY id
+- :column: pallet_sequences.standard_pack_id
+  :caption: Standard pack
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT standard_pack_code, id FROM standard_packs ORDER BY standard_pack_code
+- :column: pallet_sequences.marketing_org_party_role_id
+  :caption: Marketing org party role
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: SELECT fn_party_role_name(id), id FROM party_roles WHERE role_id = (SELECT
+    id FROM roles WHERE name = 'ROLE_NAME_GOES_HERE')
+- :column: pallet_sequences.packed_tm_group_id
+  :caption: Packed tm group
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT target_market_group_name, id FROM target_market_groups ORDER BY
+    target_market_group_name
+- :column: pallet_sequences.mark_id
+  :caption: Mark
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT mark_code, id FROM marks ORDER BY mark_code
+- :column: pallet_sequences.inventory_code_id
+  :caption: Inventory code
+  :data_type: :integer
+  :control_type: :list
+  :default_value: 
+  :ordered_list: true
+  :ui_priority: 1
+  :list_def: SELECT inventory_code, id FROM inventory_codes ORDER BY inventory_code
+- :column: customer_varieties.id
+  :caption: Customer varieties
+  :data_type: :string
+  :control_type: :text
+  :default_value: 
+  :ordered_list: false
+  :ui_priority: 1
+  :list_def: 
