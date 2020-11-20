@@ -17,9 +17,10 @@ module Masterfiles
               form.action "/masterfiles/shipping/depots/#{id}"
               form.remote!
               form.method :update
+              form.add_field :city_id
               form.add_field :depot_code
               form.add_field :description
-              form.add_field :city_id
+              form.add_field :receive_edi
             end
           end
 

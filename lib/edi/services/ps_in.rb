@@ -48,7 +48,6 @@ module EdiApp
           end
           log_transaction
         end
-
       end
       success_response('Processed pallets')
     end

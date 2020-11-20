@@ -1,7 +1,7 @@
 ---
 :caption: Depots
 :sql: "SELECT\r\n    depots.id,\r\n    depots.depot_code,\r\n    depots.description,\r\n
-  \   depots.city_id,\r\n    destination_cities.city_name,\r\n
+  \   depots.receive_edi,\r\n    depots.city_id,\r\n    destination_cities.city_name,\r\n
   \   fn_masterfile_variants('depots', depots.id) AS variant_codes,\r\n    depots.active,\r\n
   \   depots.created_at,\r\n    depots.updated_at\r\n\r\nFROM depots\r\nLEFT JOIN
   destination_cities ON destination_cities.id = city_id\r\nORDER BY depots.depot_code"
@@ -57,9 +57,25 @@
     :group_avg: false
     :group_min: false
     :group_max: false
+  receive_edi:
+    :name: receive_edi
+    :sequence_no: 4
+    :caption: Receive edi
+    :namespaced_name: depots.receive_edi
+    :data_type: :boolean
+    :width: 100
+    :format: 
+    :hide: false
+    :pinned: 
+    :groupable: false
+    :group_by_seq: 
+    :group_sum: false
+    :group_avg: false
+    :group_min: false
+    :group_max: false
   city_id:
     :name: city_id
-    :sequence_no: 4
+    :sequence_no: 5
     :caption: City
     :namespaced_name: depots.city_id
     :data_type: :integer
@@ -75,7 +91,7 @@
     :group_max: false
   city_name:
     :name: city_name
-    :sequence_no: 5
+    :sequence_no: 6
     :caption: City name
     :namespaced_name: destination_cities.city_name
     :data_type: :string

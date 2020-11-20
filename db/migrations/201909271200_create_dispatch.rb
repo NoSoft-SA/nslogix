@@ -9,6 +9,7 @@ Sequel.migration do
       foreign_key :city_id, :destination_cities, type: :integer
       String :depot_code, null: false
       String :description
+      TrueClass :receive_edi, default: false
       TrueClass :active, default: true
       DateTime :created_at, null: false
       DateTime :updated_at, null: false

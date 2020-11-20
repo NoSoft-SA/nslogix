@@ -70,6 +70,7 @@ module MasterfilesApp
         city_id: destination_city_id,
         depot_code: Faker::Lorem.unique.word,
         description: 'ABC',
+        receive_edi: false,
         active: true
       }
     end

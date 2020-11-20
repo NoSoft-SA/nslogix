@@ -4,7 +4,7 @@ module Masterfiles
   module Shipping
     module Depot
       class New
-        def self.call(form_values: nil, form_errors: nil, remote: true)
+        def self.call(form_values: nil, form_errors: nil, remote: true) # rubocop:disable Metrics/AbcSize
           ui_rule = UiRules::Compiler.new(:depot, :new, form_values: form_values)
           rules   = ui_rule.compile
 
@@ -16,9 +16,10 @@ module Masterfiles
               form.caption 'New Depot'
               form.action '/masterfiles/shipping/depots'
               form.remote! if remote
+              form.add_field :city_id
               form.add_field :depot_code
               form.add_field :description
-              form.add_field :city_id
+              form.add_field :receive_edi
             end
           end
 

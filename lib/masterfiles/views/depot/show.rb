@@ -13,9 +13,10 @@ module Masterfiles
             page.form do |form|
               # form.caption 'Depot'
               form.view_only!
+              form.add_field :city_id
               form.add_field :depot_code
               form.add_field :description
-              form.add_field :city_id
+              form.add_field :receive_edi
               form.add_field :active
             end
           end
