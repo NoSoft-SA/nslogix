@@ -24,7 +24,7 @@ module MasterfilesApp
       array
     end
 
-    def lookup_mf_variant(table_name)
+    def lookup_mf_variant(table_name) # rubocop:disable Metrics/AbcSize
       return nil if table_name.to_s.nil_or_empty?
 
       variant = AppConst::MF_VARIANT_RULES.select { |_, hash| hash.key(table_name.to_s) }
@@ -44,11 +44,12 @@ module MasterfilesApp
       id = get_id(table_name, args)
       return id unless id.nil?
 
-      variant_code = args.delete(lookup_mf_variant(table_name)[:column_name])
+      params = args.clone
+      variant_code = params.delete(lookup_mf_variant(table_name)[:column_name])
       id = DB[:masterfile_variants].where(masterfile_table: table_name.to_s, variant_code: variant_code).get(:masterfile_id)
       return nil if id.nil?
 
-      get_id(table_name, args.merge(id: id))
+      get_id(table_name, params.merge(id: id))
     end
   end
 end
