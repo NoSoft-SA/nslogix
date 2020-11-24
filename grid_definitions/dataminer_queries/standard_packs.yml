@@ -1,5 +1,5 @@
 ---
-:caption: Standard Pack Codes
+:caption: Standard Packs
 :sql: "SELECT\r\n    standard_packs.id,\r\n    standard_packs.standard_pack_code,\r\n
   \   fn_masterfile_variants('standard_packs', standard_packs.id) AS variant_codes,\r\n
   \   standard_packs.description,\r\n    standard_packs.standard_pack_label,\r\n

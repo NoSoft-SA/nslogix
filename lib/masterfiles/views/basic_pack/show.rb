@@ -5,7 +5,7 @@ module Masterfiles
     module BasicPack
       class Show
         def self.call(id)
-          ui_rule = UiRules::Compiler.new(:basic_pack_code, :show, id: id)
+          ui_rule = UiRules::Compiler.new(:basic_pack, :show, id: id)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|

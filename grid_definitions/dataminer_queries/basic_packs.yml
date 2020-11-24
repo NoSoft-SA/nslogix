@@ -1,5 +1,5 @@
 ---
-:caption: Basic Pack Codes
+:caption: Basic Packs
 :sql: SELECT "basic_packs"."id", "basic_packs"."basic_pack_code", "basic_packs"."description",
   "basic_packs"."length_mm", "basic_packs"."width_mm", "basic_packs"."height_mm",
   "basic_packs"."created_at", "basic_packs"."updated_at", "basic_packs"."active" FROM "basic_packs"

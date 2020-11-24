@@ -5,7 +5,7 @@ module Masterfiles
     module StandardPack
       class Show
         def self.call(id) # rubocop:disable Metrics/AbcSize
-          ui_rule = UiRules::Compiler.new(:standard_pack_code, :show, id: id)
+          ui_rule = UiRules::Compiler.new(:standard_pack, :show, id: id)
           rules   = ui_rule.compile
 
           layout = Crossbeams::Layout::Page.build(rules) do |page|
