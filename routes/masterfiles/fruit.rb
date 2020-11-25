@@ -93,7 +93,7 @@ class Nslogix < Roda
             row_keys = %i[
               id
               commodity_group_code
-              code
+              commodity_code
               description
               hs_code
               requires_standard_counts
@@ -129,7 +129,7 @@ class Nslogix < Roda
           row_keys = %i[
             id
             commodity_group_code
-            code
+            commodity_code
             description
             hs_code
             requires_standard_counts
