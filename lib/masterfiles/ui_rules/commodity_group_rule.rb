@@ -23,7 +23,7 @@ module UiRules
     def common_fields
       {
         commodity_group_code: { required: true },
-        description: {},
+        description: { required: true },
         active: { renderer: :checkbox }
       }
     end
