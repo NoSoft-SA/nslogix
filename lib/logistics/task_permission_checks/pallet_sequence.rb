@@ -3,7 +3,7 @@
 module LogisticsApp
   module TaskPermissionCheck
     class PalletSequence < BaseService
-      attr_reader :task, :entity
+      attr_reader :task, :entity, :params, :repo
       def initialize(task, params)
         @task = task
         @repo = PalletRepo.new
@@ -29,6 +29,8 @@ module LogisticsApp
       private
 
       def create_check
+        # return failed_response 'Not allowed to receive pallets from this depot.' unless receive_edi?
+
         all_ok
       end
 
@@ -40,9 +42,9 @@ module LogisticsApp
         all_ok
       end
 
-      # def completed?
-      #   @entity.completed
-      # end
+      def receive_edi?
+        repo.get(:depots, params[:depot_id], :receive_edi) || false
+      end
 
       # def approved?
       #   @entity.approved
